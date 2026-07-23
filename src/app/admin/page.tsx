@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useState, useEffect } from "react";
 
@@ -28,18 +29,15 @@ export default function AdminPage() {
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const [accessDeniedMsg, setAccessDeniedMsg] = useState<string | null>(null);
 
+  const router = useRouter();
   const ADMIN_EMAIL = "muhammadusamahabdurrahman@gmail.com";
 
-  // Check URL parameters for AccessDenied flag
+  // Redirect non-admin authenticated users silently to homepage
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const urlParams = new URLSearchParams(window.location.search);
-      const errorParam = urlParams.get("error");
-      if (errorParam === "AccessDenied") {
-        setAccessDeniedMsg("Akses Ditolak: Email Anda tidak terdaftar sebagai Admin (muhammadusamahabdurrahman@gmail.com).");
-      }
+    if (status === "authenticated" && session?.user?.email !== ADMIN_EMAIL) {
+      router.push("/");
     }
-  }, []);
+  }, [status, session, router]);
 
   // Fetch articles on mount if user is authorized
   useEffect(() => {
@@ -218,25 +216,13 @@ export default function AdminPage() {
     );
   }
 
-  // 3. Authenticated but unauthorized view
+  // 3. Authenticated non-admin view: redirect silently to homepage
   if (session?.user?.email !== ADMIN_EMAIL) {
     return (
       <div className="min-h-[85vh] bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 flex items-center justify-center p-4 transition-colors duration-300">
-        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md border border-rose-200 dark:border-rose-950/40 rounded-3xl p-8 max-w-md w-full shadow-2xl transition-all duration-300 text-center">
-          <div className="w-12 h-12 bg-rose-100 dark:bg-rose-950/30 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-          </div>
-          <h2 className="text-xl font-bold text-rose-600 dark:text-rose-400">Akses Ditolak</h2>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-3 leading-relaxed">
-            Halaman ini khusus untuk Admin (<span className="font-semibold">{ADMIN_EMAIL}</span>). Anda login menggunakan <span className="font-semibold">{session?.user?.email}</span>.
-          </p>
-
-          <button
-            onClick={() => signOut()}
-            className="mt-6 inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-bold py-2.5 px-6 rounded-xl transition-all duration-300 cursor-pointer text-sm"
-          >
-            Sign Out
-          </button>
+        <div className="flex flex-col items-center gap-3 text-center">
+          <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+          <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400">Mengarahkan ke Halaman Utama...</span>
         </div>
       </div>
     );

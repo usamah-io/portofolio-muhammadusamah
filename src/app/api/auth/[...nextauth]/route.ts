@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-const ALLOWED_EMAILS = ["muhammadusamahabdurrahman@gmail.com"];
+const ADMIN_EMAIL = "muhammadusamahabdurrahman@gmail.com";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -11,29 +11,24 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user }) {
-      if (user?.email && ALLOWED_EMAILS.includes(user.email)) {
-        return true;
-      }
-      // Redirect to /admin with explicit AccessDenied error flag for non-admin emails
-      return "/admin?error=AccessDenied";
+    async signIn() {
+      // Allow all sign-in attempts without throwing AccessDenied errors
+      return true;
     },
     async jwt({ token, user }) {
       if (user) {
         token.email = user.email;
+        token.isAdmin = user.email === ADMIN_EMAIL;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
         session.user.email = token.email;
+        (session.user as any).isAdmin = token.isAdmin;
       }
       return session;
     },
-  },
-  pages: {
-    signIn: "/admin",
-    error: "/admin",
   },
   secret: process.env.NEXTAUTH_SECRET || "fallbacksecret1234567890",
 };
