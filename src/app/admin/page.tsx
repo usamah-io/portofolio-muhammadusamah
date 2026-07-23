@@ -26,8 +26,20 @@ export default function AdminPage() {
   const [link, setLink] = useState("");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [accessDeniedMsg, setAccessDeniedMsg] = useState<string | null>(null);
 
   const ADMIN_EMAIL = "muhammadusamahabdurrahman@gmail.com";
+
+  // Check URL parameters for AccessDenied flag
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      const errorParam = urlParams.get("error");
+      if (errorParam === "AccessDenied") {
+        setAccessDeniedMsg("Akses Ditolak: Email Anda tidak terdaftar sebagai Admin (muhammadusamahabdurrahman@gmail.com).");
+      }
+    }
+  }, []);
 
   // Fetch articles on mount if user is authorized
   useEffect(() => {
@@ -172,6 +184,12 @@ export default function AdminPage() {
             <h1 className="text-2xl font-black tracking-tight">Admin <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">Dashboard</span></h1>
             <p className="text-xs text-zinc-550 dark:text-zinc-400 mt-2">Autentikasi admin diperlukan untuk mengelola konten artikel.</p>
           </div>
+
+          {accessDeniedMsg && (
+            <div className="mb-6 p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-semibold leading-relaxed text-center">
+              {accessDeniedMsg}
+            </div>
+          )}
 
           <button
             onClick={() => signIn("google")}
