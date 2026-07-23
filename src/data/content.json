@@ -1,0 +1,277 @@
+{
+  "socials": {
+    "instagram": "https://instagram.com/usamah_io",
+    "tiktok": "https://tiktok.com/@usamah_io",
+    "github": "https://github.com/usamah-io",
+    "whatsapp": "https://wa.me/6281532896727",
+    "gmail": "muhammadusamahabdurrahman@gmail.com"
+  },
+  "id": {
+    "nav": {
+      "stats": "Statistik",
+      "projects": "Proyek",
+      "articles": "Artikel",
+      "faq": "FAQ",
+      "cta": "Mari Bicara"
+    },
+    "hero": {
+      "status_connecting": "Menghubungkan status...",
+      "status_listening": "Mendengarkan {song} oleh {artist}",
+      "status_online": "Online di Discord",
+      "status_idle": "Idle di Discord",
+      "status_dnd": "Jangan Ganggu",
+      "status_offline": "Offline",
+      "title_1": "Frontend Developer",
+      "title_2": "& UI Engineer",
+      "subtitle": "Menciptakan aplikasi web premium berkinerja tinggi dengan tata letak responsif, estetika modern, dan perhatian penuh pada detail pixel.",
+      "cta_explore": "Lihat Proyek",
+      "cta_github": "Profil GitHub"
+    },
+    "stats": {
+      "title": "Aktivitas & Statistik",
+      "subtitle": "Aktivitas pengkodean waktu nyata, statistik kontrol versi, dan fokus stack.",
+      "waka_title": "Waktu Pengkodean Mingguan WakaTime",
+      "waka_hours": "jam/minggu",
+      "waka_sub": "Rata-rata waktu layar yang dihabiskan untuk menulis kode",
+      "waka_top": "Bahasa Teratas Minggu Ini",
+      "gh_title": "Aktivitas GitHub",
+      "gh_repos": "Repositori",
+      "gh_followers": "Pengikut",
+      "gh_status": "Aktif berkontribusi di open-source",
+      "gh_cta": "Lihat Profil GitHub",
+      "focus_title": "Lingkungan Dev & Fokus",
+      "focus_editor_label": "Editor Utama",
+      "focus_shell_label": "Shell Terminal",
+      "focus_stack_label": "Stack Framework",
+      "focus_style_label": "Paradigma Gaya"
+    },
+    "projects": {
+      "title": "Proyek",
+      "subtitle": "Aplikasi dunia nyata, platform digital, dan entri acara.",
+      "btn_source": "Kode Sumber",
+      "btn_demo": "Live Demo",
+      "items": [
+        {
+          "title": "SKS-Master (Platform Ujian)",
+          "badge": "Gemini Hackathon 2026",
+          "description": "Aplikasi edukasi interaktif berbasis AI sebagai Lead Developer untuk ajang Gemini Hackathon 2026."
+        },
+        {
+          "title": "Stry - AI Quiz Generator",
+          "badge": "Platform Pembelajaran AI",
+          "description": "Platform edukasi kuis otomatis berbasis AI menggunakan Next.js dan Prisma ORM di Vercel."
+        },
+        {
+          "title": "Budiman Cendikia",
+          "badge": "Situs Web Sekolah",
+          "description": "Situs web sekolah mandiri dengan Decoupled Architecture memakai TypeScript, PHP (Blade), dan SQL."
+        }
+      ]
+    },
+    "faq": {
+      "title": "Pertanyaan Umum",
+      "subtitle": "Jawaban cepat untuk pertanyaan umum tentang kerjasama dan framework teknis.",
+      "items": [
+        {
+          "id": "faq-1",
+          "question": "Teknologi apa saja yang Anda kuasai?",
+          "answer": "Saya berspesialisasi dalam rekayasa frontend modern: Next.js (App Router), React, TypeScript, Tailwind CSS, dan membuat animasi premium menggunakan GSAP dan Lenis."
+        },
+        {
+          "id": "faq-2",
+          "question": "Apakah Anda bekerja dengan sistem backend?",
+          "answer": "Ya, saya membangun solusi full-stack menggunakan Node.js, Prisma ORM, database SQL, dan memiliki pengalaman dengan arsitektur PHP yang terpisah."
+        },
+        {
+          "id": "faq-3",
+          "question": "Apakah Anda terbuka untuk kontrak jarak jauh atau kerja lepas?",
+          "answer": "Ya! Saya terbuka untuk proyek freelance, kontrak, dan peran frontend/UI penuh waktu di seluruh dunia secara remote."
+        },
+        {
+          "id": "faq-4",
+          "question": "Bagaimana cara memulai proyek bersama Anda?",
+          "answer": "Anda dapat menghubungi melalui formulir kontak di bawah ini, mengirim email langsung, atau mengirim pesan singkat via WhatsApp. Saya akan membalas dalam waktu 24 jam."
+        }
+      ]
+    },
+    "footer": {
+      "title": "Mari buat sesuatu",
+      "title_sub": "yang luar biasa bersama",
+      "subtitle": "Punya ide, proyek, atau permintaan kontrak? Kirimkan saya pesan, kirim email, atau hubungi saya langsung di WhatsApp.",
+      "email_label": "Alamat Email",
+      "email_action": "Salin",
+      "email_copied": "Disalin!",
+      "wa_label": "WhatsApp",
+      "wa_action": "Kirim Pesan Langsung",
+      "form_name": "Nama",
+      "form_email": "Email",
+      "form_message": "Pesan",
+      "form_submit": "Kirim Pesan",
+      "form_success": "Berhasil Dikirim!",
+      "watermark": "Dihosting di"
+    },
+    "articles": {
+      "title": "Artikel & Konten Teknologi",
+      "subtitle": "Video tutorial programming, insight web development, dan technical storytelling.",
+      "watch_video": "Tonton Video",
+      "read_more": "Baca Selengkapnya",
+      "items": [
+        {
+          "id": "art-1",
+          "tag": "Python & Otomasi",
+          "title": "Bongkar Rahasia Bikin Lirik Lagu di Terminal Pake Python",
+          "platform": "Video TikTok",
+          "link": "https://www.tiktok.com/@ig_usamaahhhh"
+        },
+        {
+          "id": "art-2",
+          "tag": "UI/UX & Web Dev",
+          "title": "Bongkar Rahasia Bikin Kalkulator Modal Pinterest & AI",
+          "platform": "Video TikTok",
+          "link": "https://www.tiktok.com/@ig_usamaahhhh"
+        },
+        {
+          "id": "art-3",
+          "tag": "Arsitektur Full-Stack",
+          "title": "Eksplorasi Decoupled Architecture dengan Next.js & PHP Blade",
+          "platform": "Artikel Unggulan",
+          "link": "https://github.com/usamah-io"
+        }
+      ]
+    }
+  },
+  "en": {
+    "nav": {
+      "stats": "Stats",
+      "projects": "Projects",
+      "articles": "Articles",
+      "faq": "FAQ",
+      "cta": "Let's Talk"
+    },
+    "hero": {
+      "status_connecting": "Connecting status...",
+      "status_listening": "Listening to {song} by {artist}",
+      "status_online": "Online on Discord",
+      "status_idle": "Idle on Discord",
+      "status_dnd": "Do Not Disturb",
+      "status_offline": "Offline",
+      "title_1": "Frontend Developer",
+      "title_2": "& UI Engineer",
+      "subtitle": "Creating premium, highly performant web applications with responsive layouts, responsive aesthetics, and pixel-perfect attention to detail.",
+      "cta_explore": "Explore Projects",
+      "cta_github": "GitHub Profile"
+    },
+    "stats": {
+      "title": "Activity & Stats",
+      "subtitle": "Real-time coding activity, version control statistics, and stack focus.",
+      "waka_title": "WakaTime Weekly Coding",
+      "waka_hours": "hours/week",
+      "waka_sub": "Average screen-time spent writing code",
+      "waka_top": "Top Languages This Week",
+      "gh_title": "GitHub Activity",
+      "gh_repos": "Repositories",
+      "gh_followers": "Followers",
+      "gh_status": "Actively contributing to open-source",
+      "gh_cta": "View GitHub Profile",
+      "focus_title": "Dev Environment & Focus",
+      "focus_editor_label": "Primary Editor",
+      "focus_shell_label": "Terminal Shell",
+      "focus_stack_label": "Framework Stack",
+      "focus_style_label": "Styling Paradigms"
+    },
+    "projects": {
+      "title": "Projects",
+      "subtitle": "Real-world applications, digital platforms, and event entries.",
+      "btn_source": "Source Code",
+      "btn_demo": "Live Demo",
+      "items": [
+        {
+          "title": "SKS-Master (Platform Ujian)",
+          "badge": "Gemini Hackathon 2026",
+          "description": "AI-based interactive learning application as Lead Developer for the Gemini Hackathon 2026."
+        },
+        {
+          "title": "Stry - AI Quiz Generator",
+          "badge": "AI Learning Platform",
+          "description": "AI-powered automated quiz generator platform using Next.js and Prisma ORM on Vercel."
+        },
+        {
+          "title": "Budiman Cendikia",
+          "badge": "School Website",
+          "description": "Independent school website with Decoupled Architecture using TypeScript, PHP (Blade), and SQL."
+        }
+      ]
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Quick answers to common queries about cooperation and technical frameworks.",
+      "items": [
+        {
+          "id": "faq-1",
+          "question": "What technologies do you specialize in?",
+          "answer": "I specialize in modern frontend engineering: Next.js (App Router), React, TypeScript, Tailwind CSS, and creating premium animations using GSAP and Lenis."
+        },
+        {
+          "id": "faq-2",
+          "question": "Do you work with back-end systems?",
+          "answer": "Yes, I build full-stack solutions using Node.js, Prisma ORM, SQL databases, and have experience with decoupled PHP architectures."
+        },
+        {
+          "id": "faq-3",
+          "question": "Are you open to remote contracts or freelance work?",
+          "answer": "Yes! I am open to freelance projects, contracts, and full-time frontend/UI roles anywhere globally."
+        },
+        {
+          "id": "faq-4",
+          "question": "How can we get started on a project?",
+          "answer": "You can reach out through the contact form below, email me directly, or send a quick message via WhatsApp. I will reply within 24 hours."
+        }
+      ]
+    },
+    "footer": {
+      "title": "Let's craft something",
+      "title_sub": "amazing together",
+      "subtitle": "Have an idea, project, or contract request? Shoot me a message, send an email, or message me directly on WhatsApp.",
+      "email_label": "Email Address",
+      "email_action": "Copy",
+      "email_copied": "Copied!",
+      "wa_label": "WhatsApp",
+      "wa_action": "Send Direct Chat",
+      "form_name": "Name",
+      "form_email": "Email",
+      "form_message": "Message",
+      "form_submit": "Send Message",
+      "form_success": "Submitted Successfully!",
+      "watermark": "Hosted on"
+    },
+    "articles": {
+      "title": "Articles & Tech Content",
+      "subtitle": "Programming video tutorials, web development insights, and technical storytelling.",
+      "watch_video": "Watch Video",
+      "read_more": "Read More",
+      "items": [
+        {
+          "id": "art-1",
+          "tag": "Python & Automation",
+          "title": "Uncovering the Secret to Building Lyrics inside Terminal using Python",
+          "platform": "TikTok Video",
+          "link": "https://www.tiktok.com/@ig_usamaahhhh"
+        },
+        {
+          "id": "art-2",
+          "tag": "UI/UX & Web Dev",
+          "title": "Uncovering the Secret to Building Pinterest Calculator with Pinterest & AI",
+          "platform": "TikTok Video",
+          "link": "https://www.tiktok.com/@ig_usamaahhhh"
+        },
+        {
+          "id": "art-3",
+          "tag": "Full-Stack Architecture",
+          "title": "Exploring Decoupled Architecture with Next.js & PHP Blade",
+          "platform": "Featured Article",
+          "link": "https://github.com/usamah-io"
+        }
+      ]
+    }
+  }
+}
