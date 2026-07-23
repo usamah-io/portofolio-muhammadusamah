@@ -3,7 +3,7 @@ import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/smooth-scroll";
 import Navbar from "@/components/navbar";
-import Footer from "@/components/footer";
+import ConditionalFooter from "@/components/conditional-footer";
 import { AppProvider } from "@/components/app-context";
 import { AuthProvider } from "@/components/auth-provider";
 
@@ -42,7 +42,7 @@ export default function RootLayout({
               <div className="flex flex-col flex-1 relative pt-28">
                 {children}
               </div>
-              <Footer />
+              <ConditionalFooter />
             </SmoothScroll>
           </AuthProvider>
         </AppProvider>

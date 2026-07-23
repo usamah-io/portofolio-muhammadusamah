@@ -125,16 +125,16 @@ export default function Footer() {
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
               <button
                 onClick={handleCopyEmail}
-                className="group inline-flex items-center gap-3 bg-zinc-900 border border-zinc-800 hover:bg-white px-5 py-3 rounded-2xl text-left transition-all duration-300 w-full sm:w-auto cursor-pointer"
+                className="group flex items-center gap-3 bg-white dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 p-4 sm:p-5 rounded-2xl text-left transition-all duration-300 w-full shadow-sm hover:shadow-md cursor-pointer"
               >
-                <div className="p-2 rounded-xl bg-zinc-800 group-hover:bg-zinc-100 transition-colors duration-300">
-                  <svg className="w-4 h-4 text-emerald-400 group-hover:text-emerald-600 transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
+                <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 shrink-0">
+                  <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
                 </div>
-                <div className="flex-1 min-w-0 pr-4">
-                  <div className="text-xs font-semibold text-zinc-400 group-hover:text-zinc-500 transition-colors duration-300">{t.email_label}</div>
-                  <div className="text-sm font-medium text-zinc-100 group-hover:text-zinc-900 transition-colors duration-300 truncate">{socials.gmail}</div>
+                <div className="flex-1 min-w-0 pr-2">
+                  <div className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 transition-colors duration-300">{t.email_label}</div>
+                  <div className="text-sm font-medium text-zinc-900 dark:text-zinc-100 transition-colors duration-300 truncate">{socials.gmail}</div>
                 </div>
-                <span className="bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-semibold px-4 py-1.5 rounded-lg transition-colors shrink-0">
+                <span className="bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-bold px-4 py-2 rounded-xl transition-colors shrink-0 text-xs shadow-md">
                   {copied ? t.email_copied : t.email_action}
                 </span>
               </button>
@@ -146,16 +146,16 @@ export default function Footer() {
                 href={socials.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 bg-zinc-900 border border-zinc-800 hover:bg-white px-5 py-3 rounded-2xl text-left transition-all duration-300 w-full sm:w-auto"
+                className="group flex items-center gap-3 bg-white dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 p-4 sm:p-5 rounded-2xl text-left transition-all duration-300 w-full shadow-sm hover:shadow-md cursor-pointer"
               >
-                <div className="p-2 rounded-xl bg-zinc-800 group-hover:bg-zinc-100 transition-colors duration-300">
-                  <svg className="w-4 h-4 text-emerald-400 group-hover:text-emerald-600 transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>
+                <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 shrink-0">
+                  <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>
                 </div>
-                <div className="flex-1 pr-4">
-                  <div className="text-xs font-semibold text-zinc-400 group-hover:text-zinc-500 transition-colors duration-300">{t.wa_label}</div>
-                  <div className="text-sm font-medium text-zinc-100 group-hover:text-zinc-900 transition-colors duration-300 truncate">0815-3289-6727</div>
+                <div className="flex-1 min-w-0 pr-2">
+                  <div className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 transition-colors duration-300">{t.wa_label}</div>
+                  <div className="text-sm font-medium text-zinc-900 dark:text-zinc-100 transition-colors duration-300 truncate">0815-3289-6727</div>
                 </div>
-                <span className="bg-emerald-500 hover:bg-emerald-600 text-zinc-955 font-semibold px-4 py-1.5 rounded-lg transition-colors shrink-0">
+                <span className="bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-bold px-4 py-2 rounded-xl transition-colors shrink-0 text-xs shadow-md">
                   Chat
                 </span>
               </a>
@@ -164,7 +164,7 @@ export default function Footer() {
         </div>
 
         {/* Contact Form */}
-        <div className="bg-white dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-850/60 rounded-3xl p-6 sm:p-8">
+        <div className="bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800/80 rounded-3xl p-6 sm:p-8 shadow-sm transition-colors duration-300">
           <form onSubmit={handleFormSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
@@ -202,7 +202,7 @@ export default function Footer() {
             <button
               type="submit"
               disabled={formSubmitted}
-              className="w-full bg-emerald-500 hover:bg-emerald-455 text-zinc-950 font-bold py-3.5 px-6 rounded-xl transition-all duration-300 shadow-lg shadow-emerald-500/10 flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-bold py-3.5 px-6 rounded-xl transition-all duration-300 shadow-lg shadow-emerald-500/10 flex items-center justify-center gap-2 cursor-pointer"
             >
               {formSubmitted ? (
                 <span>{t.form_success}</span>

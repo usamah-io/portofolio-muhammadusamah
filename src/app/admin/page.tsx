@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useState, useEffect } from "react";
 
@@ -156,15 +157,25 @@ export default function AdminPage() {
   if (status === "unauthenticated") {
     return (
       <div className="min-h-[85vh] bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 flex items-center justify-center p-4 transition-colors duration-300">
-        <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-md border border-zinc-200 dark:border-zinc-800/80 rounded-3xl p-8 max-w-md w-full shadow-2xl transition-all duration-300">
-          <div className="text-center mb-8">
+        <div className="relative bg-white dark:bg-zinc-900/50 backdrop-blur-md border border-zinc-200 dark:border-zinc-800/80 rounded-3xl p-8 max-w-md w-full shadow-2xl transition-all duration-300">
+          
+          {/* Close 'X' icon */}
+          <Link
+            href="/"
+            className="absolute top-5 right-5 p-1.5 text-zinc-400 hover:text-zinc-700 dark:hover:text-white rounded-full bg-zinc-100 dark:bg-zinc-800/50 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors"
+            aria-label="Close and return home"
+          >
+            <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+          </Link>
+
+          <div className="text-center mb-8 pr-4">
             <h1 className="text-2xl font-black tracking-tight">Admin <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">Dashboard</span></h1>
             <p className="text-xs text-zinc-550 dark:text-zinc-400 mt-2">Autentikasi admin diperlukan untuk mengelola konten artikel.</p>
           </div>
 
           <button
             onClick={() => signIn("google")}
-            className="w-full flex items-center justify-center gap-3 bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-850 border border-zinc-300 dark:border-zinc-800 text-zinc-900 dark:text-zinc-200 font-bold py-3.5 px-6 rounded-2xl transition-all duration-300 shadow-md cursor-pointer"
+            className="w-full flex items-center justify-center gap-3 bg-white hover:bg-zinc-100 border border-zinc-300 text-zinc-900 font-semibold py-3.5 px-6 rounded-2xl transition-all duration-300 shadow-md cursor-pointer"
           >
             {/* Google Logo SVG */}
             <svg className="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -175,6 +186,15 @@ export default function AdminPage() {
             </svg>
             <span>Login dengan Google</span>
           </button>
+
+          <div className="text-center mt-6">
+            <Link 
+              href="/" 
+              className="text-xs text-zinc-500 dark:text-zinc-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1 font-medium"
+            >
+              ← Kembali ke Halaman Utama
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -273,8 +293,8 @@ export default function AdminPage() {
                   className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-white rounded-xl px-4 py-2.5 text-xs focus:outline-none transition-colors"
                 >
                   <option value="TikTok Video">TikTok Video</option>
+                  <option value="Instagram Post">Instagram Post</option>
                   <option value="Featured Article">Featured Article</option>
-                  <option value="YouTube Video">YouTube Video</option>
                 </select>
               </div>
 

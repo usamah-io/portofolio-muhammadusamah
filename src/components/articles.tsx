@@ -67,7 +67,7 @@ export default function Articles() {
       {/* Grid Bento Style */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {displayedItems.map((item, idx) => {
-          const isTikTok = (item.platform || "").toLowerCase().includes("tiktok");
+          const isVideo = (item.platform || "").toLowerCase().includes("tiktok") || (item.platform || "").toLowerCase().includes("instagram");
 
           return (
             <div
@@ -100,7 +100,7 @@ export default function Articles() {
                   rel="noopener noreferrer"
                   className="w-full inline-flex items-center justify-center gap-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-800 dark:text-white text-xs font-bold py-2.5 px-4 rounded-xl transition-all duration-300"
                 >
-                  <span>{isTikTok ? t.watch_video : t.read_more}</span>
+                  <span>{isVideo ? t.watch_video : t.read_more}</span>
                   <svg className="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>
                 </a>
               </div>
