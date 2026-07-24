@@ -10,22 +10,27 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     }),
   ],
+  pages: {
+    signIn: "/admin",
+    error: "/admin",
+  },
   callbacks: {
-    async signIn() {
-      // Allow all sign-in attempts without throwing AccessDenied errors
+    async signIn({ user }) {
+      // Allow sign-in so session can be established and handled in admin UI
       return true;
     },
     async jwt({ token, user }) {
-      if (user) {
-        token.email = user.email;
-        token.isAdmin = user.email === ADMIN_EMAIL;
+      if (user?.email) {
+        const normalizedEmail = user.email.toLowerCase().trim();
+        token.email = normalizedEmail;
+        token.isAdmin = normalizedEmail === ADMIN_EMAIL.toLowerCase().trim();
       }
       return token;
     },
     async session({ session, token }) {
-      if (session.user) {
-        session.user.email = token.email;
-        (session.user as any).isAdmin = token.isAdmin;
+      if (session?.user) {
+        session.user.email = (token.email as string) || session.user.email;
+        (session.user as any).isAdmin = token.isAdmin || (session.user.email?.toLowerCase().trim() === ADMIN_EMAIL.toLowerCase().trim());
       }
       return session;
     },
@@ -35,3 +40,4 @@ export const authOptions: NextAuthOptions = {
 
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
+

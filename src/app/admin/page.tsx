@@ -32,19 +32,27 @@ export default function AdminPage() {
   const router = useRouter();
   const ADMIN_EMAIL = "muhammadusamahabdurrahman@gmail.com";
 
-  // Redirect non-admin authenticated users silently to homepage
+  // Check for searchParams error or non-admin state
+  const isAuthorizedAdmin = session?.user?.email 
+    ? session.user.email.toLowerCase().trim() === ADMIN_EMAIL.toLowerCase().trim()
+    : false;
+
   useEffect(() => {
-    if (status === "authenticated" && session?.user?.email !== ADMIN_EMAIL) {
-      router.push("/");
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const err = params.get("error");
+      if (err) {
+        setAccessDeniedMsg(`Autentikasi bermasalah (${err}). Harap pastikan login dengan akun Google muhammadusamahabdurrahman@gmail.com.`);
+      }
     }
-  }, [status, session, router]);
+  }, []);
 
   // Fetch articles on mount if user is authorized
   useEffect(() => {
-    if (status === "authenticated" && session?.user?.email === ADMIN_EMAIL) {
+    if (status === "authenticated" && isAuthorizedAdmin) {
       fetchArticles();
     }
-  }, [status, session]);
+  }, [status, isAuthorizedAdmin]);
 
   const fetchArticles = async () => {
     setLoadingArticles(true);
@@ -216,13 +224,36 @@ export default function AdminPage() {
     );
   }
 
-  // 3. Authenticated non-admin view: redirect silently to homepage
-  if (session?.user?.email !== ADMIN_EMAIL) {
+  // 3. Authenticated non-admin view
+  if (!isAuthorizedAdmin) {
     return (
       <div className="min-h-[85vh] bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 flex items-center justify-center p-4 transition-colors duration-300">
-        <div className="flex flex-col items-center gap-3 text-center">
-          <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
-          <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400">Mengarahkan ke Halaman Utama...</span>
+        <div className="relative bg-white dark:bg-zinc-900/50 backdrop-blur-md border border-zinc-200 dark:border-zinc-800/80 rounded-3xl p-8 max-w-md w-full shadow-2xl transition-all duration-300 text-center space-y-6">
+          <div className="w-12 h-12 bg-amber-500/10 border border-amber-500/20 text-amber-500 rounded-full flex items-center justify-center mx-auto">
+            <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+          </div>
+          
+          <div>
+            <h2 className="text-xl font-bold">Akses Ditolak</h2>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-2 leading-relaxed">
+              Anda terdaftar sebagai <span className="font-semibold text-zinc-800 dark:text-zinc-200">{session?.user?.email}</span>. Akun ini bukan akun Admin utama (<span className="text-emerald-500 font-mono">muhammadusamahabdurrahman@gmail.com</span>).
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-2.5 pt-2">
+            <button
+              onClick={() => signOut()}
+              className="w-full bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-bold py-3 px-6 rounded-2xl transition-colors shadow-md text-xs cursor-pointer"
+            >
+              Sign Out & Gunakan Akun Admin
+            </button>
+            <Link
+              href="/"
+              className="w-full bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 font-semibold py-3 px-6 rounded-2xl transition-colors text-xs"
+            >
+              Kembali ke Halaman Utama
+            </Link>
+          </div>
         </div>
       </div>
     );

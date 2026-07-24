@@ -8,6 +8,11 @@ const contentFilePath = path.join(process.cwd(), "src/data/content.json");
 
 const ADMIN_EMAIL = "muhammadusamahabdurrahman@gmail.com";
 
+function isAuthorized(session: any) {
+  if (!session?.user?.email) return false;
+  return session.user.email.toLowerCase().trim() === ADMIN_EMAIL.toLowerCase().trim();
+}
+
 // Helper to read content.json
 async function readContentFile() {
   const data = await fs.readFile(contentFilePath, "utf8");
@@ -33,7 +38,7 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || session.user?.email !== ADMIN_EMAIL) {
+    if (!isAuthorized(session)) {
       return NextResponse.json({ success: false, error: "Forbidden" }, { status: 403 });
     }
 
@@ -66,7 +71,7 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || session.user?.email !== ADMIN_EMAIL) {
+    if (!isAuthorized(session)) {
       return NextResponse.json({ success: false, error: "Forbidden" }, { status: 403 });
     }
 
@@ -94,7 +99,7 @@ export async function PUT(req: Request) {
 export async function DELETE(req: Request) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || session.user?.email !== ADMIN_EMAIL) {
+    if (!isAuthorized(session)) {
       return NextResponse.json({ success: false, error: "Forbidden" }, { status: 403 });
     }
 
