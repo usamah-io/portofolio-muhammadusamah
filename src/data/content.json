@@ -49,7 +49,7 @@
     "about": {
       "title_about": "Tentang Saya",
       "subtitle_about": "Mengenal lebih dekat latar belakang, filosofi kerja, dan fokus teknologi saya.",
-      "description": "Saya adalah seorang Full-Stack Developer & Digital Content Creator muda berbasis di Tasikmalaya, Jawa Barat. Saat ini saya masih mengenyam pendidikan di jenjang SMP dan juga bersekolah di Jaz Academy. Saya berfokus pada pengembangan aplikasi web modern berbasis Next.js dan TypeScript, terbiasa membangun platform dengan arsitektur Full-Stack maupun Decoupled Architecture, mengintegrasikan database dengan Prisma ORM, serta membagikan wawasan teknologi melalui konten edukasi video.",
+      "description": "Saya adalah seorang Full-Stack Developer & Digital Content Creator muda asal Medan yang saat ini bersekolah di Tasikmalaya, Jawa Barat. Masih mengenyam pendidikan di jenjang SMP dan juga bersekolah di Jaz Academy, saya berfokus pada pengembangan aplikasi web modern berbasis Next.js dan TypeScript, terbiasa membangun platform dengan arsitektur Full-Stack maupun Decoupled Architecture, mengintegrasikan database dengan Prisma ORM, serta membagikan wawasan teknologi melalui konten edukasi video.",
       "stats": [
         {
           "value": "3+ Proyek Utama",
@@ -240,7 +240,7 @@
     "about": {
       "title_about": "About Me",
       "subtitle_about": "Get a closer look at my background, work philosophy, and tech focus.",
-      "description": "I am a young Full-Stack Developer & Digital Content Creator based in Tasikmalaya, West Java. Currently studying in Junior High School (SMP) and attending Jaz Academy. I focus on modern web application development based on Next.js and TypeScript, accustomed to building platforms with Full-Stack or Decoupled Architecture, integrating databases with Prisma ORM, and sharing tech insights through educational video content.",
+      "description": "I am a young Full-Stack Developer & Digital Content Creator from Medan, currently studying in Tasikmalaya, West Java. Still studying in Junior High School (SMP) and attending Jaz Academy, I focus on modern web application development based on Next.js and TypeScript, accustomed to building platforms with Full-Stack or Decoupled Architecture, integrating databases with Prisma ORM, and sharing tech insights through educational video content.",
       "stats": [
         {
           "value": "3+ Key Projects",

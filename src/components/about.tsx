@@ -11,7 +11,7 @@ export default function About() {
   const t = content[language]?.about || {
     title_about: "Tentang Saya",
     subtitle_about: "Mengenal lebih dekat latar belakang, filosofi kerja, dan fokus teknologi saya.",
-    description: "Saya adalah seorang Full-Stack Developer & Digital Content Creator muda berbasis di Tasikmalaya, Jawa Barat. Saat ini saya masih mengenyam pendidikan di jenjang SMP dan juga bersekolah di Jaz Academy. Saya berfokus pada pengembangan aplikasi web modern berbasis Next.js dan TypeScript, terbiasa membangun platform dengan arsitektur Full-Stack maupun Decoupled Architecture, mengintegrasikan database dengan Prisma ORM, serta membagikan wawasan teknologi melalui konten edukasi video.",
+    description: "Saya adalah seorang Full-Stack Developer & Digital Content Creator muda asal Medan yang saat ini bersekolah di Tasikmalaya, Jawa Barat. Masih mengenyam pendidikan di jenjang SMP dan juga bersekolah di Jaz Academy, saya berfokus pada pengembangan aplikasi web modern berbasis Next.js dan TypeScript, terbiasa membangun platform dengan arsitektur Full-Stack maupun Decoupled Architecture, mengintegrasikan database dengan Prisma ORM, serta membagikan wawasan teknologi melalui konten edukasi video.",
     stats: [
       {
         value: "3+ Proyek Utama",
