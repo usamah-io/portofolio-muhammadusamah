@@ -8,6 +8,7 @@
   },
   "id": {
     "nav": {
+      "about": "Tentang",
       "stats": "Statistik",
       "projects": "Proyek",
       "articles": "Artikel",
@@ -45,11 +46,67 @@
       "focus_stack_label": "Stack Framework",
       "focus_style_label": "Paradigma Gaya"
     },
+    "about": {
+      "title_about": "Tentang Saya",
+      "subtitle_about": "Mengenal lebih dekat latar belakang, filosofi kerja, dan fokus teknologi saya.",
+      "description": "Saya adalah seorang Full-Stack Developer muda & Digital Content Creator yang berfokus pada pengembangan aplikasi web modern berbasis Next.js, TypeScript, dan AI Tooling. Bersekolah di Jaz Academy, saya terbiasa membangun platform dengan arsitektur terpisah (Decoupled Architecture), mengintegrasikan database dengan Prisma ORM, serta membagikan wawasan teknologi melalui konten edukasi video.",
+      "stats": [
+        {
+          "value": "3+ Proyek Utama",
+          "label": "Budiman Cendikia, Stry, SKS-Master",
+          "color": "from-emerald-500 to-teal-400"
+        },
+        {
+          "value": "Full-Stack",
+          "label": "Next.js, TypeScript, PHP, SQL",
+          "color": "from-teal-400 to-cyan-400"
+        },
+        {
+          "value": "AI-Powered",
+          "label": "Gemini & AntiGravity AI Workflows",
+          "color": "from-cyan-400 to-blue-500"
+        }
+      ],
+      "title_timeline": "Pendidikan & Pengalaman",
+      "subtitle_timeline": "Jejak langkah akademis dan pengalaman kepemimpinan proyek digital.",
+      "timeline": [
+        {
+          "title": "Jaz Academy - Muslim Academy For Youth",
+          "role": "Sekolah Menengah Pertama (SMP)",
+          "location": "Tasikmalaya, Jawa Barat",
+          "period": "2024 - Sekarang",
+          "badge": "SMP - Siswa Aktif",
+          "description": "Fokus pada Software Engineering, Full-Stack Web Development, dan Digital Content Creation.",
+          "instagram_link": "https://www.instagram.com/jazacademy.id/",
+          "web_link": "https://jazacademy.id",
+          "web_label": "Kunjungi Situs"
+        },
+        {
+          "title": "SDIT Swasta Mardhiyah",
+          "role": "Sekolah Dasar Islam Terpadu (SDIT)",
+          "location": "Binjai, Sumatera Utara",
+          "period": "2018 - 2024",
+          "badge": "SDIT - Alumni",
+          "description": "Pendidikan Dasar Islam Terpadu.",
+          "instagram_link": "https://www.instagram.com/sekolah.mardhiyah/",
+          "web_link": "https://maps.google.com/?q=SDIT+Swasta+Mardhiyah+Binjai",
+          "web_label": "Profil Sekolah"
+        },
+        {
+          "title": "Gemini Hackathon 2026",
+          "role": "Lead Developer - SKS-Master (Platform Ujian AI)",
+          "location": "Remote / Hackathon",
+          "period": "2026",
+          "badge": "Hackathon Lead",
+          "description": "Memimpin pengembangan platform ujian berbasis AI di ajang Gemini Hackathon 2026."
+        }
+      ]
+    },
     "projects": {
       "title": "Proyek",
       "subtitle": "Aplikasi dunia nyata, platform digital, dan entri acara.",
       "btn_source": "Kode Sumber",
-      "btn_demo": "Live Demo",
+      "btn_demo": "Kunjungi Situs",
       "items": [
         {
           "title": "SKS-Master (Platform Ujian)",
@@ -142,6 +199,7 @@
   },
   "en": {
     "nav": {
+      "about": "About",
       "stats": "Stats",
       "projects": "Projects",
       "articles": "Articles",
@@ -179,11 +237,67 @@
       "focus_stack_label": "Framework Stack",
       "focus_style_label": "Styling Paradigms"
     },
+    "about": {
+      "title_about": "About Me",
+      "subtitle_about": "Get a closer look at my background, work philosophy, and tech focus.",
+      "description": "I am a young Full-Stack Developer & Digital Content Creator focusing on modern web development with Next.js, TypeScript, and AI Tooling. Studying at Jaz Academy, I am accustomed to building platforms with Decoupled Architecture, integrating Prisma ORM databases, and sharing tech insights through video tutorials.",
+      "stats": [
+        {
+          "value": "3+ Key Projects",
+          "label": "Budiman Cendikia, Stry, SKS-Master",
+          "color": "from-emerald-500 to-teal-400"
+        },
+        {
+          "value": "Full-Stack",
+          "label": "Next.js, TypeScript, PHP, SQL",
+          "color": "from-teal-400 to-cyan-400"
+        },
+        {
+          "value": "AI-Powered",
+          "label": "Gemini & AntiGravity AI Workflows",
+          "color": "from-cyan-400 to-blue-500"
+        }
+      ],
+      "title_timeline": "Education & Track Record",
+      "subtitle_timeline": "Academic journey and digital project leadership experience.",
+      "timeline": [
+        {
+          "title": "Jaz Academy - Muslim Academy For Youth",
+          "role": "Junior High School (SMP)",
+          "location": "Tasikmalaya, West Java",
+          "period": "2024 - Present",
+          "badge": "SMP - Active Student",
+          "description": "Focusing on Software Engineering, Full-Stack Web Development, and Digital Content Creation.",
+          "instagram_link": "https://www.instagram.com/jazacademy.id/",
+          "web_link": "https://jazacademy.id",
+          "web_label": "Visit Site"
+        },
+        {
+          "title": "SDIT Swasta Mardhiyah",
+          "role": "Integrated Islamic Elementary School (SDIT)",
+          "location": "Binjai, North Sumatra",
+          "period": "2018 - 2024",
+          "badge": "SDIT - Alumni",
+          "description": "Integrated Islamic Primary Education.",
+          "instagram_link": "https://www.instagram.com/sekolah.mardhiyah/",
+          "web_link": "https://maps.google.com/?q=SDIT+Swasta+Mardhiyah+Binjai",
+          "web_label": "School Profile"
+        },
+        {
+          "title": "Gemini Hackathon 2026",
+          "role": "Lead Developer - SKS-Master (AI Exam Platform)",
+          "location": "Remote / Hackathon",
+          "period": "2026",
+          "badge": "Hackathon Lead",
+          "description": "Led the development of AI-powered exam platform at Gemini Hackathon 2026."
+        }
+      ]
+    },
     "projects": {
       "title": "Projects",
       "subtitle": "Real-world applications, digital platforms, and event entries.",
       "btn_source": "Source Code",
-      "btn_demo": "Live Demo",
+      "btn_demo": "Visit Site",
       "items": [
         {
           "title": "SKS-Master (Platform Ujian)",

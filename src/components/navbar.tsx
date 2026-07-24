@@ -19,6 +19,7 @@ export default function Navbar() {
 
   const t = content[language];
   const navLinks = [
+    { label: t.nav.about, href: "#about" },
     { label: t.nav.stats, href: "#stats" },
     { label: t.nav.projects, href: "#projects" },
     { label: t.nav.articles, href: "#articles" },
