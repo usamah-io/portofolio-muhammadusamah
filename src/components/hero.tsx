@@ -5,6 +5,8 @@ import Link from "next/link";
 import { gsap } from "@/lib/gsap";
 import { useApp } from "./app-context";
 import content from "@/data/content.json";
+import Typewriter from "./typewriter";
+
 
 interface LanyardResponse {
   success: boolean;
@@ -184,14 +186,28 @@ export default function Hero() {
         {/* Bento/Trading UI Bold Typography Header */}
         <h1 
           ref={titleRef}
-          className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.1] sm:leading-[1.05]"
+          className="flex flex-col items-center justify-center text-center gap-2 sm:gap-3"
         >
+          {/* Baris Atas: Nama Utama (Statis & Besar) */}
           <span className="block overflow-hidden pb-1">
-            <span className="reveal-line block">{t.title_1}</span>
+            <span className="reveal-line block text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.1]">
+              Muhammad Usamah Abdurrahman
+            </span>
           </span>
-          <span className="block overflow-hidden pb-1">
-            <span className="reveal-line block text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500">
-              {t.title_2}
+
+          {/* Baris Bawah: Role / Keahlian (Animasi Ketik & Ukuran Lebih Kecil) */}
+          <span className="block overflow-hidden pb-1 min-h-[40px] sm:min-h-[52px] flex items-center justify-center">
+            <span className="reveal-line block text-xl sm:text-2xl md:text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-400 dark:from-emerald-400 dark:via-teal-300 dark:to-emerald-400">
+              <Typewriter
+                words={[
+                  "Frontend Developer & UI Designer",
+                  "Full-Stack & AI Tooling Enthusiast",
+                  "Content Creator @usamaahhhh"
+                ]}
+                typingSpeed={75}
+                deletingSpeed={35}
+                pauseDuration={2000}
+              />
             </span>
           </span>
         </h1>

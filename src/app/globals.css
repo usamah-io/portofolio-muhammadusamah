@@ -42,3 +42,13 @@ html.lenis body {
   pointer-events: none;
 }
 
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 0.9s infinite;
+}
+
+
