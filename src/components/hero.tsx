@@ -232,7 +232,7 @@ export default function Hero() {
             {t.cta_explore}
           </Link>
           <a
-            href="https://github.com"
+            href={content.socials.github || "https://github.com/usamah-io"}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 text-zinc-900 dark:text-zinc-200 font-semibold px-8 py-3.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-center"
