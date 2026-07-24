@@ -167,24 +167,24 @@ export default function Footer() {
         <div className="bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800/80 rounded-3xl p-6 sm:p-8 shadow-sm transition-colors duration-300">
           <form onSubmit={handleFormSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-1.5">
+              <div className="space-y-1.5 min-w-0">
                 <label className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">{t.form_name}</label>
                 <input
                   type="text"
                   name="name"
                   required
                   placeholder="John Doe"
-                  className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-xl px-4 py-3 text-sm focus:outline-none transition-colors"
+                  className="w-full overflow-x-auto whitespace-nowrap bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-xl px-4 py-2.5 text-sm sm:text-base focus:outline-none transition-colors"
                 />
               </div>
-              <div className="space-y-1.5">
+              <div className="space-y-1.5 min-w-0">
                 <label className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">{t.form_email}</label>
                 <input
                   type="email"
                   name="email"
                   required
                   placeholder="john@example.com"
-                  className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-xl px-4 py-3 text-sm focus:outline-none transition-colors"
+                  className="w-full overflow-x-auto whitespace-nowrap bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-xl px-4 py-2.5 text-sm sm:text-base focus:outline-none transition-colors"
                 />
               </div>
             </div>
@@ -195,7 +195,7 @@ export default function Footer() {
                 name="message"
                 required
                 placeholder="Let's build a new project..."
-                className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-xl px-4 py-3 text-sm focus:outline-none transition-colors resize-none"
+                className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-xl px-4 py-2.5 text-sm sm:text-base focus:outline-none transition-colors resize-none"
               />
             </div>
             
