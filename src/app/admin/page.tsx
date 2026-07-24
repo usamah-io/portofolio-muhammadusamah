@@ -42,7 +42,11 @@ export default function AdminPage() {
       const params = new URLSearchParams(window.location.search);
       const err = params.get("error");
       if (err) {
-        setAccessDeniedMsg(`Autentikasi bermasalah (${err}). Harap pastikan login dengan akun Google muhammadusamahabdurrahman@gmail.com.`);
+        if (err === "OAuthCallback") {
+          setAccessDeniedMsg("Gagal Callback Google OAuth. Pastikan URI 'http://localhost:3000/api/auth/callback/google' telah didaftarkan pada Authorized redirect URIs di Google Cloud Console, lalu login menggunakan muhammadusamahabdurrahman@gmail.com");
+        } else {
+          setAccessDeniedMsg(`Autentikasi bermasalah (${err}). Harap pastikan login dengan akun Google muhammadusamahabdurrahman@gmail.com`);
+        }
       }
     }
   }, []);
@@ -236,7 +240,7 @@ export default function AdminPage() {
           <div>
             <h2 className="text-xl font-bold">Akses Ditolak</h2>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-2 leading-relaxed">
-              Anda terdaftar sebagai <span className="font-semibold text-zinc-800 dark:text-zinc-200">{session?.user?.email}</span>. Akun ini bukan akun Admin utama (<span className="text-emerald-500 font-mono">muhammadusamahabdurrahman@gmail.com</span>).
+              Anda terdaftar sebagai <span className="font-semibold text-zinc-800 dark:text-zinc-200">{session?.user?.email}</span>. Akun ini bukan akun Admin utama (<span className="text-emerald-500 font-mono">muhammadusamahabdurrahman@gmail.com</span>)
             </p>
           </div>
 
