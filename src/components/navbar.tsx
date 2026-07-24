@@ -31,10 +31,10 @@ export default function Navbar() {
   if (!mounted) {
     return (
       <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-5xl px-4">
-        <div className="flex items-center justify-between bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-zinc-200 dark:border-zinc-850/50 rounded-full px-6 py-3 shadow-2xl transition-colors duration-300">
+        <div className="flex items-center justify-between bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-zinc-200 dark:border-zinc-850/50 rounded-full px-4 sm:px-6 py-3 shadow-2xl transition-colors duration-300">
           <Link 
             href="/" 
-            className="text-zinc-900 dark:text-white font-extrabold tracking-wider text-sm sm:text-base"
+            className="text-zinc-900 dark:text-white font-extrabold tracking-wider text-xs sm:text-base shrink-0"
           >
             DEV<span className="text-emerald-500">.</span>PORTFOLIO
           </Link>
@@ -67,10 +67,20 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Mobile Hamburger Button */}
-          <button className="md:hidden p-1.5 text-zinc-500 rounded-full bg-zinc-100 dark:bg-zinc-800/50" aria-label="Toggle menu">
-            <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
-          </button>
+          {/* Mobile Outer Right Group (Fallback) */}
+          <div className="flex md:hidden items-center gap-2 sm:gap-2.5 shrink-0">
+            <div className="flex items-center gap-1 text-[11px] font-extrabold border-r border-zinc-200 dark:border-zinc-800 pr-2 text-zinc-400">
+              <button className="text-emerald-500! font-black">ID</button>
+              <span>|</span>
+              <button>EN</button>
+            </div>
+            <button className="p-1.5 rounded-full text-zinc-500" aria-label="Toggle Theme">
+              <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
+            </button>
+            <button className="p-2 text-zinc-500 rounded-full bg-zinc-100 dark:bg-zinc-800/50" aria-label="Toggle menu">
+              <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
+            </button>
+          </div>
         </div>
       </header>
     );
@@ -78,13 +88,13 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-5xl px-4">
-      {/* Desktop & Tablet Pill Navbar Container */}
-      <div className="flex items-center justify-between bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-zinc-200 dark:border-zinc-850/50 rounded-full px-6 py-3 shadow-2xl shadow-black/5 dark:shadow-black/40 transition-colors duration-300">
+      {/* Desktop & Mobile Pill Navbar Container */}
+      <div className="flex items-center justify-between bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-zinc-200 dark:border-zinc-850/50 rounded-full px-4 sm:px-6 py-3 shadow-2xl shadow-black/5 dark:shadow-black/40 transition-colors duration-300">
         
         {/* Logo (Always visible on Left) */}
         <Link 
           href="/" 
-          className="text-zinc-900 dark:text-white font-extrabold tracking-wider text-sm sm:text-base hover:opacity-80 transition-opacity shrink-0"
+          className="text-zinc-900 dark:text-white font-extrabold tracking-wider text-xs sm:text-base hover:opacity-80 transition-opacity shrink-0"
         >
           DEV<span className="text-emerald-500">.</span>PORTFOLIO
         </Link>
@@ -169,23 +179,60 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Only Hamburger Menu Button (Right side on Mobile) */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white rounded-full bg-zinc-100 dark:bg-zinc-800/60 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors cursor-pointer shrink-0"
-          aria-label="Toggle menu"
-        >
-          {isOpen ? (
-            <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
-          ) : (
-            <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
-          )}
-        </button>
+        {/* Mobile Outer Controls & Hamburger Button (Right side on Mobile) */}
+        <div className="flex md:hidden items-center gap-1.5 sm:gap-2 shrink-0">
+          {/* Mobile Language Switcher ID | EN */}
+          <div className="flex items-center gap-1 text-[11px] font-extrabold border-r border-zinc-200 dark:border-zinc-800 pr-2 text-zinc-400 dark:text-zinc-500">
+            <button 
+              onClick={() => setLanguage("id")} 
+              className={`hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer ${
+                language === "id" ? "text-emerald-500! font-black" : ""
+              }`}
+            >
+              ID
+            </button>
+            <span>|</span>
+            <button 
+              onClick={() => setLanguage("en")} 
+              className={`hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer ${
+                language === "en" ? "text-emerald-500! font-black" : ""
+              }`}
+            >
+              EN
+            </button>
+          </div>
+
+          {/* Mobile Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="p-1.5 rounded-full text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-all duration-200 cursor-pointer"
+            aria-label="Toggle Theme"
+          >
+            {theme === "dark" ? (
+              <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
+            ) : (
+              <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+            )}
+          </button>
+
+          {/* Mobile Hamburger Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="p-1.5 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white rounded-full bg-zinc-100 dark:bg-zinc-800/60 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors cursor-pointer shrink-0"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? (
+              <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+            ) : (
+              <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Dropdown Drawer */}
       {isOpen && (
-        <div className="md:hidden mt-2 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-lg border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5 flex flex-col gap-4 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-300 transition-colors duration-300">
+        <div className="md:hidden mt-2 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-lg border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 flex flex-col gap-3 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-300 transition-colors duration-300">
           
           {/* Mobile Navigation Links */}
           <nav className="flex flex-col gap-1">
@@ -201,49 +248,8 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Controls Row: Language Switcher & Theme Toggle */}
-          <div className="border-t border-zinc-200 dark:border-zinc-800/80 pt-4 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-xs font-extrabold text-zinc-400 dark:text-zinc-500">
-              <button
-                onClick={() => setLanguage("id")}
-                className={`hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer px-1.5 py-0.5 rounded ${
-                  language === "id" ? "text-emerald-500! font-black bg-emerald-500/10" : ""
-                }`}
-              >
-                ID
-              </button>
-              <span>|</span>
-              <button
-                onClick={() => setLanguage("en")}
-                className={`hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer px-1.5 py-0.5 rounded ${
-                  language === "en" ? "text-emerald-500! font-black bg-emerald-500/10" : ""
-                }`}
-              >
-                EN
-              </button>
-            </div>
-
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white bg-zinc-100 dark:bg-zinc-800/60 transition-all duration-200 cursor-pointer flex items-center gap-1.5 text-xs font-medium"
-              aria-label="Toggle Theme"
-            >
-              {theme === "dark" ? (
-                <>
-                  <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
-                  <span>Dark</span>
-                </>
-              ) : (
-                <>
-                  <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
-                  <span>Light</span>
-                </>
-              )}
-            </button>
-          </div>
-
-          {/* Action Triggers: Admin/Masuk & CTA */}
-          <div className="flex flex-col gap-2.5 pt-1">
+          {/* Action Triggers: Admin/Masuk & CTA (Only Nav Links, Masuk, and Mari Bicara in Drawer) */}
+          <div className="flex flex-col gap-2 pt-2 border-t border-zinc-200 dark:border-zinc-800/80">
             <Link
               href="/admin"
               onClick={() => setIsOpen(false)}

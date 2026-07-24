@@ -161,7 +161,7 @@ export default function Hero() {
         className="absolute inset-0 opacity-[0.03] dark:opacity-[0.03] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] -z-10" 
       />
 
-      <div className="w-full max-w-4xl mx-auto flex flex-col items-center text-center gap-8 relative z-10">
+      <div className="w-full max-w-4xl mx-auto flex flex-col items-center text-center gap-6 sm:gap-7 relative z-10">
         
         {/* Glowing Lanyard Badge */}
         <div ref={lanyardRef} className="opacity-0">
@@ -186,18 +186,18 @@ export default function Hero() {
         {/* Bento/Trading UI Bold Typography Header */}
         <h1 
           ref={titleRef}
-          className="flex flex-col items-center justify-center text-center gap-2 sm:gap-3"
+          className="flex flex-col items-center justify-center text-center gap-2.5 sm:gap-3"
         >
-          {/* Baris Atas: Nama Utama (Statis & Besar) */}
+          {/* Tingkat 1: Nama Utama (Paling Besar) */}
           <span className="block overflow-hidden pb-1">
-            <span className="reveal-line block text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.1]">
+            <span className="reveal-line block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-tight">
               Muhammad Usamah Abdurrahman
             </span>
           </span>
 
-          {/* Baris Bawah: Role / Keahlian (Animasi Ketik & Ukuran Lebih Kecil) */}
-          <span className="block overflow-hidden pb-1 min-h-[40px] sm:min-h-[52px] flex items-center justify-center">
-            <span className="reveal-line block text-xl sm:text-2xl md:text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-400 dark:from-emerald-400 dark:via-teal-300 dark:to-emerald-400">
+          {/* Tingkat 2: Animasi Role / Typewriter (Sedang) */}
+          <span className="block overflow-hidden pb-1 min-h-[44px] sm:min-h-[52px] flex items-center justify-center">
+            <span className="reveal-line block text-xl sm:text-2xl md:text-3xl font-bold whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-400 dark:from-emerald-400 dark:via-teal-300 dark:to-emerald-400">
               <Typewriter
                 words={[
                   "Frontend Developer & UI Designer",
@@ -212,10 +212,10 @@ export default function Hero() {
           </span>
         </h1>
 
-        {/* Sub-heading */}
+        {/* Tingkat 3: Deskripsi Paragraf (Paling Kecil & Muted) */}
         <p 
           ref={subtitleRef}
-          className="opacity-0 max-w-xl text-base sm:text-lg md:text-xl text-zinc-600 dark:text-zinc-400 font-medium leading-relaxed"
+          className="opacity-0 max-w-xl mx-auto text-xs sm:text-sm md:text-base text-zinc-600 dark:text-zinc-400 font-normal leading-relaxed"
         >
           {t.subtitle}
         </p>

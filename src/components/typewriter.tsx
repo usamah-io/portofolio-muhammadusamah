@@ -59,7 +59,7 @@ export default function Typewriter({
   }, [currentText, isDeleting, wordIndex, words, typingSpeed, deletingSpeed, pauseDuration]);
 
   return (
-    <span className={`inline-flex items-center ${className}`}>
+    <span className={`inline-flex items-center whitespace-nowrap ${className}`}>
       <span>{currentText}</span>
       <span
         className={`inline-block ml-1 font-normal animate-blink text-emerald-500 dark:text-emerald-400 ${cursorClassName}`}
