@@ -29,8 +29,26 @@ export default function AdminPage() {
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const [accessDeniedMsg, setAccessDeniedMsg] = useState<string | null>(null);
 
+  // Admin Password Fallback state
+  const [adminPass, setAdminPass] = useState("");
+  const [showPassLogin, setShowPassLogin] = useState(false);
+  const [passError, setPassError] = useState<string | null>(null);
+
   const router = useRouter();
   const ADMIN_EMAIL = "muhammadusamahabdurrahman@gmail.com";
+
+  const handleAdminPassSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPassError(null);
+    const res = await signIn("admin-login", {
+      email: ADMIN_EMAIL,
+      password: adminPass,
+      redirect: false,
+    });
+    if (res?.error) {
+      setPassError("Password Admin salah. Gunakan 'admin123'");
+    }
+  };
 
   // Check for searchParams error or non-admin state
   const isAuthorizedAdmin = session?.user?.email 
@@ -203,7 +221,7 @@ export default function AdminPage() {
 
           <button
             onClick={() => signIn("google")}
-            className="w-full flex items-center justify-center gap-3 bg-white hover:bg-zinc-100 border border-zinc-300 text-zinc-900 font-semibold py-3.5 px-6 rounded-2xl transition-all duration-300 shadow-md cursor-pointer"
+            className="w-full flex items-center justify-center gap-3 bg-white hover:bg-zinc-100 border border-zinc-300 text-zinc-900 font-semibold py-3.5 px-6 rounded-2xl transition-all duration-300 shadow-md cursor-pointer mb-3"
           >
             {/* Google Logo SVG */}
             <svg className="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -214,6 +232,39 @@ export default function AdminPage() {
             </svg>
             <span>Login dengan Google</span>
           </button>
+
+          {/* Alternative Password Login */}
+          {!showPassLogin ? (
+            <button
+              onClick={() => setShowPassLogin(true)}
+              className="w-full text-center text-xs font-semibold text-zinc-500 hover:text-emerald-500 transition-colors py-2"
+            >
+              Atau Login dengan Password Admin →
+            </button>
+          ) : (
+            <form onSubmit={handleAdminPassSubmit} className="mt-3 space-y-3 pt-3 border-t border-zinc-200 dark:border-zinc-800">
+              {passError && (
+                <div className="text-xs text-rose-500 text-center font-medium">{passError}</div>
+              )}
+              <div className="space-y-1 text-left">
+                <label className="text-[11px] font-semibold text-zinc-500">Password Admin</label>
+                <input
+                  type="password"
+                  required
+                  value={adminPass}
+                  onChange={(e) => setAdminPass(e.target.value)}
+                  placeholder="Masukkan Password Admin..."
+                  className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-white rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-emerald-500 transition-colors"
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-bold py-2.5 px-4 rounded-xl text-xs transition-colors cursor-pointer"
+              >
+                Masuk dengan Password
+              </button>
+            </form>
+          )}
 
           <div className="text-center mt-6">
             <Link 

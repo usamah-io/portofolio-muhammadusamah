@@ -1,5 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 const ADMIN_EMAIL = "muhammadusamahabdurrahman@gmail.com";
 
@@ -9,6 +10,28 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     }),
+    CredentialsProvider({
+      id: "admin-login",
+      name: "Admin Login",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) return null;
+        const isEmailValid = credentials.email.toLowerCase().trim() === ADMIN_EMAIL.toLowerCase().trim();
+        const isPasswordValid = credentials.password === (process.env.ADMIN_PASSWORD || "admin123");
+
+        if (isEmailValid && isPasswordValid) {
+          return {
+            id: "admin-user",
+            name: "Muhammad Usamah Abdurrahman",
+            email: ADMIN_EMAIL,
+          };
+        }
+        return null;
+      },
+    }),
   ],
   pages: {
     signIn: "/admin",
@@ -16,7 +39,6 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ user }) {
-      // Allow sign-in so session can be established and handled in admin UI
       return true;
     },
     async jwt({ token, user }) {
