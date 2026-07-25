@@ -16,7 +16,7 @@ interface GithubUserData {
 interface ApiDocItem {
   id: string;
   title: string;
-  iconName: "mdn" | "ts" | "waka" | "github";
+  iconName: "mdn" | "ts" | "waka" | "github" | "gmail" | "whatsapp";
   summary: string;
   endpoint?: string;
   url: string;
@@ -78,7 +78,22 @@ export default function Stats() {
       summary: "API resmi GitHub (GET /users/usamah-io) yang digunakan untuk menyinkronkan data statistik repositori, follower, dan aktivitas koding @usamah-io secara real-time!",
       endpoint: "GET https://api.github.com/users/usamah-io",
       url: "https://docs.github.com/en/rest/users/users#get-a-user",
-      isHighlight: true,
+    },
+    {
+      id: "gmail",
+      title: "Gmail API",
+      iconName: "gmail",
+      summary: "API resmi Google / OAuth2 & Nodemailer SMTP service yang digunakan untuk memproses pengiriman formulir pesan kontak langsung ke email utama.",
+      endpoint: "POST /api/contact (Gmail SMTP / REST API)",
+      url: "https://developers.google.com/gmail/api",
+    },
+    {
+      id: "whatsapp",
+      title: "WhatsApp API",
+      iconName: "whatsapp",
+      summary: "API Meta Cloud & WhatsApp Click-to-Chat protocol yang digunakan untuk pesan instan langsung ke nomor WhatsApp pengembang secara cepat.",
+      endpoint: "https://wa.me/628XXXXXXXXXX (Meta Cloud API)",
+      url: "https://developers.facebook.com/docs/whatsapp/cloud-api",
     },
   ];
 
@@ -232,6 +247,23 @@ export default function Stats() {
             isHighlighted ? "text-emerald-600 dark:text-emerald-400" : "text-zinc-600 dark:text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
           }`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
             <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+          </svg>
+        );
+      case "gmail":
+        return (
+          <svg className={`w-4 h-4 shrink-0 transition-colors duration-200 ${
+            isHighlighted ? "text-emerald-600 dark:text-emerald-400" : "text-zinc-600 dark:text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
+          }`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <polyline points="22,6 12,13 2,6" />
+          </svg>
+        );
+      case "whatsapp":
+        return (
+          <svg className={`w-4 h-4 shrink-0 transition-colors duration-200 ${
+            isHighlighted ? "text-emerald-600 dark:text-emerald-400" : "text-zinc-600 dark:text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
+          }`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
           </svg>
         );
       default:
