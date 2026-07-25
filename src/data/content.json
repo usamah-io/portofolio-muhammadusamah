@@ -193,6 +193,27 @@
           "title": "Eksplorasi Decoupled Architecture dengan Next.js & PHP Blade",
           "platform": "Artikel Unggulan",
           "link": "https://github.com/usamah-io"
+        },
+        {
+          "id": "art-4",
+          "tag": "Frontend & Creative Coding",
+          "title": "Tutorial & Showcase Web Design Interaktif",
+          "platform": "Video Instagram",
+          "link": "https://www.instagram.com/reel/DanLb9AyfLT/"
+        },
+        {
+          "id": "art-5",
+          "tag": "Tips & Workflows Developer",
+          "title": "Produktif Koding & Workflow Dev Modern",
+          "platform": "Video Instagram",
+          "link": "https://www.instagram.com/reel/DasGI5QSOIh/"
+        },
+        {
+          "id": "art-6",
+          "tag": "AI Tools & Automation",
+          "title": "Eksplorasi Fitur & Integrasi AI Terbaru",
+          "platform": "Video Instagram",
+          "link": "https://www.instagram.com/reel/DapENZLysOw/"
         }
       ]
     }
@@ -384,6 +405,27 @@
           "title": "Exploring Decoupled Architecture with Next.js & PHP Blade",
           "platform": "Featured Article",
           "link": "https://github.com/usamah-io"
+        },
+        {
+          "id": "art-4",
+          "tag": "Frontend & Creative Coding",
+          "title": "Interactive Web Design Showcase & Tutorial",
+          "platform": "Instagram Video",
+          "link": "https://www.instagram.com/reel/DanLb9AyfLT/"
+        },
+        {
+          "id": "art-5",
+          "tag": "Developer Tips & Workflows",
+          "title": "Productive Coding & Modern Dev Workflow",
+          "platform": "Instagram Video",
+          "link": "https://www.instagram.com/reel/DasGI5QSOIh/"
+        },
+        {
+          "id": "art-6",
+          "tag": "AI Tools & Automation",
+          "title": "Exploring Latest AI Features & Integrations",
+          "platform": "Instagram Video",
+          "link": "https://www.instagram.com/reel/DapENZLysOw/"
         }
       ]
     }
