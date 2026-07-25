@@ -83,8 +83,8 @@ export default function Projects() {
         </p>
       </div>
 
-      {/* Bento Grid Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Responsive Bento Grid Layout: 2 Columns on Mobile, 3 Columns on Desktop */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3.5 md:gap-6">
         {t.items.map((project, idx) => {
           const meta = PROJECTS_METADATA[idx];
           const isMainCard = idx === 0;
@@ -93,32 +93,32 @@ export default function Projects() {
             <div
               key={project.title}
               ref={addToRefs}
-              className={`group relative bg-white dark:bg-zinc-900/50 dark:backdrop-blur-md border border-zinc-200 dark:border-zinc-800/80 rounded-2xl p-6 transition-all duration-300 hover:border-emerald-500/50 hover:shadow-[0_0_25px_rgba(16,185,129,0.06)] shadow-sm hover:shadow-md flex flex-col justify-between transform hover:scale-[1.01] ${
-                isMainCard ? "md:col-span-2" : "md:col-span-1"
+              className={`group relative bg-white dark:bg-zinc-900/50 dark:backdrop-blur-md border border-zinc-200 dark:border-zinc-800/80 rounded-2xl p-4 sm:p-6 transition-all duration-300 hover:border-emerald-500/50 hover:shadow-[0_0_25px_rgba(16,185,129,0.06)] shadow-sm hover:shadow-md flex flex-col justify-between transform hover:scale-[1.01] ${
+                isMainCard ? "col-span-2 md:col-span-2" : "col-span-1 md:col-span-1"
               }`}
             >
               <div>
                 {/* Badge & Title */}
-                <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-                  <span className="text-[10px] font-bold tracking-wider text-emerald-600 dark:text-emerald-400 uppercase bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full transition-colors duration-300">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                  <span className="text-[9px] sm:text-[10px] font-bold tracking-wider text-emerald-600 dark:text-emerald-400 uppercase bg-emerald-500/10 border border-emerald-500/20 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full transition-colors duration-300 truncate max-w-full">
                     {project.badge}
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-zinc-900 dark:text-white group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors mb-3">
+                <h3 className="text-base sm:text-xl font-bold text-zinc-900 dark:text-white group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors mb-2 sm:mb-3 leading-snug">
                   {project.title}
                 </h3>
 
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6 transition-colors duration-300">
+                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4 sm:mb-6 transition-colors duration-300 line-clamp-3 sm:line-clamp-none">
                   {project.description}
                 </p>
 
                 {/* Tech Badges */}
-                <div className="flex flex-wrap gap-1.5 mb-6">
+                <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-4 sm:mb-6">
                   {meta.tech.map((techItem) => (
                     <span
                       key={techItem}
-                      className="text-[11px] text-zinc-600 dark:text-zinc-400 font-mono bg-zinc-100 dark:bg-zinc-950/60 px-2.5 py-1 border border-zinc-200 dark:border-zinc-850/50 rounded-md transition-colors duration-300"
+                      className="text-[9px] sm:text-[11px] text-zinc-600 dark:text-zinc-400 font-mono bg-zinc-100 dark:bg-zinc-950/60 px-1.5 sm:px-2.5 py-0.5 sm:py-1 border border-zinc-200 dark:border-zinc-850/50 rounded-md transition-colors duration-300"
                     >
                       {techItem}
                     </span>
@@ -126,25 +126,29 @@ export default function Projects() {
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex items-center gap-3 border-t border-zinc-200 dark:border-zinc-800/50 pt-4 mt-2">
+              {/* Responsive Action Buttons */}
+              <div className="flex items-center gap-1.5 sm:gap-3 border-t border-zinc-200 dark:border-zinc-800/50 pt-3 sm:pt-4 mt-2">
                 <a
                   href={meta.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-2 text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors py-2.5 px-4 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800/60 border border-transparent hover:border-zinc-250 dark:hover:border-zinc-800"
+                  className="flex-1 inline-flex items-center justify-center gap-1 sm:gap-2 text-[10px] sm:text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors py-2 px-1.5 sm:px-4 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800/60 border border-zinc-200/50 dark:border-zinc-800/80 cursor-pointer"
+                  title={t.btn_source}
                 >
-                  <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>
-                  {t.btn_source}
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>
+                  <span className="hidden xs:inline sm:inline">{t.btn_source}</span>
+                  <span className="xs:hidden sm:hidden">Kode</span>
                 </a>
                 <a
                   href={meta.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-2 text-xs font-bold text-zinc-950 bg-emerald-500 hover:bg-emerald-450 transition-colors py-2.5 px-4 rounded-xl shadow-lg shadow-emerald-500/10"
+                  className="flex-1 inline-flex items-center justify-center gap-1 sm:gap-2 text-[10px] sm:text-xs font-bold text-zinc-950 bg-emerald-500 hover:bg-emerald-450 transition-colors py-2 px-1.5 sm:px-4 rounded-xl shadow-lg shadow-emerald-500/10 cursor-pointer"
+                  title={t.btn_demo}
                 >
-                  {t.btn_demo}
-                  <svg className="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>
+                  <span className="hidden xs:inline sm:inline">{t.btn_demo}</span>
+                  <span className="xs:hidden sm:hidden">Situs</span>
+                  <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>
                 </a>
               </div>
             </div>
