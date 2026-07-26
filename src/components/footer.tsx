@@ -224,7 +224,7 @@ export default function Footer() {
       </div>
 
       {/* Footer Bottom Bar */}
-      <div className="border-t border-zinc-200 dark:border-zinc-900/60 pt-8 mt-12 flex flex-col md:flex-row items-center justify-between gap-4 max-w-5xl mx-auto text-xs text-zinc-500">
+      <div className="border-t border-zinc-200 dark:border-zinc-900/60 pt-8 mt-12 flex flex-col md:flex-row items-center justify-between gap-4 max-w-5xl mx-auto text-xs text-zinc-700 dark:text-zinc-400 font-medium">
         
         {/* Social Icons with High Contrast Hover Effect */}
         <div className="flex items-center gap-4">
@@ -232,7 +232,7 @@ export default function Footer() {
             href={socials.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="group p-2.5 bg-white dark:bg-zinc-900 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-950 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-800 rounded-full transition-all duration-300 scale-100 hover:scale-105 cursor-pointer shadow-xs"
+            className="group p-2.5 bg-white dark:bg-zinc-900 hover:bg-zinc-950 hover:text-white dark:hover:bg-white dark:hover:text-zinc-950 text-zinc-900 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-800 rounded-full transition-all duration-300 scale-100 hover:scale-105 cursor-pointer shadow-xs"
             aria-label="GitHub"
           >
             <svg className="w-4 h-4 transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>
@@ -241,7 +241,7 @@ export default function Footer() {
             href={socials.instagram}
             target="_blank"
             rel="noopener noreferrer"
-            className="group p-2.5 bg-white dark:bg-zinc-900 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-950 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-800 rounded-full transition-all duration-300 scale-100 hover:scale-105 cursor-pointer shadow-xs"
+            className="group p-2.5 bg-white dark:bg-zinc-900 hover:bg-zinc-950 hover:text-white dark:hover:bg-white dark:hover:text-zinc-950 text-zinc-900 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-800 rounded-full transition-all duration-300 scale-100 hover:scale-105 cursor-pointer shadow-xs"
             aria-label="Instagram"
           >
             <svg className="w-4 h-4 transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
@@ -250,7 +250,7 @@ export default function Footer() {
             href={socials.tiktok}
             target="_blank"
             rel="noopener noreferrer"
-            className="group p-2.5 bg-white dark:bg-zinc-900 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-950 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-800 rounded-full transition-all duration-300 scale-100 hover:scale-105 cursor-pointer shadow-xs"
+            className="group p-2.5 bg-white dark:bg-zinc-900 hover:bg-zinc-950 hover:text-white dark:hover:bg-white dark:hover:text-zinc-950 text-zinc-900 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-800 rounded-full transition-all duration-300 scale-100 hover:scale-105 cursor-pointer shadow-xs"
             aria-label="TikTok"
           >
             <svg className="w-4 h-4 transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" /></svg>
@@ -258,14 +258,14 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <p className="text-center md:text-left" suppressHydrationWarning>
+        <p className="text-center md:text-left text-zinc-800 dark:text-zinc-300 font-semibold" suppressHydrationWarning>
           &copy; {new Date().getFullYear()} Muhammad Usamah Abdurrahman. All Rights Reserved.
         </p>
 
         {/* Watermark */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1.5 text-zinc-800 dark:text-zinc-300 font-medium">
           <span>{t.watermark}</span>
-          <span className="font-bold text-zinc-800 dark:text-zinc-300 transition-colors">Vercel</span>
+          <span className="font-extrabold text-zinc-950 dark:text-white bg-zinc-200/80 dark:bg-zinc-800 px-2 py-0.5 rounded-md border border-zinc-300/80 dark:border-zinc-700/60 transition-colors">Vercel</span>
         </div>
       </div>
 
