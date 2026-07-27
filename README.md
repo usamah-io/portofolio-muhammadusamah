@@ -9,7 +9,7 @@
 
   <!-- Badges Kontak -->
   <p align="center">
-    <a href="https://github.com/usamah-io">
+    <a href="https://github.com/usamah1453">
       <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white" />
     </a>
   </p>
@@ -43,14 +43,14 @@
 ### GitHub Activity & Statistics
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=usamah-io&show_icons=true&theme=dark&hide_border=true&count_private=true" width="48%" />
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=usamah-io&theme=dark&hide_border=true" width="48%" />
+  <img src="https://github-readme-stats.vercel.app/api?username=usamah1453&show_icons=true&theme=dark&hide_border=true&count_private=true" width="48%" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=usamah1453&theme=dark&hide_border=true" width="48%" />
 </div>
 
 <br />
 
 <div align="center">
-  <img src="https://github-readme-stats-one-bice.vercel.app/api/top-langs/?username=usamah-io&layout=compact&theme=dark&hide_border=true" width="70%" />
+  <img src="https://github-readme-stats-one-bice.vercel.app/api/top-langs/?username=usamah1453&layout=compact&theme=dark&hide_border=true" width="70%" />
 </div>
 
 ---
@@ -58,5 +58,5 @@
 ### Contribution Grid
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/usamah-io/usamah-io/output/github-contribution-grid-snake-dark.svg" alt="Contribution Snake Animation" width="100%" />
+  <img src="https://raw.githubusercontent.com/usamah1453/usamah1453/output/github-contribution-grid-snake-dark.svg" alt="Contribution Snake Animation" width="100%" />
 </div>
