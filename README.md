@@ -26,23 +26,23 @@
 
 ---
 
-## ⚡ About Me
+## About Me
 
 Saya adalah seorang **Full-Stack Developer** dan **Digital Content Creator** muda asal Medan yang saat ini menempuh pendidikan di Tasikmalaya, Jawa Barat (jenjang SMP & JS Academy).
 
-- 💻 **Fokus Utama:** Pengembangan aplikasi web modern berbasis **Next.js** dan **TypeScript**.
-- 🏗️ **Arsitektur:** Terbiasa dengan platform/arsitektur _Full-Stack_ monolitik maupun _Decoupled Architecture_ (Front-End & Back-End terpisah).
-- 🗄️ **Database:** Mengintegrasikan database menggunakan **Prisma ORM**.
+- **Fokus Utama:** Pengembangan aplikasi web modern berbasis **Next.js** dan **TypeScript**.
+- **Arsitektur:** Terbiasa dengan platform/arsitektur _Full-Stack_ monolitik maupun _Decoupled Architecture_ (Front-End & Back-End terpisah).
+- **Database:** Mengintegrasikan database menggunakan **Prisma ORM**.
 
-### 🚀 Featured Projects
+### Featured Projects
 
-- 🏫 **[budimacendikia.sch.id](https://budimacendikia.sch.id)** — Web profil & platform sekolah.
-- 🤖 **SKS Master** _(Sistem Kebut Semalam)_ — Platform latihan soal (UTBK, Mahasiswa) yang diintegrasikan dengan **Gemini API**.
-- 📚 **Strive / Stude** — Aplikasi _study tracker_ dan manajemen belajar interaktif.
+- **[budimacendikia.sch.id](https://budimacendikia.sch.id)** — Web profil & platform sekolah.
+- **SKS Master** _(Sistem Kebut Semalam)_ — Platform latihan soal (UTBK, Mahasiswa) yang diintegrasikan dengan **Gemini API**.
+- **Strive / Stude** — Aplikasi _study tracker_ dan manajemen belajar interaktif.
 
 ---
 
-## 🛠️ Languages & Tech Stack Mastery
+## Languages & Tech Stack Mastery
 
 <div align="center">
 
@@ -70,7 +70,7 @@ Saya adalah seorang **Full-Stack Developer** dan **Digital Content Creator** mud
 
 ---
 
-## 📊 GitHub Analytics
+## GitHub Analytics
 
 <div align="center">
   <img src="https://github-readme-stats-one-bice.vercel.app/api?username=usamah1453&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" width="49%" />
@@ -79,10 +79,8 @@ Saya adalah seorang **Full-Stack Developer** dan **Digital Content Creator** mud
 
 ---
 
-## 🎮 Contribution Game Animation (Ulat Makan Kontribusi)
+## Contribution Game Animation
 
 <div align="center">
-  <p><i>Animasi ular yang berjalan memakan grafik kontribusi GitHub secara loop:</i></p>
-  
   <img src="https://raw.githubusercontent.com/usamah1453/usamah1453/output/github-contribution-grid-snake-dark.svg" alt="Snake Contribution Animation" width="100%" />
 </div>
