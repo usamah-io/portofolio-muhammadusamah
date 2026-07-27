@@ -1,74 +1,75 @@
 <div align="center">
 
-  <!-- Header GIF / Image -->
-  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1eHRqYXZ4M3BpdXk5Y2J3eXRxdmtocGJnb3Q4bTNnbnpraHh6diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L1R1tvI9svvjDDy267/giphy.gif" width="100%" height="220px" style="object-fit: cover;" />
+  <!-- 1. Header Waving Animasi Banner -->
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,50:38bdf8,100:0f172a&height=220&section=header&text=Welcome!%20I'm%20Muhammad%20Usamah%20Abdurrahman&fontSize=26&fontColor=ffffff&animation=fadeIn" width="100%" />
+
+  <br />
+
+  <!-- 2. Animasi Teks Ngetik Otomatis (Typing SVG) -->
+  <a href="https://git.io/typing-svg">
+    <img src="https://readme-typing-svg.demolab.com?font=Inter&weight=700&size=20&duration=3000&pause=1000&color=38BDF8&center=true&vCenter=true&width=600&lines=Welcome+to+my+GitHub+Profile!;Software+Engineer+%26+Full-Stack+Developer;Building+Modern%2C+Scalable+Web+Apps;TypeScript+%7C+Next.js+%7C+Go+%7C+Python" alt="Typing SVG Animation" />
+  </a>
 
 <br /><br />
 
-  <!-- Connect with me -->
-  <h3>🔗 Connect with me</h3>
-  <p>
-    <a href="https://portofolio-usamah.vercel.app/"><img src="https://img.shields.io/badge/PORTFOLIO-000000?style=for-the-badge&logo=vercel&logoColor=white" /></a>
-    <a href="https://github.com/usamah1453"><img src="https://img.shields.io/badge/GITHUB-000000?style=for-the-badge&logo=github&logoColor=white" /></a>
+  <!-- 3. Link Quick Access Badges -->
+  <p align="center">
+    <a href="https://portofolio-usamah.vercel.app/">
+      <img src="https://img.shields.io/badge/🌐_Live_Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white" />
+    </a>
+    <a href="https://github.com/usamah1453">
+      <img src="https://img.shields.io/badge/🐙_GitHub_Profile-181717?style=for-the-badge&logo=github&logoColor=white" />
+    </a>
   </p>
+
+</div>
 
 ---
 
-  <!-- About Me -->
-  <h2>About me</h2>
-  <p>Hello, I'm <b>Muhammad Usamah Abdurrahman</b> — a Software Engineer focused on building clean, scalable, and modern web applications.<br />I value structure, performance, and long-term maintainability over hype.</p>
+## ⚡ About Me & Live Activity
 
-  <p><b>Software Engineer</b><br />React / Next.js / TypeScript / Go / Python<br />Modern UI & clean architecture<br />Strong GitHub collaboration mindset</p>
+<div align="center">
+  <p>Software Engineer yang berfokus pada pengembangan sistem web modern, performa tinggi, dan struktur kode yang bersih.</p>
 
----
-
-  <!-- Technologies -->
-  <h2>Technologies</h2>
-
-  <h3>Core Technologies</h3>
-  <p>
-    <img src="https://img.shields.io/badge/JAVASCRIPT-000000?style=flat-square&logo=javascript&logoColor=white" />
-    <img src="https://img.shields.io/badge/TYPESCRIPT-000000?style=flat-square&logo=typescript&logoColor=white" />
-    <img src="https://img.shields.io/badge/PYTHON-000000?style=flat-square&logo=python&logoColor=white" />
-    <img src="https://img.shields.io/badge/GO-000000?style=flat-square&logo=go&logoColor=white" />
-    <img src="https://img.shields.io/badge/GIT-000000?style=flat-square&logo=git&logoColor=white" />
-  </p>
-
-  <h3>Frameworks & Libraries</h3>
-  <p>
-    <img src="https://img.shields.io/badge/REACT-000000?style=flat-square&logo=react&logoColor=white" />
-    <img src="https://img.shields.io/badge/NEXT.JS-000000?style=flat-square&logo=nextdotjs&logoColor=white" />
-    <img src="https://img.shields.io/badge/TAILWIND_CSS-000000?style=flat-square&logo=tailwindcss&logoColor=white" />
-    <img src="https://img.shields.io/badge/SUPABASE-000000?style=flat-square&logo=supabase&logoColor=white" />
-    <img src="https://img.shields.io/badge/POSTGRESQL-000000?style=flat-square&logo=postgresql&logoColor=white" />
-  </p>
-
-  <h3>Team Collaboration</h3>
-  <p>Experienced in team development using GitHub, pull requests, code reviews, and structured workflows.</p>
+  <!-- Statistik GitHub Langsung di About Me -->
+  <img src="https://github-readme-stats.vercel.app/api?username=usamah1453&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" width="49%" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=usamah1453&layout=compact&theme=tokyonight&hide_border=true&hide=html,css&count_private=true" width="49%" />
+</div>
 
 ---
 
-  <!-- Statistics -->
-  <h2>Statistics</h2>
+## 🛠️ Languages & Tech Stack Mastery
 
-  <h3>Usamah's GitHub Stats</h3>
+<div align="center">
+
+### Programming Languages
+
   <p>
-    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=usamah1453&layout=compact&theme=dark&hide_border=false&hide=html,css&count_private=true" width="45%" />
-    <img src="https://github-readme-stats.vercel.app/api?username=usamah1453&show_icons=true&theme=dark&hide_border=false&count_private=true" width="45%" />
+    <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+    <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+    <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+    <img src="https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white" />
   </p>
 
-  <br />
+### Frameworks & Tools
 
-  <h3>🔥 Contribution Streak</h3>
   <p>
-    <img src="https://github-readme-streak-stats.herokuapp.com/?user=usamah1453&theme=dark&hide_border=false" width="90%" />
+    <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" />
+    <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
+    <img src="https://img.shields.io/badge/Tailwind_CSS-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white" />
+    <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" />
+    <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" />
   </p>
 
-  <br />
+</div>
 
-  <h3>🐍 Contribution Activity</h3>
-  <p>
-    <img src="https://raw.githubusercontent.com/usamah1453/usamah1453/output/github-contribution-grid-snake-dark.svg" alt="Snake Contribution Grid" width="100%" />
-  </p>
+---
 
+## 🎮 Contribution Game Animation (Ulat Makan Kontribusi)
+
+<div align="center">
+  <p><i>Animasi ular yang berjalan memakan kotak-kotak kontribusi GitHub dari bulan ke bulan:</i></p>
+  
+  <!-- Animasi Ular Memakan Grid Kontribusi -->
+  <img src="https://raw.githubusercontent.com/usamah1453/usamah1453/output/github-contribution-grid-snake-dark.svg" alt="Snake Contribution Animation" width="100%" />
 </div>
