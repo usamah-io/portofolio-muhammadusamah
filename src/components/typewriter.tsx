@@ -7,6 +7,7 @@ interface TypewriterProps {
   typingSpeed?: number;
   deletingSpeed?: number;
   pauseDuration?: number;
+  loop?: boolean;
   className?: string;
   cursorClassName?: string;
 }
@@ -16,6 +17,7 @@ export default function Typewriter({
   typingSpeed = 80,
   deletingSpeed = 40,
   pauseDuration = 2000,
+  loop = true,
   className = "",
   cursorClassName = "",
 }: TypewriterProps) {
@@ -37,7 +39,11 @@ export default function Typewriter({
           setCurrentText(fullWord.slice(0, currentText.length + 1));
         }, typingSpeed);
       } else {
-        // Finished typing full word, pause before deleting
+        // Finished typing full word
+        if (!loop && wordIndex === words.length - 1) {
+          // Do not delete or loop if loop is set to false
+          return;
+        }
         timer = setTimeout(() => {
           setIsDeleting(true);
         }, pauseDuration);
@@ -56,10 +62,10 @@ export default function Typewriter({
     }
 
     return () => clearTimeout(timer);
-  }, [currentText, isDeleting, wordIndex, words, typingSpeed, deletingSpeed, pauseDuration]);
+  }, [currentText, isDeleting, wordIndex, words, typingSpeed, deletingSpeed, pauseDuration, loop]);
 
   return (
-    <span className={`inline-flex items-center whitespace-nowrap ${className}`}>
+    <span className={`inline-flex flex-wrap items-center justify-center ${className}`}>
       <span>{currentText}</span>
       <span
         className={`inline-block ml-1 font-normal animate-blink text-emerald-500 dark:text-emerald-400 ${cursorClassName}`}

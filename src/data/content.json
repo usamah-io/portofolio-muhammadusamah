@@ -98,7 +98,9 @@
           "location": "Remote / Hackathon",
           "period": "2026",
           "badge": "Hackathon Lead",
-          "description": "Memimpin pengembangan platform ujian berbasis AI di ajang Gemini Hackathon 2026."
+          "description": "Memimpin pengembangan platform ujian berbasis AI di ajang Gemini Hackathon 2026.",
+          "recap_link": "/hackathon-recap",
+          "recap_label": "Rekap Nilai & Galeri ↗"
         }
       ]
     },
@@ -107,6 +109,7 @@
       "subtitle": "Aplikasi dunia nyata, platform digital, dan entri acara.",
       "btn_source": "Kode Sumber",
       "btn_demo": "Kunjungi Situs",
+      "btn_recap": "Lihat Galeri & Rekap Nilai ↗",
       "items": [
         {
           "title": "SKS-Master (Platform Ujian)",
@@ -122,6 +125,84 @@
           "title": "Budiman Cendikia",
           "badge": "Situs Web Sekolah",
           "description": "Situs web sekolah mandiri dengan Decoupled Architecture memakai TypeScript, PHP (Blade), dan SQL."
+        }
+      ]
+    },
+    "hackathon": {
+      "title": "Galeri & Rekap Nilai Resmi",
+      "subtitle": "Pencapaian Tim Sks-Master di Ajang Gemini Hackathon 2026",
+      "badge": "Top 5 Finalis dari 186 Peserta",
+      "final_score_label": "Nilai Akhir Resmi",
+      "final_score": "86,4",
+      "tabs": {
+        "score": "Tabel Rekap Nilai",
+        "gallery": "Galeri Dokumentasi"
+      },
+      "table_headers": {
+        "criterion": "Kriteria Penilaian",
+        "weight": "Bobot",
+        "score": "Skor (1-100)",
+        "weighted": "Nilai Akhir Kriteria"
+      },
+      "scores": [
+        {
+          "kriteria": "Inovasi dan Kebaruan",
+          "bobot": "30%",
+          "skor": 85,
+          "nilai": 25.5,
+          "keterangan": "Ide orisinal pembuatan soal ujian otomatis & evaluasi AI real-time."
+        },
+        {
+          "kriteria": "Relevansi SDGs dan Dampak Sosial",
+          "bobot": "30%",
+          "skor": 85,
+          "nilai": 25.5,
+          "keterangan": "Mendukung SDG 4 (Pendidikan Berkualitas) & pemerataan akses ujian."
+        },
+        {
+          "kriteria": "Feasibility / Kelayakan Implementasi AI",
+          "bobot": "20%",
+          "skor": 88,
+          "nilai": 17.6,
+          "keterangan": "Integrasi Gemini API stabil, cepat, dan siap produksi di Vercel."
+        },
+        {
+          "kriteria": "Kualitas Pitching",
+          "bobot": "20%",
+          "skor": 88,
+          "nilai": 17.6,
+          "keterangan": "Penyampaian presentasi solutif, demonstrasi live, dan respon juri solid."
+        }
+      ],
+      "gallery_categories": ["Semua", "Leaderboard Juri", "Rincian Nilai", "Pengumuman Finalis", "Arsitektur Sistem"],
+      "gallery_items": [
+        {
+          "id": "g1",
+          "title": "Screenshot Leaderboard Rekap Penilaian Juri",
+          "category": "Leaderboard Juri",
+          "src": "/assets/datakeseluruhan peserta.png",
+          "description": "Spreadsheet resmi REKAP PENILAIAN HACKATON GEMFES26: Sks-Master di Peringkat 4 dengan nilai 86,4."
+        },
+        {
+          "id": "g2",
+          "title": "Screenshot Rincian Kriteria Penilaian Juri",
+          "category": "Rincian Nilai",
+          "src": "/assets/data sks.png",
+          "description": "Spreadsheet rincian 30% Inovasi (85), 30% SDGs (85), 20% Feasibility AI (88), & 20% Pitching (88)."
+        },
+        {
+          "id": "g3",
+          "title": "Screenshot Pengumuman WhatsApp Finalis",
+          "category": "Pengumuman Finalis",
+          "src": "/assets/pengumumanfinalis.png",
+          "description": "Pesan resmi pengumuman 5 tim lolos babak Final Pitch Gemini Innovation Hackathon, termasuk Sks-Master."
+        },
+        {
+          "id": "g4",
+          "title": "Diagram Arsitektur Sistem Sks-Master",
+          "category": "Arsitektur Sistem",
+          "src": "/assets/ssanaaaa.png",
+          "description": "Alur sistem: React Client app/dashboard/page.js -> Server Actions app/actions.js -> Gemini API & Bank Soal Offline."
         }
       ]
     },
@@ -310,7 +391,9 @@
           "location": "Remote / Hackathon",
           "period": "2026",
           "badge": "Hackathon Lead",
-          "description": "Led the development of AI-powered exam platform at Gemini Hackathon 2026."
+          "description": "Led the development of AI-powered exam platform at Gemini Hackathon 2026.",
+          "recap_link": "/hackathon-recap",
+          "recap_label": "Scorecard & Gallery ↗"
         }
       ]
     },
@@ -319,6 +402,7 @@
       "subtitle": "Real-world applications, digital platforms, and event entries.",
       "btn_source": "Source Code",
       "btn_demo": "Visit Site",
+      "btn_recap": "View Gallery & Scorecard ↗",
       "items": [
         {
           "title": "SKS-Master (Platform Ujian)",
@@ -334,6 +418,84 @@
           "title": "Budiman Cendikia",
           "badge": "School Website",
           "description": "Independent school website with Decoupled Architecture using TypeScript, PHP (Blade), and SQL."
+        }
+      ]
+    },
+    "hackathon": {
+      "title": "Official Gallery & Scorecard",
+      "subtitle": "Team Sks-Master Achievements at Gemini Hackathon 2026",
+      "badge": "Top 5 Finalist out of 186 Participants",
+      "final_score_label": "Official Final Score",
+      "final_score": "86.4",
+      "tabs": {
+        "score": "Score Breakdown Table",
+        "gallery": "Documentation Gallery"
+      },
+      "table_headers": {
+        "criterion": "Evaluation Criterion",
+        "weight": "Weight",
+        "score": "Score (1-100)",
+        "weighted": "Weighted Criterion Score"
+      },
+      "scores": [
+        {
+          "kriteria": "Innovation & Novelty",
+          "bobot": "30%",
+          "skor": 85,
+          "nilai": 25.5,
+          "keterangan": "Original concept for automated exam creation & real-time AI evaluation."
+        },
+        {
+          "kriteria": "SDGs Relevance & Social Impact",
+          "bobot": "30%",
+          "skor": 85,
+          "nilai": 25.5,
+          "keterangan": "Supports SDG 4 (Quality Education) & equitable exam accessibility."
+        },
+        {
+          "kriteria": "AI Implementation Feasibility",
+          "bobot": "20%",
+          "skor": 88,
+          "nilai": 17.6,
+          "keterangan": "Stable, fast Gemini API integration production-ready on Vercel."
+        },
+        {
+          "kriteria": "Pitching Quality",
+          "bobot": "20%",
+          "skor": 88,
+          "nilai": 17.6,
+          "keterangan": "Solution-oriented presentation, live demo execution, and solid judge Q&A."
+        }
+      ],
+      "gallery_categories": ["All", "Judges Leaderboard", "Score Breakdown", "Finalist Announcement", "System Architecture"],
+      "gallery_items": [
+        {
+          "id": "g1",
+          "title": "Official Judges Leaderboard Spreadsheet Screenshot",
+          "category": "Judges Leaderboard",
+          "src": "/assets/datakeseluruhan peserta.png",
+          "description": "REKAP PENILAIAN HACKATON GEMFES26 official spreadsheet showing Sks-Master Rank 4 with score 86.4."
+        },
+        {
+          "id": "g2",
+          "title": "Detailed Criteria Breakdown Spreadsheet Screenshot",
+          "category": "Score Breakdown",
+          "src": "/assets/data sks.png",
+          "description": "Judges criteria spreadsheet: 30% Innovation (85), 30% SDGs (85), 20% AI Feasibility (88), & 20% Pitching (88)."
+        },
+        {
+          "id": "g3",
+          "title": "Official WhatsApp Group Announcement Screenshot",
+          "category": "Finalist Announcement",
+          "src": "/assets/pengumumanfinalis.png",
+          "description": "Official message announcing the 5 finalist teams for Gemini Innovation Hackathon, including Sks-Master."
+        },
+        {
+          "id": "g4",
+          "title": "Sks-Master System Architecture Diagram",
+          "category": "System Architecture",
+          "src": "/assets/ssanaaaa.png",
+          "description": "System flow: React Client app/dashboard/page.js -> Server Actions app/actions.js -> Gemini API & Offline Question Bank."
         }
       ]
     },

@@ -33,6 +33,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${plusJakartaSans.variable} ${geistMono.variable} h-full antialiased dark`}
+      suppressHydrationWarning
     >
       <body className="min-h-full bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 flex flex-col font-sans selection:bg-emerald-500/30 selection:text-emerald-300 transition-colors duration-300">
         <AppProvider>

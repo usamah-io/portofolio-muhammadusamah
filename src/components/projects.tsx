@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "@/lib/gsap";
 import { useApp } from "./app-context";
 import content from "@/data/content.json";
+import HackathonModal from "./hackathon-modal";
 
 interface ProjectLink {
   liveUrl: string;
@@ -34,6 +35,7 @@ export default function Projects() {
   const { language } = useApp();
   const t = content[language].projects;
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
 
@@ -94,7 +96,7 @@ export default function Projects() {
               key={project.title}
               ref={addToRefs}
               className={`group relative bg-white dark:bg-zinc-900/50 dark:backdrop-blur-md border border-zinc-200 dark:border-zinc-800/80 rounded-2xl p-4 sm:p-6 transition-all duration-300 hover:border-emerald-500/50 hover:shadow-[0_0_25px_rgba(16,185,129,0.06)] shadow-sm hover:shadow-md flex flex-col justify-between transform hover:scale-[1.01] ${
-                isMainCard ? "col-span-2 md:col-span-2" : "col-span-1 md:col-span-1"
+                isMainCard ? "col-span-2 md:col-span-2 border-emerald-500/30 dark:border-emerald-500/20" : "col-span-1 md:col-span-1"
               }`}
             >
               <div>
@@ -103,6 +105,13 @@ export default function Projects() {
                   <span className="text-[9px] sm:text-[10px] font-bold tracking-wider text-emerald-600 dark:text-emerald-400 uppercase bg-emerald-500/10 border border-emerald-500/20 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full transition-colors duration-300 truncate max-w-full">
                     {project.badge}
                   </span>
+
+                  {isMainCard && (
+                    <span className="text-[10px] font-semibold text-emerald-500 dark:text-emerald-400 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      Top 5 Finalist (86.4)
+                    </span>
+                  )}
                 </div>
 
                 <h3 className="text-base sm:text-xl font-bold text-zinc-900 dark:text-white group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors mb-2 sm:mb-3 leading-snug">
@@ -127,34 +136,54 @@ export default function Projects() {
               </div>
 
               {/* Responsive Action Buttons */}
-              <div className="flex items-center gap-1.5 sm:gap-3 border-t border-zinc-200 dark:border-zinc-800/50 pt-3 sm:pt-4 mt-2">
-                <a
-                  href={meta.repoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-1 sm:gap-2 text-[10px] sm:text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors py-2 px-1.5 sm:px-4 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800/60 border border-zinc-200/50 dark:border-zinc-800/80 cursor-pointer"
-                  title={t.btn_source}
-                >
-                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>
-                  <span className="hidden xs:inline sm:inline">{t.btn_source}</span>
-                  <span className="xs:hidden sm:hidden">Kode</span>
-                </a>
-                <a
-                  href={meta.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-1 sm:gap-2 text-[10px] sm:text-xs font-bold text-zinc-950 bg-emerald-500 hover:bg-emerald-450 transition-colors py-2 px-1.5 sm:px-4 rounded-xl shadow-lg shadow-emerald-500/10 cursor-pointer"
-                  title={t.btn_demo}
-                >
-                  <span className="hidden xs:inline sm:inline">{t.btn_demo}</span>
-                  <span className="xs:hidden sm:hidden">Situs</span>
-                  <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>
-                </a>
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2.5 border-t border-zinc-200 dark:border-zinc-800/50 pt-3 sm:pt-4 mt-2">
+                {isMainCard && (
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="w-full inline-flex items-center justify-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-extrabold text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-450 hover:to-teal-450 transition-all py-2.5 px-3 sm:px-4 rounded-xl shadow-md shadow-emerald-500/20 cursor-pointer border border-emerald-400/30"
+                  >
+                    <svg className="w-4 h-4 text-white shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                      <circle cx="8.5" cy="8.5" r="1.5" />
+                      <polyline points="21 15 16 10 5 21" />
+                    </svg>
+                    <span>{"btn_recap" in t ? (t as { btn_recap?: string }).btn_recap : "Lihat Galeri & Rekap Nilai ↗"}</span>
+                  </button>
+                )}
+
+                <div className="flex items-center gap-1.5 sm:gap-3 w-full">
+                  <a
+                    href={meta.repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-1 sm:gap-2 text-[10px] sm:text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors py-2 px-1.5 sm:px-4 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800/60 border border-zinc-200/50 dark:border-zinc-800/80 cursor-pointer"
+                    title={t.btn_source}
+                  >
+                    <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>
+                    <span className="hidden xs:inline sm:inline">{t.btn_source}</span>
+                    <span className="xs:hidden sm:hidden">Kode</span>
+                  </a>
+                  <a
+                    href={meta.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-1 sm:gap-2 text-[10px] sm:text-xs font-bold text-zinc-950 bg-emerald-500 hover:bg-emerald-450 transition-colors py-2 px-1.5 sm:px-4 rounded-xl shadow-lg shadow-emerald-500/10 cursor-pointer"
+                    title={t.btn_demo}
+                  >
+                    <span className="hidden xs:inline sm:inline">{t.btn_demo}</span>
+                    <span className="xs:hidden sm:hidden">Situs</span>
+                    <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>
+                  </a>
+                </div>
               </div>
             </div>
           );
         })}
       </div>
+
+      {/* Interactive Hackathon Modal */}
+      <HackathonModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 }
+
