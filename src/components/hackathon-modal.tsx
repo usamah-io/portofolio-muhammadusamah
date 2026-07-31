@@ -36,16 +36,28 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, selectedImage, onClose]);
 
-  // Lock scroll when open
+  // Lock background scroll completely when open & restore on close
   useEffect(() => {
     if (isOpen) {
+      const scrollY = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "hidden";
+
+      return () => {
+        const savedScrollY = document.body.style.top;
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.width = "";
+        document.body.style.overflow = "auto";
+        document.documentElement.style.overflow = "auto";
+        if (savedScrollY) {
+          window.scrollTo(0, parseInt(savedScrollY || "0") * -1);
+        }
+      };
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
   }, [isOpen]);
 
   if (!isOpen) return null;
@@ -59,26 +71,26 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fadeIn transition-all duration-300">
       {/* Backdrop click listener */}
-      <div className="absolute inset-0" onClick={onClose} />
+      <div className="absolute inset-0 cursor-default" onClick={onClose} />
 
       {/* Main Modal Window */}
       <div className="relative z-10 w-full max-w-4xl max-h-[85vh] flex flex-col bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-emerald-500/30 text-zinc-900 dark:text-white rounded-3xl shadow-2xl shadow-emerald-500/10 overflow-hidden pointer-events-auto touch-pan-y overscroll-contain transition-all duration-300">
         
         {/* Modal Header */}
-        <div className="relative px-4 py-3 sm:px-8 sm:py-5 border-b border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/90 dark:bg-zinc-900/60 backdrop-blur-md flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2.5">
+        <div className="relative px-4 py-3 sm:px-8 sm:py-5 border-b border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/90 dark:bg-zinc-900/60 backdrop-blur-md flex items-center justify-between gap-2.5 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 pr-1">
             <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 shrink-0">
-              <svg className="w-5 h-5 sm:w-7 sm:h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path d="M12 15l-2 5l9-11h-7l2-5l-9 11h7z" />
               </svg>
             </div>
-            <div>
+            <div className="min-w-0 flex-1">
               <div className="flex items-center gap-1.5">
-                <span className="text-[9px] sm:text-xs font-mono font-bold tracking-wider text-emerald-600 dark:text-emerald-400 uppercase bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                <span className="text-[9px] sm:text-xs font-mono font-bold tracking-wider text-emerald-600 dark:text-emerald-400 uppercase bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full shrink-0">
                   Gemini Hackathon 2026
                 </span>
               </div>
-              <h3 className="text-base sm:text-2xl font-extrabold tracking-tight mt-0.5">
+              <h3 className="text-xs sm:text-xl font-extrabold tracking-tight mt-0.5 text-zinc-900 dark:text-white truncate">
                 <Typewriter
                   words={["Galeri & Rekap Nilai Resmi"]}
                   loop={true}
@@ -86,7 +98,7 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
                   deletingSpeed={40}
                   pauseDuration={2000}
                   className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-400 dark:from-emerald-400 dark:via-teal-300 dark:to-emerald-200 font-extrabold"
-                  cursorClassName="text-emerald-500 dark:text-emerald-400 text-base sm:text-2xl font-light"
+                  cursorClassName="text-emerald-500 dark:text-emerald-400 text-xs sm:text-xl font-light"
                 />
               </h3>
             </div>
@@ -152,14 +164,14 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
         </div>
 
         {/* Tab Controls */}
-        <div className="px-5 py-3 sm:px-8 bg-zinc-50/80 dark:bg-zinc-950 border-b border-zinc-200/80 dark:border-zinc-800/60 flex items-center justify-between gap-2 overflow-x-auto">
-          <div className="flex items-center gap-2">
+        <div className="px-4 py-3 sm:px-8 bg-zinc-50/80 dark:bg-zinc-950 border-b border-zinc-200/80 dark:border-zinc-800/60 flex items-center justify-between gap-3 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <button
               onClick={() => setActiveTab("score")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                 activeTab === "score"
-                  ? "bg-emerald-500 text-zinc-950 shadow-md shadow-emerald-500/20"
-                  : "bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white border border-zinc-200 dark:border-zinc-800"
+                  ? "bg-emerald-500 text-zinc-950 shadow-md shadow-emerald-500/20 font-extrabold border border-emerald-400"
+                  : "bg-zinc-100 dark:bg-zinc-900/80 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white border border-zinc-200/80 dark:border-zinc-800"
               }`}
             >
               <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -173,10 +185,10 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
 
             <button
               onClick={() => setActiveTab("gallery")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                 activeTab === "gallery"
-                  ? "bg-emerald-500 text-zinc-950 shadow-md shadow-emerald-500/20"
-                  : "bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white border border-zinc-200 dark:border-zinc-800"
+                  ? "bg-emerald-500 text-zinc-950 shadow-md shadow-emerald-500/20 font-extrabold border border-emerald-400"
+                  : "bg-zinc-100 dark:bg-zinc-900/80 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white border border-zinc-200/80 dark:border-zinc-800"
               }`}
             >
               <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -188,13 +200,17 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
             </button>
           </div>
 
-          <span className="text-xs text-zinc-500 font-mono hidden md:inline-block">
+          <span className="text-xs text-zinc-500 font-mono hidden md:inline-block shrink-0">
             Gemini API Challenge • 2026
           </span>
         </div>
 
-        {/* Modal Body Content */}
-        <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain touch-pan-y p-3.5 sm:p-8 space-y-3.5 sm:space-y-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        {/* Modal Body Content Container (Scroll Vertikal Mulus dengan Custom Scrollbar Auto-Hide Tipis) */}
+        <div
+          onWheel={(e) => e.stopPropagation()}
+          onTouchMove={(e) => e.stopPropagation()}
+          className="flex-1 min-h-0 max-h-[calc(100vh-220px)] overflow-y-auto overscroll-contain touch-pan-y pointer-events-auto p-4 sm:p-8 space-y-4 sm:space-y-6 [scrollbar-width:thin] [scrollbar-color:rgba(16,185,129,0.3)_transparent] hover:[scrollbar-color:rgba(16,185,129,0.6)_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-emerald-500/20 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-emerald-500/50 transition-colors"
+        >
           {activeTab === "score" ? (
             /* --- TAB 1: REKAPITULASI NILAI --- */
             <div className="space-y-3.5 sm:space-y-6 animate-fadeIn">
@@ -365,7 +381,7 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
                       Pencapaian Peringkat 4 Finalis
                     </h4>
                     <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1 leading-relaxed">
-                      Sks-Master berhasil meraih <strong>Peringkat 4 (Top 5 Finalis)</strong> dari total 186 peserta di spreadsheet resmi.
+                      Sks-Master berhasil meraih <strong>Peringkat 4 (Top 4 Finalis)</strong> dari total 186 peserta di spreadsheet resmi.
                     </p>
                   </div>
                 </div>

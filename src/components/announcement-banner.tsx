@@ -63,7 +63,7 @@ export default function AnnouncementBanner() {
             Tim Sks-Master Top 4 Hackathon <span className="text-emerald-600 dark:text-emerald-400 font-mono">(Skor 86,4)</span>
           </h4>
           <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            Berhasil memenangkan Top 5 Finalis di Gemini Innovation Hackathon 2026.
+            Berhasil memenangkan Top 4 Finalis di Gemini Innovation Hackathon 2026.
           </p>
         </div>
 
