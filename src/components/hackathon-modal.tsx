@@ -62,27 +62,23 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
       <div className="absolute inset-0" onClick={onClose} />
 
       {/* Main Modal Window */}
-      <div className="relative z-10 w-full max-w-4xl max-h-[90vh] flex flex-col bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-emerald-500/30 text-zinc-900 dark:text-white rounded-3xl shadow-2xl shadow-emerald-500/10 overflow-hidden transition-all duration-300">
+      <div className="relative z-10 w-full max-w-4xl max-h-[85vh] flex flex-col bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-emerald-500/30 text-zinc-900 dark:text-white rounded-3xl shadow-2xl shadow-emerald-500/10 overflow-hidden pointer-events-auto touch-pan-y overscroll-contain transition-all duration-300">
         
         {/* Modal Header */}
-        <div className="relative px-5 py-5 sm:px-8 sm:py-6 border-b border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/90 dark:bg-zinc-900/60 backdrop-blur-md flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400">
-              <svg className="w-6 h-6 sm:w-7 sm:h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <div className="relative px-4 py-3 sm:px-8 sm:py-5 border-b border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/90 dark:bg-zinc-900/60 backdrop-blur-md flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 shrink-0">
+              <svg className="w-5 h-5 sm:w-7 sm:h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path d="M12 15l-2 5l9-11h-7l2-5l-9 11h7z" />
               </svg>
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] sm:text-xs font-mono font-bold tracking-wider text-emerald-600 dark:text-emerald-400 uppercase bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full">
+              <div className="flex items-center gap-1.5">
+                <span className="text-[9px] sm:text-xs font-mono font-bold tracking-wider text-emerald-600 dark:text-emerald-400 uppercase bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
                   Gemini Hackathon 2026
                 </span>
-                <span className="hidden sm:inline-block text-xs text-zinc-400">•</span>
-                <span className="hidden sm:inline-block text-xs font-semibold text-zinc-600 dark:text-zinc-300">
-                  Sks-Master Team
-                </span>
               </div>
-              <h3 className="text-lg sm:text-2xl font-extrabold tracking-tight mt-1">
+              <h3 className="text-base sm:text-2xl font-extrabold tracking-tight mt-0.5">
                 <Typewriter
                   words={["Galeri & Rekap Nilai Resmi"]}
                   loop={true}
@@ -90,21 +86,21 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
                   deletingSpeed={40}
                   pauseDuration={2000}
                   className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-400 dark:from-emerald-400 dark:via-teal-300 dark:to-emerald-200 font-extrabold"
-                  cursorClassName="text-emerald-500 dark:text-emerald-400 text-lg sm:text-2xl font-light"
+                  cursorClassName="text-emerald-500 dark:text-emerald-400 text-base sm:text-2xl font-light"
                 />
               </h3>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 shrink-0">
             <Link
               href="/hackathon-recap"
               onClick={onClose}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800/80 dark:hover:bg-zinc-700 text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white text-xs font-semibold border border-zinc-200 dark:border-zinc-700 transition-colors shadow-xs"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800/80 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-[11px] sm:text-xs font-semibold border border-zinc-200 dark:border-zinc-700 transition-colors shadow-xs"
               title="Buka Halaman Penuh"
             >
               <span>Full Page</span>
-              <svg className="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                 <polyline points="15 3 21 3 21 9" />
                 <line x1="10" y1="14" x2="21" y2="3" />
@@ -113,10 +109,10 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
 
             <button
               onClick={onClose}
-              className="p-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800/60 dark:hover:bg-zinc-800 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors cursor-pointer"
+              className="p-1.5 sm:p-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800/60 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-400 transition-colors cursor-pointer"
               aria-label="Close modal"
             >
-              <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
@@ -125,32 +121,32 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
         </div>
 
         {/* Top Summary Banner */}
-        <div className="bg-gradient-to-r from-emerald-50/50 via-teal-50/30 to-emerald-50/50 dark:from-emerald-950/40 dark:via-zinc-900/60 dark:to-teal-950/40 px-5 py-4 sm:px-8 border-b border-zinc-200/80 dark:border-zinc-800/60 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0">
-              <svg className="w-5 h-5 text-emerald-600 dark:text-emerald-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+        <div className="bg-gradient-to-r from-emerald-50/50 via-teal-50/30 to-emerald-50/50 dark:from-emerald-950/40 dark:via-zinc-900/60 dark:to-teal-950/40 px-4 py-2.5 sm:px-8 sm:py-4 border-b border-zinc-200/80 dark:border-zinc-800/60 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 dark:text-emerald-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-6.75A1.125 1.125 0 017.5 15.375V18.75m9 0h-9M4.5 4.875C4.5 3.563 5.563 2.5 6.875 2.5h10.25C18.438 2.5 19.5 3.563 19.5 4.875v3.375c0 2.9-2.35 5.25-5.25 5.25h-4.5c-2.9 0-5.25-2.35-5.25-5.25V4.875z" />
               </svg>
             </div>
             <div>
-              <div className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
-                Prestasi Resmi Hackathon
+              <div className="text-[10px] sm:text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+                Prestasi Resmi
               </div>
-              <div className="text-sm sm:text-base font-bold text-zinc-900 dark:text-white">
+              <div className="text-xs sm:text-base font-bold text-zinc-900 dark:text-white truncate max-w-[160px] sm:max-w-none">
                 {t.badge}
               </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-4 bg-white/90 dark:bg-zinc-900/80 border border-emerald-500/30 px-4 py-2 rounded-2xl backdrop-blur-md self-stretch sm:self-auto justify-between sm:justify-start shadow-xs">
-            <span className="text-xs font-medium text-zinc-600 dark:text-zinc-400">
-              {t.final_score_label}:
+          <div className="flex items-center gap-2 bg-white/90 dark:bg-zinc-900/80 border border-emerald-500/30 px-3 py-1 sm:px-4 sm:py-2 rounded-xl sm:rounded-2xl backdrop-blur-md shrink-0 shadow-xs">
+            <span className="text-[10px] sm:text-xs font-medium text-zinc-600 dark:text-zinc-400">
+              Skor:
             </span>
-            <div className="flex items-baseline gap-1">
-              <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-400 dark:from-emerald-400 dark:via-teal-300 dark:to-emerald-200">
+            <div className="flex items-baseline gap-0.5">
+              <span className="text-lg sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-400 dark:from-emerald-400 dark:via-teal-300 dark:to-emerald-200">
                 {t.final_score}
               </span>
-              <span className="text-xs font-semibold text-zinc-500">/ 100</span>
+              <span className="text-[10px] sm:text-xs font-semibold text-zinc-500">/100</span>
             </div>
           </div>
         </div>
@@ -198,22 +194,73 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
         </div>
 
         {/* Modal Body Content */}
-        <div className="flex-1 overflow-y-auto p-5 sm:p-8 space-y-6 custom-scrollbar">
+        <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain touch-pan-y p-3.5 sm:p-8 space-y-3.5 sm:space-y-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           {activeTab === "score" ? (
-            /* --- TAB 1: REKAPITULASI NILAI TABEL --- */
-            <div className="space-y-6 animate-fadeIn">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                  Rincian nilai hasil penilaian resmi juri Gemini Hackathon 2026 berdasarkan lembar evaluasi (spreadsheet) kompetisi:
-                </div>
-                <div className="sm:hidden flex items-center gap-1 text-[11px] font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full shrink-0 w-fit">
-                  <span>Geser tabel ⟷</span>
+            /* --- TAB 1: REKAPITULASI NILAI --- */
+            <div className="space-y-3.5 sm:space-y-6 animate-fadeIn">
+              <div className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                Rincian nilai hasil penilaian resmi juri Gemini Hackathon 2026 berdasarkan lembar evaluasi (spreadsheet) kompetisi:
+              </div>
+
+              {/* Mobile Responsive Card Stack View (Shown only on Mobile < 640px) */}
+              <div className="sm:hidden space-y-3">
+                {t.scores.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="p-4 rounded-2xl bg-white dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-zinc-800/80 space-y-3 shadow-xs"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="space-y-0.5">
+                        <div className="font-extrabold text-sm text-zinc-900 dark:text-white">
+                          {item.kriteria}
+                        </div>
+                        <div className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                          {item.keterangan}
+                        </div>
+                      </div>
+                      <span className="px-2 py-0.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-mono font-bold text-xs shrink-0">
+                        {item.bobot}
+                      </span>
+                    </div>
+
+                    <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800/60 flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[11px] font-semibold text-zinc-400">Skor:</span>
+                        <span className="font-mono font-extrabold text-xs text-emerald-600 dark:text-emerald-400">
+                          {item.skor}/100
+                        </span>
+                        <div className="w-16 bg-zinc-200 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                          <div
+                            className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full"
+                            style={{ width: `${item.skor}%` }}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="text-right">
+                        <span className="text-[9px] font-mono text-zinc-400 block">Nilai</span>
+                        <span className="font-mono font-black text-xs text-zinc-900 dark:text-white">
+                          {item.nilai.toFixed(1)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+                {/* Mobile Total Score Summary Card */}
+                <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between shadow-xs">
+                  <span className="text-xs font-extrabold text-zinc-900 dark:text-white uppercase tracking-wider">
+                    Total Nilai Akhir:
+                  </span>
+                  <span className="font-mono font-black text-base text-emerald-600 dark:text-emerald-400">
+                    {t.final_score} / 100
+                  </span>
                 </div>
               </div>
 
-              {/* Score Table Container */}
-              <div className="w-full max-w-full overflow-x-auto rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/40 backdrop-blur-md shadow-md shadow-emerald-500/5 transition-all">
-                <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[500px]">
+              {/* Desktop Table View (Shown on sm:block >= 640px) */}
+              <div className="hidden sm:block w-full max-w-full overflow-x-auto touch-pan-x overscroll-contain [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/40 backdrop-blur-md shadow-md shadow-emerald-500/5 transition-all">
+                <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[620px]">
                   <thead>
                     <tr className="bg-zinc-100/80 dark:bg-zinc-900/90 text-zinc-600 dark:text-zinc-400 font-semibold border-b border-zinc-200 dark:border-zinc-800 uppercase tracking-wider text-[11px]">
                       <th className="py-3.5 px-4 sm:px-6">{t.table_headers.criterion}</th>
@@ -262,11 +309,11 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
                     ))}
                   </tbody>
                   <tfoot>
-                    <tr className="bg-emerald-50/80 dark:bg-emerald-950/30 border-t-2 border-emerald-500/40">
-                      <td colSpan={3} className="py-4 px-4 sm:px-6 text-right font-extrabold text-zinc-900 dark:text-white text-sm sm:text-base">
+                    <tr className="bg-emerald-50/80 dark:bg-emerald-950/40 border-t-2 border-emerald-500/40">
+                      <td colSpan={3} className="py-4 px-6 text-right font-extrabold text-zinc-900 dark:text-white text-sm">
                         TOTAL NILAI AKHIR REKAPITULASI:
                       </td>
-                      <td className="py-4 px-4 sm:px-6 text-right font-mono font-black text-xl text-emerald-600 dark:text-emerald-400">
+                      <td className="py-4 px-6 text-right font-mono font-black text-xl text-emerald-600 dark:text-emerald-400">
                         {t.final_score}
                       </td>
                     </tr>

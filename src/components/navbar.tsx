@@ -49,18 +49,19 @@ export default function Navbar() {
   const t = content[language];
   const primaryLinks = [
     { label: t.nav.projects, href: "/#projects" },
-    { label: t.nav.activity || "Aktivitas", href: "/#stats" },
+    { label: t.nav.activity || "Aktivitas", href: "/activity" },
   ];
 
   const aboutDropdownLinks = [
     { label: t.nav.profile_short || "Profil Singkat", href: "/about" },
-    { label: t.nav.education_experience || "Pendidikan & Pengalaman", href: "/about#timeline" },
+    { label: t.nav.education_experience || "Pendidikan & Pengalaman", href: "/experience" },
   ];
 
   const moreDropdownLinks = [
     { label: t.nav.achievement || "Prestasi / Hackathon", href: "/hackathon-recap" },
-    { label: t.nav.articles || "Artikel", href: "/#articles" },
-    { label: t.nav.faq || "FAQ", href: "/#faq" },
+    { label: t.nav.articles || "Artikel", href: "/articles" },
+    { label: t.nav.faq || "FAQ", href: "/faq" },
+    { label: "API / Sumber Data", href: "/api-docs" },
   ];
 
   // SSR / Pre-hydration exact matching fallback structure
@@ -262,7 +263,7 @@ export default function Navbar() {
 
             {/* Kontak CTA Button */}
             <Link
-              href="/#contact"
+              href="/contact"
               className="bg-emerald-500 hover:bg-emerald-400 text-zinc-950 text-xs font-bold px-4 py-2 sm:px-5 rounded-full transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg shadow-emerald-500/10"
             >
               {t.nav.cta}
@@ -342,7 +343,7 @@ export default function Navbar() {
           {/* Action Triggers: CTA */}
           <div className="flex flex-col gap-2 pt-2 border-t border-zinc-200 dark:border-zinc-800/80">
             <Link
-              href="/#contact"
+              href="/contact"
               onClick={() => setIsOpen(false)}
               className="w-full text-center bg-emerald-500 hover:bg-emerald-400 text-zinc-950 text-xs font-bold py-2.5 px-4 rounded-xl transition-all duration-300 shadow-md shadow-emerald-500/10"
             >

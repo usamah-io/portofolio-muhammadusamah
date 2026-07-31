@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useApp } from "@/components/app-context";
-import Navbar from "@/components/navbar";
 import content from "@/data/content.json";
 import Typewriter from "@/components/typewriter";
 
@@ -30,8 +29,6 @@ export default function HackathonRecapPage() {
 
       {/* Background Subtle Gradient Blobs */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[500px] bg-gradient-to-b from-emerald-500/10 via-teal-500/5 to-transparent blur-3xl pointer-events-none -z-10" />
-
-      <Navbar />
 
       <div className="pt-28 pb-24 px-4 sm:px-6 w-full max-w-5xl mx-auto relative z-10 space-y-20">
         
@@ -109,34 +106,84 @@ export default function HackathonRecapPage() {
 
         {/* --- SEKSI 1: TABEL REKAPITULASI NILAI RESMI --- */}
         <section className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div className="flex items-center gap-3.5">
-              <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-xs shrink-0">
-                <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                  <line x1="3" y1="9" x2="21" y2="9" />
-                  <line x1="3" y1="15" x2="21" y2="15" />
-                  <line x1="9" y1="3" x2="9" y2="21" />
-                </svg>
-              </div>
-              <div>
-                <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-900 dark:text-white">
-                  Tabel Rekapitulasi Nilai Resmi
-                </h2>
-                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
-                  Rincian bobot dan skor dari lembar penilaian spreadsheet juri
-                </p>
-              </div>
+          <div className="flex items-center gap-3.5">
+            <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-xs shrink-0">
+              <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                <line x1="3" y1="9" x2="21" y2="9" />
+                <line x1="3" y1="15" x2="21" y2="15" />
+                <line x1="9" y1="3" x2="9" y2="21" />
+              </svg>
             </div>
-
-            {/* Mobile Scroll Hint */}
-            <div className="sm:hidden flex items-center gap-1.5 text-[11px] font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full self-start">
-              <span>Geser tabel ⟷</span>
+            <div>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-900 dark:text-white">
+                Tabel Rekapitulasi Nilai Resmi
+              </h2>
+              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
+                Rincian bobot dan skor dari lembar penilaian spreadsheet juri
+              </p>
             </div>
           </div>
 
-          <div className="w-full max-w-full overflow-x-auto rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/50 backdrop-blur-md shadow-xl shadow-emerald-500/5 transition-all">
-            <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[540px]">
+          {/* Mobile Responsive Card Stack View (Shown only on Mobile < 640px) */}
+          <div className="sm:hidden space-y-3">
+            {t.scores.map((item, idx) => (
+              <div
+                key={idx}
+                className="p-4 rounded-2xl bg-white dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-zinc-800/80 space-y-3 shadow-xs"
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div className="space-y-0.5">
+                    <div className="font-extrabold text-sm text-zinc-900 dark:text-white">
+                      {item.kriteria}
+                    </div>
+                    <div className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                      {item.keterangan}
+                    </div>
+                  </div>
+                  <span className="px-2 py-0.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-mono font-bold text-xs shrink-0">
+                    {item.bobot}
+                  </span>
+                </div>
+
+                <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800/60 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-semibold text-zinc-400">Skor:</span>
+                    <span className="font-mono font-extrabold text-xs text-emerald-600 dark:text-emerald-400">
+                      {item.skor}/100
+                    </span>
+                    <div className="w-16 bg-zinc-200 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                      <div
+                        className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full"
+                        style={{ width: `${item.skor}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="text-right">
+                    <span className="text-[9px] font-mono text-zinc-400 block">Nilai</span>
+                    <span className="font-mono font-black text-xs text-zinc-900 dark:text-white">
+                      {item.nilai.toFixed(1)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {/* Mobile Total Score Summary Card */}
+            <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between shadow-xs">
+              <span className="text-xs font-extrabold text-zinc-900 dark:text-white uppercase tracking-wider">
+                Total Nilai Akhir:
+              </span>
+              <span className="font-mono font-black text-base text-emerald-600 dark:text-emerald-400">
+                {t.final_score} / 100
+              </span>
+            </div>
+          </div>
+
+          {/* Desktop Table View (Shown on sm:block >= 640px) */}
+          <div className="hidden sm:block w-full max-w-full overflow-x-auto touch-pan-x overscroll-contain [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/50 backdrop-blur-md shadow-xl shadow-emerald-500/5 transition-all">
+            <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[620px]">
               <thead>
                 <tr className="bg-zinc-100/80 dark:bg-zinc-900/90 text-zinc-600 dark:text-zinc-400 font-semibold border-b border-zinc-200 dark:border-zinc-800 uppercase tracking-wider text-[10px] sm:text-[11px]">
                   <th className="py-3.5 sm:py-4.5 px-4 sm:px-6">{t.table_headers.criterion}</th>
