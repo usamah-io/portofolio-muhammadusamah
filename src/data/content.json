@@ -8,12 +8,17 @@
   },
   "id": {
     "nav": {
-      "about": "Tentang",
+      "about": "Tentang Saya",
+      "profile_short": "Profil Singkat",
       "stats": "Statistik",
       "projects": "Proyek",
+      "activity": "Aktivitas",
       "articles": "Artikel",
+      "achievement": "Prestasi / Hackathon",
+      "education_experience": "Pendidikan & Pengalaman",
       "faq": "FAQ",
-      "cta": "Mari Bicara"
+      "more": "Lainnya",
+      "cta": "Kontak"
     },
     "hero": {
       "status_connecting": "Menghubungkan status...",
@@ -301,12 +306,17 @@
   },
   "en": {
     "nav": {
-      "about": "About",
+      "about": "About Me",
+      "profile_short": "Short Profile",
       "stats": "Stats",
       "projects": "Projects",
+      "activity": "Activity",
       "articles": "Articles",
+      "achievement": "Achievement / Hackathon",
+      "education_experience": "Education & Experience",
       "faq": "FAQ",
-      "cta": "Let's Talk"
+      "more": "More",
+      "cta": "Contact"
     },
     "hero": {
       "status_connecting": "Connecting status...",

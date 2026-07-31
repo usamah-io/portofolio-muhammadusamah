@@ -109,57 +109,64 @@ export default function HackathonRecapPage() {
 
         {/* --- SEKSI 1: TABEL REKAPITULASI NILAI RESMI --- */}
         <section className="space-y-6">
-          <div className="flex items-center gap-3.5">
-            <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-xs">
-              <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                <line x1="3" y1="9" x2="21" y2="9" />
-                <line x1="3" y1="15" x2="21" y2="15" />
-                <line x1="9" y1="3" x2="9" y2="21" />
-              </svg>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="flex items-center gap-3.5">
+              <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-xs shrink-0">
+                <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                  <line x1="3" y1="9" x2="21" y2="9" />
+                  <line x1="3" y1="15" x2="21" y2="15" />
+                  <line x1="9" y1="3" x2="9" y2="21" />
+                </svg>
+              </div>
+              <div>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-900 dark:text-white">
+                  Tabel Rekapitulasi Nilai Resmi
+                </h2>
+                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
+                  Rincian bobot dan skor dari lembar penilaian spreadsheet juri
+                </p>
+              </div>
             </div>
-            <div>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-900 dark:text-white">
-                Tabel Rekapitulasi Nilai Resmi
-              </h2>
-              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
-                Rincian bobot dan skor dari lembar penilaian spreadsheet juri
-              </p>
+
+            {/* Mobile Scroll Hint */}
+            <div className="sm:hidden flex items-center gap-1.5 text-[11px] font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full self-start">
+              <span>Geser tabel ⟷</span>
             </div>
           </div>
 
-          <div className="overflow-x-auto rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/50 backdrop-blur-md shadow-xl shadow-emerald-500/5">
-            <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[600px]">
+          <div className="w-full max-w-full overflow-x-auto rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/50 backdrop-blur-md shadow-xl shadow-emerald-500/5 transition-all">
+            <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[540px]">
               <thead>
-                <tr className="bg-zinc-100/80 dark:bg-zinc-900/90 text-zinc-600 dark:text-zinc-400 font-semibold border-b border-zinc-200 dark:border-zinc-800 uppercase tracking-wider text-[11px]">
-                  <th className="py-4.5 px-6">{t.table_headers.criterion}</th>
-                  <th className="py-4.5 px-4 text-center">{t.table_headers.weight}</th>
-                  <th className="py-4.5 px-6 text-center">{t.table_headers.score}</th>
-                  <th className="py-4.5 px-6 text-right">{t.table_headers.weighted}</th>
+                <tr className="bg-zinc-100/80 dark:bg-zinc-900/90 text-zinc-600 dark:text-zinc-400 font-semibold border-b border-zinc-200 dark:border-zinc-800 uppercase tracking-wider text-[10px] sm:text-[11px]">
+                  <th className="py-3.5 sm:py-4.5 px-4 sm:px-6">{t.table_headers.criterion}</th>
+                  <th className="py-3.5 sm:py-4.5 px-3 sm:px-4 text-center">{t.table_headers.weight}</th>
+                  <th className="py-3.5 sm:py-4.5 px-4 sm:px-6 text-center">{t.table_headers.score}</th>
+                  <th className="py-3.5 sm:py-4.5 px-4 sm:px-6 text-right">{t.table_headers.weighted}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-200/80 dark:divide-zinc-800/60 text-zinc-800 dark:text-zinc-200">
                 {t.scores.map((item, idx) => (
                   <tr key={idx} className="hover:bg-emerald-50/50 dark:hover:bg-zinc-800/40 transition-colors group">
-                    <td className="py-5 px-6">
-                      <div className="font-bold text-zinc-900 dark:text-white text-base group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                    <td className="py-4 sm:py-5 px-4 sm:px-6">
+                      <div className="font-bold text-zinc-900 dark:text-white text-sm sm:text-base group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                         {item.kriteria}
                       </div>
-                      <div className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+                      <div className="text-[11px] sm:text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 leading-relaxed">
                         {item.keterangan}
                       </div>
                     </td>
-                    <td className="py-5 px-4 text-center font-mono font-bold">
-                      <span className="px-3 py-1 rounded-xl bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700/60 text-emerald-600 dark:text-emerald-400">
+                    <td className="py-4 sm:py-5 px-3 sm:px-4 text-center font-mono font-bold">
+                      <span className="px-2.5 sm:px-3 py-1 rounded-xl bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700/60 text-emerald-600 dark:text-emerald-400 text-xs">
                         {item.bobot}
                       </span>
                     </td>
-                    <td className="py-5 px-6">
-                      <div className="flex flex-col items-center gap-1.5">
-                        <span className="font-mono font-extrabold text-lg text-emerald-600 dark:text-emerald-400">
+                    <td className="py-4 sm:py-5 px-4 sm:px-6">
+                      <div className="flex flex-col items-center gap-1">
+                        <span className="font-mono font-extrabold text-base sm:text-lg text-emerald-600 dark:text-emerald-400">
                           {item.skor}
                         </span>
-                        <div className="w-28 bg-zinc-200 dark:bg-zinc-800 rounded-full h-2 overflow-hidden">
+                        <div className="w-24 sm:w-28 bg-zinc-200 dark:bg-zinc-800 rounded-full h-1.5 sm:h-2 overflow-hidden">
                           <div
                             className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full"
                             style={{ width: `${item.skor}%` }}
@@ -167,7 +174,7 @@ export default function HackathonRecapPage() {
                         </div>
                       </div>
                     </td>
-                    <td className="py-5 px-6 text-right font-mono font-black text-zinc-900 dark:text-white text-lg">
+                    <td className="py-4 sm:py-5 px-4 sm:px-6 text-right font-mono font-black text-zinc-900 dark:text-white text-base sm:text-lg">
                       {item.nilai.toFixed(1)}
                     </td>
                   </tr>
@@ -175,10 +182,10 @@ export default function HackathonRecapPage() {
               </tbody>
               <tfoot>
                 <tr className="bg-emerald-50/80 dark:bg-emerald-950/40 border-t-2 border-emerald-500/40">
-                  <td colSpan={3} className="py-5 px-6 text-right font-extrabold text-zinc-900 dark:text-white text-base">
+                  <td colSpan={3} className="py-4 sm:py-5 px-4 sm:px-6 text-right font-extrabold text-zinc-900 dark:text-white text-xs sm:text-base">
                     TOTAL NILAI AKHIR REKAPITULASI:
                   </td>
-                  <td className="py-5 px-6 text-right font-mono font-black text-2xl text-emerald-600 dark:text-emerald-400">
+                  <td className="py-4 sm:py-5 px-4 sm:px-6 text-right font-mono font-black text-xl sm:text-2xl text-emerald-600 dark:text-emerald-400">
                     {t.final_score}
                   </td>
                 </tr>

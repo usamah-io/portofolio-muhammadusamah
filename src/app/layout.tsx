@@ -7,6 +7,8 @@ import ConditionalFooter from "@/components/conditional-footer";
 import { AppProvider } from "@/components/app-context";
 import { AuthProvider } from "@/components/auth-provider";
 
+import AnnouncementBanner from "@/components/announcement-banner";
+
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
@@ -38,6 +40,7 @@ export default function RootLayout({
       <body className="min-h-full bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 flex flex-col font-sans selection:bg-emerald-500/30 selection:text-emerald-300 transition-colors duration-300">
         <AppProvider>
           <AuthProvider>
+            <AnnouncementBanner />
             <SmoothScroll>
               <Navbar />
               <div className="flex flex-col flex-1 relative pt-28">

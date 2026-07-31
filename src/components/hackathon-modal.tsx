@@ -202,13 +202,18 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
           {activeTab === "score" ? (
             /* --- TAB 1: REKAPITULASI NILAI TABEL --- */
             <div className="space-y-6 animate-fadeIn">
-              <div className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                Rincian nilai hasil penilaian resmi juri Gemini Hackathon 2026 berdasarkan lembar evaluasi (spreadsheet) kompetisi:
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                  Rincian nilai hasil penilaian resmi juri Gemini Hackathon 2026 berdasarkan lembar evaluasi (spreadsheet) kompetisi:
+                </div>
+                <div className="sm:hidden flex items-center gap-1 text-[11px] font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full shrink-0 w-fit">
+                  <span>Geser tabel ⟷</span>
+                </div>
               </div>
 
               {/* Score Table Container */}
-              <div className="overflow-x-auto rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/40 backdrop-blur-md shadow-md shadow-emerald-500/5">
-                <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[580px]">
+              <div className="w-full max-w-full overflow-x-auto rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/40 backdrop-blur-md shadow-md shadow-emerald-500/5 transition-all">
+                <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[500px]">
                   <thead>
                     <tr className="bg-zinc-100/80 dark:bg-zinc-900/90 text-zinc-600 dark:text-zinc-400 font-semibold border-b border-zinc-200 dark:border-zinc-800 uppercase tracking-wider text-[11px]">
                       <th className="py-3.5 px-4 sm:px-6">{t.table_headers.criterion}</th>
