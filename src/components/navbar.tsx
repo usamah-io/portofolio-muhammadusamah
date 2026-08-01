@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-import { Bell, Trophy, X, ChevronRight } from "lucide-react";
 import { useApp } from "./app-context";
 import content from "@/data/content.json";
 
@@ -11,28 +10,16 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
   const [moreDropdownOpen, setMoreDropdownOpen] = useState(false);
-  const [notificationOpen, setNotificationOpen] = useState(false);
-  const [hasUnread, setHasUnread] = useState(true);
 
   const { language, setLanguage, theme, toggleTheme } = useApp();
 
   const aboutTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const moreTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const notificationRef = useRef<HTMLDivElement>(null);
 
-  // Set mounted on client to prevent hydration mismatch & handle click outside
+  // Set mounted on client to prevent hydration mismatch
   useEffect(() => {
     setMounted(true);
-
-    const handleClickOutside = (e: MouseEvent) => {
-      if (notificationRef.current && !notificationRef.current.contains(e.target as Node)) {
-        setNotificationOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
       if (aboutTimeoutRef.current) clearTimeout(aboutTimeoutRef.current);
       if (moreTimeoutRef.current) clearTimeout(moreTimeoutRef.current);
     };
@@ -73,7 +60,6 @@ export default function Navbar() {
   ];
 
   const moreDropdownLinks = [
-    { label: t.nav.volunteer || "Galeri Volunteer", href: "/volunteer" },
     { label: t.nav.achievement || "Prestasi / Hackathon", href: "/hackathon-recap" },
     { label: t.nav.articles || "Artikel", href: "/articles" },
     { label: t.nav.faq || "FAQ", href: "/faq" },
@@ -264,71 +250,6 @@ export default function Navbar() {
               </button>
             </div>
 
-            {/* Dropdown Notification Bell (Desktop) */}
-            <div className="relative" ref={notificationRef}>
-              <button
-                onClick={() => {
-                  setNotificationOpen(!notificationOpen);
-                  setHasUnread(false);
-                }}
-                className="p-2 rounded-full text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-all duration-200 cursor-pointer relative"
-                aria-label="Notifikasi Prestasi"
-                title="Notifikasi Prestasi"
-              >
-                <Bell className="w-5 h-5 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-[#00FF87] transition-colors" />
-                {hasUnread && (
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 dark:bg-[#00FF87] animate-pulse absolute top-1 right-1 border-2 border-white dark:border-zinc-900" />
-                )}
-              </button>
-
-              {/* Notification Dropdown Popover */}
-              {notificationOpen && (
-                <div className="absolute right-0 top-full mt-3 w-80 sm:w-96 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                  <div className="bg-white dark:bg-[#111111] border border-gray-200 dark:border-white/10 shadow-2xl rounded-2xl p-4 space-y-3">
-                    {/* Top Bar Header */}
-                    <div className="flex items-center justify-between border-b border-gray-200 dark:border-zinc-800 pb-2.5">
-                      <div className="flex items-center gap-2">
-                        <span className="p-1 rounded-lg bg-emerald-500/10 dark:bg-[#00FF87]/10 text-emerald-600 dark:text-[#00FF87]">
-                          <Trophy className="w-4 h-4" />
-                        </span>
-                        <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-600 dark:text-[#00FF87]">
-                          🏆 Pencapaian Spesial
-                        </span>
-                      </div>
-                      <button
-                        onClick={() => setNotificationOpen(false)}
-                        className="text-gray-400 hover:text-gray-600 dark:hover:text-white p-1 rounded-md transition-colors cursor-pointer"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    </div>
-
-                    {/* Card Item Content */}
-                    <div className="space-y-2 bg-gray-50 dark:bg-zinc-900/60 p-3 rounded-xl border border-gray-200/60 dark:border-zinc-800/80">
-                      <h4 className="text-xs sm:text-sm font-extrabold text-gray-900 dark:text-white leading-snug">
-                        Top 4 Finalis Gemastik 2026 (Hackathon)
-                      </h4>
-                      <p className="text-[11px] sm:text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
-                        Satu-satunya peserta tingkat SMP yang berjuang solo (sendirian) dan berhasil menembus 5 Besar Finalis (Juara 4) dari total 186 tim mahasiswa seluruh Indonesia.
-                      </p>
-                    </div>
-
-                    {/* Footer CTA Button */}
-                    <div className="pt-1 flex items-center justify-end">
-                      <Link
-                        href="/#projects"
-                        onClick={() => setNotificationOpen(false)}
-                        className="w-full inline-flex items-center justify-center gap-1.5 text-xs font-bold text-zinc-950 bg-emerald-500 hover:bg-emerald-400 dark:bg-[#00FF87] dark:hover:bg-[#00e67a] py-2 px-4 rounded-xl shadow-md transition-all text-center"
-                      >
-                        <span>Lihat Detail Proyek</span>
-                        <ChevronRight className="w-4 h-4" />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
             {/* Theme Toggle (Sun/Moon) */}
             <button
               onClick={toggleTheme}
@@ -374,22 +295,6 @@ export default function Navbar() {
               EN
             </button>
           </div>
-
-          {/* Mobile Notification Bell */}
-          <button
-            onClick={() => {
-              setNotificationOpen(!notificationOpen);
-              setHasUnread(false);
-            }}
-            className="p-2 rounded-full text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-all duration-200 cursor-pointer relative"
-            aria-label="Notifikasi Prestasi"
-            title="Notifikasi Prestasi"
-          >
-            <Bell className="w-5 h-5 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-[#00FF87]" />
-            {hasUnread && (
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 dark:bg-[#00FF87] animate-pulse absolute top-1 right-1 border-2 border-white dark:border-zinc-900" />
-            )}
-          </button>
 
           {/* Mobile Theme Toggle */}
           <button

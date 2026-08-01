@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/smooth-scroll";
 import Navbar from "@/components/navbar";
 import ConditionalFooter from "@/components/conditional-footer";
+import FloatingNotificationWidget from "@/components/floating-notification-widget";
 import { AppProvider } from "@/components/app-context";
 import { AuthProvider } from "@/components/auth-provider";
 
@@ -46,6 +47,7 @@ export default function RootLayout({
               <div className="flex flex-col flex-1 relative pt-28">
                 {children}
               </div>
+              <FloatingNotificationWidget />
               <ConditionalFooter />
             </SmoothScroll>
           </AuthProvider>
