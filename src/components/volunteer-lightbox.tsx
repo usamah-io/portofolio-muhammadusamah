@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { X, ExternalLink } from "lucide-react";
 
@@ -36,7 +36,10 @@ function extractDriveFileId(url: string): string | null {
 }
 
 export default function VolunteerLightbox({ media, onClose }: VolunteerLightboxProps) {
+  const [videoError, setVideoError] = useState(false);
+
   useEffect(() => {
+    setVideoError(false);
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         onClose();
@@ -57,8 +60,8 @@ export default function VolunteerLightbox({ media, onClose }: VolunteerLightboxP
   if (!media) return null;
 
   const driveFileId = media.type === "video" ? extractDriveFileId(media.mediaSrc) : null;
-  const drivePreviewUrl = driveFileId
-    ? `https://drive.google.com/file/d/${driveFileId}/preview`
+  const streamUrl = driveFileId
+    ? `/api/stream?id=${driveFileId}`
     : media.mediaSrc;
 
   return (
@@ -101,7 +104,7 @@ export default function VolunteerLightbox({ media, onClose }: VolunteerLightboxP
           </div>
         </div>
 
-        {/* Media Container */}
+        {/* Media Container - Native HTML5 Video Stream Proxy */}
         <div className="relative w-full flex-1 min-h-[260px] sm:min-h-[450px] max-h-[68vh] bg-black flex items-center justify-center overflow-hidden">
           {media.type === "image" ? (
             <Image
@@ -111,20 +114,28 @@ export default function VolunteerLightbox({ media, onClose }: VolunteerLightboxP
               sizes="100vw"
               className="object-contain w-full h-full"
             />
-          ) : driveFileId ? (
-            <iframe
-              src={drivePreviewUrl}
-              className="w-full h-full border-0 bg-black"
-              allow="autoplay; fullscreen"
-              allowFullScreen
-              title={media.title}
-            />
+          ) : videoError ? (
+            <div className="flex flex-col items-center justify-center p-6 text-center space-y-3">
+              <p className="text-sm font-mono text-zinc-300">
+                Video tidak dapat diputar secara langsung.
+              </p>
+              <a
+                href={media.mediaSrc}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-zinc-950 bg-emerald-500 dark:bg-[#00FF87] px-4 py-2 rounded-xl hover:bg-emerald-400 dark:hover:bg-[#00e67a] transition-colors"
+              >
+                <span>Buka di Google Drive</span>
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            </div>
           ) : (
             <video
-              src={media.mediaSrc}
+              src={streamUrl}
               controls
               autoPlay
               playsInline
+              onError={() => setVideoError(true)}
               className="w-full h-full object-contain bg-black"
             >
               Browser Anda tidak mendukung pemutaran video HTML5.
