@@ -1,0 +1,366 @@
+"use client";
+
+import { ReactNode, useState } from "react";
+import Image from "next/image";
+import { ExternalLink } from "lucide-react";
+
+export interface CardAction {
+  label: string;
+  href?: string;
+  onClick?: () => void;
+  icon?: ReactNode;
+}
+
+export interface FloatingBadge {
+  text: string;
+  variant?: "neon" | "emerald" | "amber" | "dark" | "outline";
+  icon?: ReactNode;
+}
+
+export interface BrowserMockupCardProps {
+  domain: string;
+  mediaType: "image" | "video";
+  mediaSrc: string;
+  poster?: string;
+  floatingBadge?: FloatingBadge;
+  secondaryBadge?: FloatingBadge;
+  categoryLabel: string;
+  title: string;
+  description: string;
+  tags: string[];
+  primaryAction: CardAction;
+  secondaryAction?: CardAction;
+  extraAction?: CardAction;
+  isHighlighted?: boolean;
+  onMediaClick?: () => void;
+  className?: string;
+}
+
+// GitHub Icon Component
+function GithubIcon({ className = "w-3.5 h-3.5 shrink-0" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
+      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+    </svg>
+  );
+}
+
+// Extract Google Drive File ID if present
+function extractDriveFileId(url: string): string | null {
+  if (!url) return null;
+  const match = url.match(
+    /(?:drive\.google\.com\/(?:file\/d\/|uc\?.*id=|open\?.*id=)|docs\.google\.com\/file\/d\/)([a-zA-Z0-9_-]+)/
+  );
+  if (match && match[1]) {
+    return match[1];
+  }
+  if (/^[a-zA-Z0-9_-]{25,50}$/.test(url.trim())) {
+    return url.trim();
+  }
+  return null;
+}
+
+export default function BrowserMockupCard({
+  domain,
+  mediaType,
+  mediaSrc,
+  poster,
+  floatingBadge,
+  secondaryBadge,
+  categoryLabel,
+  title,
+  description,
+  tags,
+  primaryAction,
+  secondaryAction,
+  extraAction,
+  isHighlighted = false,
+  onMediaClick,
+  className = "",
+}: BrowserMockupCardProps) {
+  const [aspectRatio, setAspectRatio] = useState<"landscape" | "portrait">("landscape");
+  const [videoError, setVideoError] = useState(false);
+
+  const driveFileId = mediaType === "video" ? extractDriveFileId(mediaSrc) : null;
+  const drivePreviewUrl = driveFileId
+    ? `https://drive.google.com/file/d/${driveFileId}/preview`
+    : mediaSrc;
+
+  const handleVideoMetadata = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
+    const video = e.currentTarget;
+    if (video.videoHeight && video.videoWidth && video.videoHeight > video.videoWidth) {
+      setAspectRatio("portrait");
+    } else {
+      setAspectRatio("landscape");
+    }
+  };
+
+  const handleImageLoad = (img: HTMLImageElement) => {
+    if (img.naturalHeight && img.naturalWidth && img.naturalHeight > img.naturalWidth) {
+      setAspectRatio("portrait");
+    } else {
+      setAspectRatio("landscape");
+    }
+  };
+
+  return (
+    <div
+      className={`group relative bg-white dark:bg-[#111111] border ${
+        isHighlighted
+          ? "border-emerald-500/60 dark:border-[#00FF87]/60 shadow-lg shadow-emerald-500/10 dark:shadow-[0_0_30px_rgba(0,255,135,0.12)]"
+          : "border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-zinc-700"
+      } rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 flex flex-col justify-between shadow-sm hover:shadow-2xl hover:shadow-emerald-500/10 dark:hover:shadow-[#00FF87]/10 active:scale-[0.98] transform hover:-translate-y-1 sm:hover:-translate-y-1.5 ${className}`}
+    >
+      {/* 1. Top Bar (Browser Mockup Header) */}
+      <div className="bg-gray-100 dark:bg-zinc-900/80 border-b border-gray-200 dark:border-zinc-800/90 px-2.5 py-1.5 sm:px-4 sm:py-2.5 flex items-center justify-between gap-2 sm:gap-3 z-10 shrink-0 select-none">
+        {/* 3 Window Control Dots */}
+        <div className="flex items-center gap-1 sm:gap-1.5">
+          <span className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-[#FF5F56] inline-block shadow-sm" title="Close" />
+          <span className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-[#FFBD2E] inline-block shadow-sm" title="Minimize" />
+          <span className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-[#27C93F] inline-block shadow-sm" title="Expand" />
+        </div>
+
+        {/* Mini URL Bar in Center */}
+        <div className="flex-1 max-w-[110px] sm:max-w-[280px] mx-auto bg-white dark:bg-[#0a0a0c] px-2 py-0.5 sm:px-3 sm:py-1 rounded-md border border-gray-200 dark:border-zinc-800/80 text-center flex items-center justify-center gap-1 sm:gap-1.5">
+          <svg
+            className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-gray-400 dark:text-gray-500 shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+          <span className="text-[9px] sm:text-[11px] font-mono text-gray-500 dark:text-gray-400 truncate">
+            https://{domain}
+          </span>
+        </div>
+
+        {/* Subtle right balance indicator */}
+        <div className="w-6 sm:w-10 flex justify-end">
+          <span className="w-1.5 h-1.5 rounded-full bg-gray-400 dark:bg-zinc-600" />
+        </div>
+      </div>
+
+      {/* 2. Media Container - Adaptif Aspect Ratio */}
+      <div
+        className={`relative w-full ${
+          aspectRatio === "portrait" ? "aspect-[9/16] max-h-[520px]" : "aspect-[16/9]"
+        } overflow-hidden bg-zinc-950 dark:bg-black/95 group/media flex items-center justify-center transition-all duration-300`}
+      >
+        {mediaType === "image" ? (
+          <Image
+            src={mediaSrc}
+            alt={title}
+            fill
+            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+            onLoadingComplete={handleImageLoad}
+            className="object-contain w-full h-full group-hover/media:scale-105 transition-transform duration-500 ease-out"
+          />
+        ) : driveFileId ? (
+          /* Official Google Drive Preview Iframe */
+          <iframe
+            src={drivePreviewUrl}
+            className="w-full h-full border-0 bg-black"
+            allow="autoplay; fullscreen"
+            allowFullScreen
+            title={title}
+          />
+        ) : videoError ? (
+          /* Fallback UI if native video fails */
+          <div className="relative w-full h-full bg-zinc-950 flex flex-col items-center justify-center p-4 sm:p-6 text-center space-y-2 sm:space-y-3">
+            {poster && (
+              <Image src={poster} alt={title} fill className="object-cover opacity-30" />
+            )}
+            <div className="relative z-10 p-2 sm:p-3 rounded-full bg-zinc-900/90 border border-zinc-700 text-emerald-400 dark:text-[#00FF87]">
+              <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+            </div>
+            <p className="relative z-10 text-[10px] sm:text-xs font-mono text-zinc-300 max-w-[180px] sm:max-w-[220px]">
+              Video tidak dapat diputar langsung.
+            </p>
+            <a
+              href={mediaSrc}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative z-10 inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-zinc-950 bg-emerald-500 dark:bg-[#00FF87] px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg hover:bg-emerald-400 dark:hover:bg-[#00e67a] transition-colors"
+            >
+              Tonton di Drive ↗
+            </a>
+          </div>
+        ) : (
+          <video
+            src={mediaSrc}
+            poster={poster}
+            controls
+            playsInline
+            preload="metadata"
+            onLoadedMetadata={handleVideoMetadata}
+            onError={() => setVideoError(true)}
+            className="w-full h-full object-contain bg-black"
+          >
+            Browser Anda tidak mendukung pemutaran video HTML5.
+          </video>
+        )}
+
+        {/* Floating Badges */}
+        {floatingBadge && (
+          <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 z-10 pointer-events-none">
+            <span
+              className={`text-[9px] sm:text-[11px] font-mono font-bold px-2 py-0.5 sm:px-3 sm:py-1 rounded-full flex items-center gap-1 sm:gap-1.5 shadow-lg backdrop-blur-md border ${
+                floatingBadge.variant === "neon"
+                  ? "bg-emerald-500/15 dark:bg-[#00FF87]/15 text-emerald-600 dark:text-[#00FF87] border-emerald-500/40 dark:border-[#00FF87]/40"
+                  : floatingBadge.variant === "amber"
+                  ? "bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/40"
+                  : "bg-zinc-950/85 text-zinc-200 border-zinc-700/80"
+              }`}
+            >
+              {floatingBadge.icon ? (
+                floatingBadge.icon
+              ) : (
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-[#00FF87] animate-pulse" />
+              )}
+              <span>{floatingBadge.text}</span>
+            </span>
+          </div>
+        )}
+
+        {secondaryBadge && (
+          <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10 pointer-events-none">
+            <span className="text-[9px] sm:text-[11px] font-mono font-black text-zinc-950 bg-emerald-500 dark:bg-[#00FF87] border border-emerald-400 dark:border-[#00FF87] px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full shadow-md">
+              {secondaryBadge.text}
+            </span>
+          </div>
+        )}
+
+        {onMediaClick && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onMediaClick();
+            }}
+            className="absolute top-2 right-2 z-20 p-1.5 rounded-lg bg-zinc-950/80 hover:bg-emerald-500 dark:hover:bg-[#00FF87] text-zinc-300 hover:text-zinc-950 border border-zinc-700/80 transition-colors shadow-md cursor-pointer"
+            title="Layar Penuh / Lightbox"
+            aria-label="Layar Penuh"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+            </svg>
+          </button>
+        )}
+      </div>
+
+      {/* 3. Card Content */}
+      <div className="p-3 sm:p-5 md:p-6 flex-1 flex flex-col justify-between space-y-2 sm:space-y-4 bg-white dark:bg-[#111111]">
+        <div>
+          <div className="flex items-center gap-1.5 sm:gap-2 mb-1 sm:mb-2">
+            <span className="text-[9px] sm:text-[11px] font-mono font-extrabold tracking-wider text-emerald-600 dark:text-[#00FF87] uppercase bg-emerald-500/10 dark:bg-[#00FF87]/10 border border-emerald-500/25 dark:border-[#00FF87]/25 px-1.5 py-0.5 sm:px-2.5 sm:py-0.5 rounded">
+              {categoryLabel}
+            </span>
+          </div>
+
+          <h3 className="text-xs sm:text-base md:text-lg font-bold sm:font-extrabold text-gray-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-[#00FF87] transition-colors leading-snug line-clamp-2">
+            {title}
+          </h3>
+
+          <p className="text-[10px] sm:text-xs md:text-sm text-gray-600 dark:text-gray-400 leading-relaxed mt-1 hidden sm:line-clamp-2">
+            {description}
+          </p>
+
+          {tags && tags.length > 0 && (
+            <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-2 sm:mt-4">
+              {tags.map((tag, tagIdx) => (
+                <span
+                  key={tag}
+                  className={`text-[9px] sm:text-[10px] font-mono font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-zinc-800 px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-md ${
+                    tagIdx > 1 ? "hidden sm:inline-flex" : ""
+                  }`}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* 4. Action Buttons */}
+        <div className="pt-2 sm:pt-4 border-t border-gray-200 dark:border-zinc-800/90 flex flex-wrap items-center gap-1.5 sm:gap-2 mt-2 sm:mt-4">
+          {extraAction && (
+            <div className="w-full mb-1">
+              {extraAction.href ? (
+                <a
+                  href={extraAction.href}
+                  className="w-full text-center inline-flex items-center justify-center gap-1.5 text-[10px] sm:text-xs font-black text-zinc-950 bg-emerald-500 hover:bg-emerald-400 dark:bg-[#00FF87] dark:hover:bg-[#00e67a] transition-all py-1.5 px-2 sm:py-2.5 sm:px-3 rounded-lg sm:rounded-xl shadow-md shadow-emerald-500/10 dark:shadow-[#00FF87]/20 border border-emerald-400/40 dark:border-[#00FF87]/50 transform hover:scale-[1.01]"
+                >
+                  {extraAction.icon}
+                  <span>{extraAction.label}</span>
+                </a>
+              ) : (
+                <button
+                  onClick={extraAction.onClick}
+                  className="w-full text-center inline-flex items-center justify-center gap-1.5 text-[10px] sm:text-xs font-black text-zinc-950 bg-emerald-500 hover:bg-emerald-400 dark:bg-[#00FF87] dark:hover:bg-[#00e67a] transition-all py-1.5 px-2 sm:py-2.5 sm:px-3 rounded-lg sm:rounded-xl shadow-md shadow-emerald-500/10 dark:shadow-[#00FF87]/20 border border-emerald-400/40 dark:border-[#00FF87]/50 transform hover:scale-[1.01] cursor-pointer"
+                >
+                  {extraAction.icon}
+                  <span>{extraAction.label}</span>
+                </button>
+              )}
+            </div>
+          )}
+
+          {secondaryAction && (
+            <a
+              href={secondaryAction.href || "#"}
+              target={secondaryAction.href?.startsWith("http") ? "_blank" : undefined}
+              rel={secondaryAction.href?.startsWith("http") ? "noopener noreferrer" : undefined}
+              onClick={secondaryAction.onClick}
+              className="hidden sm:inline-flex flex-1 items-center justify-center gap-1.5 text-xs font-bold text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors py-2.5 px-3.5 rounded-xl bg-gray-100 hover:bg-gray-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 border border-gray-200 dark:border-zinc-800 cursor-pointer min-h-[38px] text-center"
+            >
+              {secondaryAction.icon ? (
+                secondaryAction.icon
+              ) : secondaryAction.href?.includes("github.com") ? (
+                <GithubIcon className="w-3.5 h-3.5 shrink-0" />
+              ) : (
+                <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+              )}
+              <span>{secondaryAction.label}</span>
+            </a>
+          )}
+
+          <a
+            href={primaryAction.href || "#"}
+            target={primaryAction.href?.startsWith("http") ? "_blank" : undefined}
+            rel={primaryAction.href?.startsWith("http") ? "noopener noreferrer" : undefined}
+            onClick={primaryAction.onClick}
+            className="w-full sm:flex-1 inline-flex items-center justify-center gap-1 sm:gap-1.5 text-[10px] sm:text-xs font-black text-zinc-950 bg-emerald-500 hover:bg-emerald-400 dark:bg-[#00FF87] dark:hover:bg-[#00e67a] active:scale-[0.98] transition-all py-1.5 px-2 sm:py-2.5 sm:px-3.5 rounded-lg sm:rounded-xl shadow-md shadow-emerald-500/10 dark:shadow-[#00FF87]/20 cursor-pointer min-h-[30px] sm:min-h-[38px] text-center"
+          >
+            <span>{primaryAction.label}</span>
+            {primaryAction.icon ? (
+              primaryAction.icon
+            ) : (
+              <svg
+                className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2.5"
+              >
+                <path d="M7 17L17 7M17 7H7M17 7V17" />
+              </svg>
+            )}
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
