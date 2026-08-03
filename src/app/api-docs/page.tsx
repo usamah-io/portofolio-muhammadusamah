@@ -162,20 +162,20 @@ export default function ApiDocsPage() {
             return (
               <div
                 key={item.id}
-                className="bg-white dark:bg-zinc-900/60 border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl overflow-hidden transition-all duration-300 shadow-xs"
+                className="group bg-white dark:bg-zinc-900/60 border border-zinc-200/80 dark:border-zinc-800/80 hover:border-emerald-500/40 rounded-2xl overflow-hidden transition-all duration-300 shadow-xs hover:shadow-md"
               >
                 {/* Accordion Header Trigger */}
                 <button
                   onClick={() => toggleAccordion(item.id)}
-                  className="w-full p-4 sm:p-5 flex items-center justify-between gap-3 text-left hover:bg-zinc-50 dark:hover:bg-zinc-850/50 transition-colors cursor-pointer"
+                  className="w-full p-4 sm:p-5 flex items-center justify-between gap-3 text-left hover:bg-zinc-100/70 dark:hover:bg-zinc-800/60 transition-colors cursor-pointer"
                   aria-expanded={isOpen}
                 >
                   <div className="flex items-center gap-3 min-w-0 pr-2">
                     <span
-                      className={`text-[10px] font-mono font-black px-2.5 py-1 rounded-lg shrink-0 ${
+                      className={`text-[11px] font-mono font-black px-2.5 py-1 rounded-lg shrink-0 border transition-colors shadow-xs ${
                         item.method === "GET"
-                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30"
-                          : "bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/30"
+                          ? "bg-emerald-500/15 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border-emerald-500/30"
+                          : "bg-blue-500/15 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300 border-blue-500/30"
                       }`}
                     >
                       {item.method}
@@ -183,22 +183,22 @@ export default function ApiDocsPage() {
 
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-mono font-bold text-zinc-400 hidden sm:inline-block">
+                        <span className="text-xs font-mono font-bold text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-700 dark:group-hover:text-zinc-300 transition-colors hidden sm:inline-block">
                           {item.category}
                         </span>
                         <span className="text-xs text-zinc-400 hidden sm:inline-block">•</span>
-                        <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 truncate">
+                        <span className="text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-500 dark:group-hover:text-emerald-300 transition-colors truncate">
                           {item.path}
                         </span>
                       </div>
-                      <h3 className="text-sm sm:text-base font-extrabold text-zinc-900 dark:text-white truncate mt-0.5">
+                      <h3 className="text-sm sm:text-base font-extrabold text-zinc-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors truncate mt-0.5">
                         {item.title}
                       </h3>
                     </div>
                   </div>
 
                   {/* Expand Chevron Icon */}
-                  <div className={`p-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 transition-transform duration-300 shrink-0 ${isOpen ? "rotate-180 text-emerald-500 dark:text-emerald-400" : ""}`}>
+                  <div className={`p-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 group-hover:bg-emerald-500/10 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-all duration-300 shrink-0 ${isOpen ? "rotate-180 text-emerald-500 dark:text-emerald-400" : ""}`}>
                     <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                       <polyline points="6 9 12 15 18 9" />
                     </svg>

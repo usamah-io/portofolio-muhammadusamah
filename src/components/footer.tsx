@@ -4,6 +4,14 @@ import { useRef, useEffect, useState } from "react";
 import { gsap } from "@/lib/gsap";
 import { useApp } from "./app-context";
 import content from "@/data/content.json";
+import {
+  getRateLimitStatus,
+  setRateLimitTimestamp,
+  isOwnerEmail,
+  OWNER_EMAIL_ERROR_MESSAGE,
+  MIN_LENGTH_ERROR_MESSAGE,
+  RATE_LIMIT_MESSAGE,
+} from "@/lib/contact-validation";
 
 export default function Footer() {
   const { language } = useApp();
@@ -13,9 +21,19 @@ export default function Footer() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isRateLimited, setIsRateLimited] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const textBannerRef = useRef<HTMLDivElement>(null);
+
+  // Check rate limit on mount
+  useEffect(() => {
+    const rateStatus = getRateLimitStatus();
+    if (rateStatus.isRateLimited) {
+      setIsRateLimited(true);
+      setToastMessage(RATE_LIMIT_MESSAGE);
+    }
+  }, []);
 
   // ScrollTrigger animation for the giant "LET'S TALK" text
   useEffect(() => {
@@ -60,7 +78,36 @@ export default function Footer() {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+    const honeypot = (formData.get("honeypot_website") as string || "").trim();
+    const name = (formData.get("name") as string || "").trim();
+    const email = (formData.get("email") as string || "").trim();
+    const message = (formData.get("message") as string || "").trim();
+
+    // 1. Honeypot check (anti-bot)
+    if (honeypot !== "") {
+      form.reset();
+      return;
+    }
+
+    // 2. Rate limit check (Max 1 message per 24 hours per user)
+    const rateStatus = getRateLimitStatus();
+    if (isRateLimited || rateStatus.isRateLimited) {
+      setIsRateLimited(true);
+      setToastMessage(RATE_LIMIT_MESSAGE);
+      return;
+    }
+
+    // 3. Self Email Validation (Owner email check)
+    if (isOwnerEmail(email)) {
+      setToastMessage(OWNER_EMAIL_ERROR_MESSAGE);
+      return;
+    }
+
+    // 4. Message length check (min 10 chars)
+    if (message.length < 10) {
+      setToastMessage(MIN_LENGTH_ERROR_MESSAGE);
+      return;
+    }
 
     setFormSubmitted(true);
 
@@ -70,13 +117,15 @@ export default function Footer() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ name, email, message, honeypot_website: honeypot }),
       });
 
       const result = await res.json();
 
       if (res.ok) {
-        setToastMessage("Pesan berhasil terkirim!");
+        setRateLimitTimestamp();
+        setIsRateLimited(true);
+        setToastMessage(RATE_LIMIT_MESSAGE);
         form.reset();
       } else {
         setToastMessage(result.error || "Gagal mengirim pesan. Silakan coba lagi.");
@@ -85,9 +134,6 @@ export default function Footer() {
       setToastMessage("Terjadi kesalahan jaringan. Silakan coba lagi.");
     } finally {
       setFormSubmitted(false);
-      setTimeout(() => {
-        setToastMessage(null);
-      }, 5000);
     }
   };
 
@@ -166,6 +212,16 @@ export default function Footer() {
         {/* Contact Form */}
         <div className="bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800/80 rounded-3xl p-6 sm:p-8 shadow-sm transition-colors duration-300">
           <form onSubmit={handleFormSubmit} className="space-y-4">
+            {/* Honeypot Field */}
+            <input
+              type="text"
+              name="honeypot_website"
+              tabIndex={-1}
+              autoComplete="off"
+              style={{ display: "none" }}
+              aria-hidden="true"
+            />
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5 min-w-0">
                 <label className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">{t.form_name}</label>
@@ -173,8 +229,9 @@ export default function Footer() {
                   type="text"
                   name="name"
                   required
+                  disabled={isRateLimited || formSubmitted}
                   placeholder="John Doe"
-                  className="w-full overflow-x-auto whitespace-nowrap bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-xl px-4 py-2.5 text-sm sm:text-base focus:outline-none transition-colors"
+                  className="w-full overflow-x-auto whitespace-nowrap bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-xl px-4 py-2.5 text-sm sm:text-base focus:outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </div>
               <div className="space-y-1.5 min-w-0">
@@ -183,8 +240,9 @@ export default function Footer() {
                   type="email"
                   name="email"
                   required
+                  disabled={isRateLimited || formSubmitted}
                   placeholder="john@example.com"
-                  className="w-full overflow-x-auto whitespace-nowrap bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-xl px-4 py-2.5 text-sm sm:text-base focus:outline-none transition-colors"
+                  className="w-full overflow-x-auto whitespace-nowrap bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-xl px-4 py-2.5 text-sm sm:text-base focus:outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </div>
             </div>
@@ -194,17 +252,21 @@ export default function Footer() {
                 rows={4}
                 name="message"
                 required
-                placeholder="Let's build a new project..."
-                className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-xl px-4 py-2.5 text-sm sm:text-base focus:outline-none transition-colors resize-none"
+                minLength={10}
+                disabled={isRateLimited || formSubmitted}
+                placeholder="Let's build a new project (minimal 10 karakter)..."
+                className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-xl px-4 py-2.5 text-sm sm:text-base focus:outline-none transition-colors resize-none disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
             
             <button
               type="submit"
-              disabled={formSubmitted}
+              disabled={isRateLimited || formSubmitted}
               className="w-full bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-500/50 disabled:cursor-not-allowed text-zinc-950 font-bold py-3.5 px-6 rounded-xl transition-all duration-300 shadow-lg shadow-emerald-500/10 flex items-center justify-center gap-2 cursor-pointer"
             >
-              {formSubmitted ? (
+              {isRateLimited ? (
+                <span>Terkunci (Maks 1 Pesan/24 Jam)</span>
+              ) : formSubmitted ? (
                 <div className="flex items-center gap-2">
                   <svg className="animate-spin h-4 w-4 text-zinc-950" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>

@@ -1,14 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import content from "@/data/content.json";
+import {
+  getRateLimitStatus,
+  setRateLimitTimestamp,
+  isOwnerEmail,
+  OWNER_EMAIL_ERROR_MESSAGE,
+  MIN_LENGTH_ERROR_MESSAGE,
+  RATE_LIMIT_MESSAGE,
+} from "@/lib/contact-validation";
 
 export default function ContactPage() {
   const socials = content.socials;
   const [copied, setCopied] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [isRateLimited, setIsRateLimited] = useState(false);
   const [status, setStatus] = useState<{ success: boolean; message: string } | null>(null);
+
+  useEffect(() => {
+    const rateStatus = getRateLimitStatus();
+    if (rateStatus.isRateLimited) {
+      setIsRateLimited(true);
+      setStatus({
+        success: false,
+        message: RATE_LIMIT_MESSAGE,
+      });
+    }
+  }, []);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(socials.gmail);
@@ -18,33 +38,73 @@ export default function ContactPage() {
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitting(true);
     setStatus(null);
 
-    const formData = new FormData(e.currentTarget);
-    const data = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      message: formData.get("message"),
-    };
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const honeypot = (formData.get("honeypot_website") as string || "").trim();
+    const name = (formData.get("name") as string || "").trim();
+    const email = (formData.get("email") as string || "").trim();
+    const message = (formData.get("message") as string || "").trim();
+
+    // 1. Honeypot check (anti-bot): fail silently if hidden field is filled
+    if (honeypot !== "") {
+      form.reset();
+      return;
+    }
+
+    // 2. Rate limit check (Max 1 message per 24 hours per user)
+    const rateStatus = getRateLimitStatus();
+    if (isRateLimited || rateStatus.isRateLimited) {
+      setIsRateLimited(true);
+      setStatus({
+        success: false,
+        message: RATE_LIMIT_MESSAGE,
+      });
+      return;
+    }
+
+    // 3. Self Email Validation (Owner email check)
+    if (isOwnerEmail(email)) {
+      setStatus({
+        success: false,
+        message: OWNER_EMAIL_ERROR_MESSAGE,
+      });
+      return;
+    }
+
+    // 4. Message length check (min 10 chars)
+    if (message.length < 10) {
+      setStatus({
+        success: false,
+        message: MIN_LENGTH_ERROR_MESSAGE,
+      });
+      return;
+    }
+
+    setSubmitting(true);
 
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ name, email, message, honeypot_website: honeypot }),
       });
 
+      const result = await res.json();
+
       if (res.ok) {
+        setRateLimitTimestamp();
+        setIsRateLimited(true);
         setStatus({
           success: true,
-          message: "Pesan Anda berhasil terkirim! Terima kasih telah menghubungi saya.",
+          message: RATE_LIMIT_MESSAGE,
         });
-        (e.target as HTMLFormElement).reset();
+        form.reset();
       } else {
         setStatus({
           success: false,
-          message: "Gagal mengirim pesan. Silakan coba lagi atau hubungi via WhatsApp.",
+          message: result.error || "Gagal mengirim pesan. Silakan coba lagi atau hubungi via WhatsApp.",
         });
       }
     } catch {
@@ -243,6 +303,16 @@ export default function ContactPage() {
           )}
 
           <form onSubmit={handleFormSubmit} className="space-y-4">
+            {/* Honeypot field (hidden from real users, tricks spam bots) */}
+            <input
+              type="text"
+              name="honeypot_website"
+              tabIndex={-1}
+              autoComplete="off"
+              style={{ display: "none" }}
+              aria-hidden="true"
+            />
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
@@ -252,8 +322,9 @@ export default function ContactPage() {
                   type="text"
                   name="name"
                   required
+                  disabled={isRateLimited || submitting}
                   placeholder="Muhammad Rizky"
-                  className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-2xl px-4 py-3 text-sm focus:outline-none transition-colors"
+                  className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-2xl px-4 py-3 text-sm focus:outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </div>
               <div className="space-y-1.5">
@@ -264,8 +335,9 @@ export default function ContactPage() {
                   type="email"
                   name="email"
                   required
+                  disabled={isRateLimited || submitting}
                   placeholder="rizky@example.com"
-                  className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-2xl px-4 py-3 text-sm focus:outline-none transition-colors"
+                  className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-2xl px-4 py-3 text-sm focus:outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </div>
             </div>
@@ -278,18 +350,26 @@ export default function ContactPage() {
                 rows={5}
                 name="message"
                 required
-                placeholder="Tuliskan pesan atau ide proyek Anda di sini..."
-                className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-2xl px-4 py-3 text-sm focus:outline-none transition-colors resize-none"
+                minLength={10}
+                disabled={isRateLimited || submitting}
+                placeholder="Tuliskan pesan atau ide proyek Anda di sini (minimal 10 karakter)..."
+                className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-2xl px-4 py-3 text-sm focus:outline-none transition-colors resize-none disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
 
             <div className="pt-2 flex justify-end">
               <button
                 type="submit"
-                disabled={submitting}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-450 hover:to-teal-350 text-zinc-950 font-extrabold text-sm shadow-md shadow-emerald-500/20 transition-all duration-300 disabled:opacity-50 cursor-pointer"
+                disabled={isRateLimited || submitting}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-450 hover:to-teal-350 text-zinc-950 font-extrabold text-sm shadow-md shadow-emerald-500/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
-                <span>{submitting ? "Mengirim Pesan..." : "Kirim Pesan Langsung"}</span>
+                <span>
+                  {isRateLimited
+                    ? "Terkunci (Maks 1 Pesan/24 Jam)"
+                    : submitting
+                    ? "Mengirim Pesan..."
+                    : "Kirim Pesan Langsung"}
+                </span>
                 <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                   <line x1="22" y1="2" x2="11" y2="13" />
                   <polygon points="22 2 15 22 11 13 2 9 22 2" />

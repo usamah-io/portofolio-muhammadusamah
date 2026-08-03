@@ -1,15 +1,67 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import {
+  isOwnerEmail,
+  OWNER_EMAIL_ERROR_MESSAGE,
+  MIN_LENGTH_ERROR_MESSAGE,
+  RATE_LIMIT_MS,
+  RATE_LIMIT_MESSAGE,
+} from "@/lib/contact-validation";
+
+// Server-side in-memory rate limiting map (IP -> last timestamp)
+const ipRateLimitMap = new Map<string, number>();
 
 export async function POST(req: Request) {
   try {
-    const { name, email, message } = await req.json();
+    const { name, email, message, honeypot_website } = await req.json();
+
+    // 1. Honeypot check (silently pretend success if bot fills hidden field)
+    if (honeypot_website && String(honeypot_website).trim() !== "") {
+      return NextResponse.json(
+        { success: true, message: "Pesan berhasil terkirim!" },
+        { status: 200 }
+      );
+    }
 
     if (!name || !email || !message) {
       return NextResponse.json(
         { error: "Nama, email, dan pesan wajib diisi." },
         { status: 400 }
       );
+    }
+
+    // 2. Self Email Check
+    if (isOwnerEmail(email)) {
+      return NextResponse.json(
+        { error: OWNER_EMAIL_ERROR_MESSAGE },
+        { status: 400 }
+      );
+    }
+
+    // 3. Message Length Check
+    const trimmedMessage = String(message).trim();
+    if (trimmedMessage.length < 10) {
+      return NextResponse.json(
+        { error: MIN_LENGTH_ERROR_MESSAGE },
+        { status: 400 }
+      );
+    }
+
+    // 4. Server-Side IP Rate Limiting (1 message per 24 hours per IP)
+    const clientIp =
+      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      req.headers.get("x-real-ip") ||
+      "unknown-ip";
+
+    if (clientIp !== "unknown-ip") {
+      const lastSent = ipRateLimitMap.get(clientIp);
+      const now = Date.now();
+      if (lastSent && now - lastSent < RATE_LIMIT_MS) {
+        return NextResponse.json(
+          { error: RATE_LIMIT_MESSAGE },
+          { status: 429 }
+        );
+      }
     }
 
     const transporter = nodemailer.createTransport({
@@ -35,7 +87,7 @@ export async function POST(req: Request) {
             </tr>
             <tr>
               <td style="padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-weight: bold; color: #555555;">Email Pengirim:</td>
-              <td style="padding: 10px 0; border-bottom: 1px solid #f0f0f0; color: #111827;"><a href="mailto:${email}" style="color: #10b981; text-decoration: none;">${email}</a></td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f0f0f0; color: #10b981;">${email}</td>
             </tr>
           </table>
 
@@ -62,6 +114,11 @@ export async function POST(req: Request) {
     };
 
     await transporter.sendMail(mailOptions);
+
+    // Update IP rate limit timestamp upon successful mail send
+    if (clientIp !== "unknown-ip") {
+      ipRateLimitMap.set(clientIp, Date.now());
+    }
 
     return NextResponse.json(
       { success: true, message: "Pesan berhasil terkirim!" },
