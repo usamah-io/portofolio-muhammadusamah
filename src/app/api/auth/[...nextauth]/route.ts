@@ -19,8 +19,15 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
+        
+        const adminPassword = process.env.ADMIN_PASSWORD;
+        if (!adminPassword) {
+          console.error("CRITICAL: ADMIN_PASSWORD environment variable is not defined!");
+          return null;
+        }
+
         const isEmailValid = credentials.email.toLowerCase().trim() === ADMIN_EMAIL.toLowerCase().trim();
-        const isPasswordValid = credentials.password === (process.env.ADMIN_PASSWORD || "admin123");
+        const isPasswordValid = credentials.password === adminPassword;
 
         if (isEmailValid && isPasswordValid) {
           return {
@@ -57,7 +64,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET || "fallbacksecret1234567890",
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 const handler = NextAuth(authOptions);

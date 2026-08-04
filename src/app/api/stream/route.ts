@@ -8,6 +8,12 @@ export async function GET(request: NextRequest) {
     return new NextResponse("Missing File ID", { status: 400 });
   }
 
+  // Strict regex check for Google Drive File ID format (alphanumeric, hyphen, underscore)
+  const safeFileIdRegex = /^[a-zA-Z0-9_-]{10,100}$/;
+  if (!safeFileIdRegex.test(fileId)) {
+    return new NextResponse("Invalid File ID format", { status: 400 });
+  }
+
   // Primary direct video stream from Google Drive storage CDN
   const driveStreamUrl = `https://lh3.googleusercontent.com/d/${fileId}`;
 

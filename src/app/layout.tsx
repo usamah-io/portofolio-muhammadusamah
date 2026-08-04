@@ -20,8 +20,31 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DEV.PORTFOLIO | Creative Developer Portfolio",
-  description: "Modern developer portfolio built with Next.js, Tailwind CSS, GSAP, and Lenis.",
+  metadataBase: new URL("https://portofolio-usamah.vercel.app"),
+  title: "Muhammad Usamah - Full-Stack & AI Developer",
+  description: "Portofolio resmi Muhammad Usamah Abdurrahman - Creative Full-Stack & AI Developer. Menampilkan proyek web modern, integrasi AI, dan pengalaman kompetisi.",
+  openGraph: {
+    title: "Muhammad Usamah - Full-Stack & AI Developer",
+    description: "Portofolio resmi Muhammad Usamah Abdurrahman - Creative Full-Stack & AI Developer. Menampilkan proyek web modern, integrasi AI, dan pengalaman kompetisi.",
+    url: "https://portofolio-usamah.vercel.app/",
+    siteName: "Muhammad Usamah Portfolio",
+    locale: "id_ID",
+    type: "website",
+    images: [
+      {
+        url: "/profile-v2.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Muhammad Usamah - Full-Stack & AI Developer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Muhammad Usamah - Full-Stack & AI Developer",
+    description: "Portofolio resmi Muhammad Usamah Abdurrahman - Creative Full-Stack & AI Developer.",
+    images: ["/profile-v2.jpg"],
+  },
 };
 
 export default function RootLayout({

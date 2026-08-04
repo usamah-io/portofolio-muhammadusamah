@@ -28,11 +28,13 @@
       "status_idle": "Idle di Discord",
       "status_dnd": "Jangan Ganggu",
       "status_offline": "Offline",
-      "title_1": "Frontend Developer",
-      "title_2": "& UI Engineer",
+      "title_1": "Full-Stack Developer",
+      "title_2": "& Content Creator",
       "subtitle": "Menciptakan aplikasi web premium berkinerja tinggi dengan tata letak responsif, estetika modern, dan perhatian penuh pada detail pixel.",
       "cta_explore": "Lihat Proyek",
-      "cta_github": "Profil GitHub"
+      "cta_github": "Profil GitHub",
+      "cta_download_cv": "Download CV",
+      "badge_achievement": "Top 4 Finalis Gemini Hackathon 2026"
     },
     "stats": {
       "title": "Aktivitas & Statistik",
@@ -155,7 +157,7 @@
           "domain": "volunteer.dev/cisarua-part-1",
           "description": "Dokumentasi tim relawan saat tiba di lokasi bencana longsor Cisarua, pembagian tugas evakuasi, dan asesmen kebutuhan darurat.",
           "tags": ["Tanggap Darurat", "Cisarua", "Volunteer", "Kemanusiaan"],
-          "videoSrc": "https://drive.google.com/file/d/1PuoAcNuSvaQ5WBZ7OuhbPxEdoLxMuf3A/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1PuoAcNuSvaQ5WBZ7OuhbPxEdoLxMuf3A",
           "detailUrl": "https://drive.google.com/file/d/1PuoAcNuSvaQ5WBZ7OuhbPxEdoLxMuf3A/view"
         },
         {
@@ -167,7 +169,7 @@
           "domain": "volunteer.dev/cisarua-part-2",
           "description": "Dokumentasi kegiatan di posko relawan Cisarua, penyaluran bantuan logistik, pemulihan sarana, dan pendampingan warga terdampak.",
           "tags": ["Pemulihan", "Posko Kemanusiaan", "Volunteer", "Cisarua"],
-          "videoSrc": "https://drive.google.com/file/d/14LOFP-zQkv6fPs23v6IHU5SDU4EYZ_-z/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/14LOFP-zQkv6fPs23v6IHU5SDU4EYZ_-z",
           "detailUrl": "https://drive.google.com/file/d/14LOFP-zQkv6fPs23v6IHU5SDU4EYZ_-z/view"
         },
         {
@@ -179,7 +181,7 @@
           "domain": "volunteer.dev/cisarua-part-3",
           "description": "Dokumentasi situasi lapangan akhir, penutupan aksi relawan Cisarua, dan evaluasi dampak bantuan kemanusiaan.",
           "tags": ["Dokumentasi", "Relawan", "Cisarua", "Aksi Sosial"],
-          "videoSrc": "https://drive.google.com/file/d/1l7F-SJbCKiQXgAHTYiQw0V4Ny1herohn/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1l7F-SJbCKiQXgAHTYiQw0V4Ny1herohn",
           "detailUrl": "https://drive.google.com/file/d/1l7F-SJbCKiQXgAHTYiQw0V4Ny1herohn/view"
         },
         {
@@ -191,7 +193,7 @@
           "domain": "volunteer.dev/cisarua-part-4",
           "description": "Dokumentasi pergerakan tim relawan dalam membantu pembersihan area terdampak dan mendistribusikan kebutuhan pokok.",
           "tags": ["Aksi Lapangan", "Logistik", "Relawan", "Cisarua"],
-          "videoSrc": "https://drive.google.com/file/d/1UYjVfyx18sx6ZTwQwH5hPn9F4onu0MB4/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1UYjVfyx18sx6ZTwQwH5hPn9F4onu0MB4",
           "detailUrl": "https://drive.google.com/file/d/1UYjVfyx18sx6ZTwQwH5hPn9F4onu0MB4/view"
         },
         {
@@ -203,7 +205,7 @@
           "domain": "volunteer.dev/cisarua-part-5",
           "description": "Proses penerimaan, pembungkusan paket bantuan, serta penyaluran logistik makanan dan medis di posko utama.",
           "tags": ["Logistik", "Posko Utama", "Volunteer", "Cisarua"],
-          "videoSrc": "https://drive.google.com/file/d/1adtZ8YDCSmP5TUWy9CQssmlIxNpfeBkQ/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1adtZ8YDCSmP5TUWy9CQssmlIxNpfeBkQ",
           "detailUrl": "https://drive.google.com/file/d/1adtZ8YDCSmP5TUWy9CQssmlIxNpfeBkQ/view"
         },
         {
@@ -215,7 +217,7 @@
           "domain": "volunteer.dev/cisarua-part-6",
           "description": "Sesi koordinasi harian tim relawan bersama aparat setempat dan penentuan zona distribusi prioritas.",
           "tags": ["Koordinasi", "Briefing", "Volunteer", "Cisarua"],
-          "videoSrc": "https://drive.google.com/file/d/1omxGMQ3WvumEf5zd2giCl82aDWfyb60T/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1omxGMQ3WvumEf5zd2giCl82aDWfyb60T",
           "detailUrl": "https://drive.google.com/file/d/1omxGMQ3WvumEf5zd2giCl82aDWfyb60T/view"
         },
         {
@@ -227,7 +229,7 @@
           "domain": "volunteer.dev/cisarua-part-7",
           "description": "Perjalanan tim relawan menembus jalur evakuasi untuk menyerahkan langsung paket sembako ke rumah warga.",
           "tags": ["Distribusi", "Bantuan Sembako", "Volunteer", "Cisarua"],
-          "videoSrc": "https://drive.google.com/file/d/1pzcHYYbrgW4UOLXjXyhNcXkAt7oBibZQ/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1pzcHYYbrgW4UOLXjXyhNcXkAt7oBibZQ",
           "detailUrl": "https://drive.google.com/file/d/1pzcHYYbrgW4UOLXjXyhNcXkAt7oBibZQ/view"
         },
         {
@@ -239,7 +241,7 @@
           "domain": "volunteer.dev/cisarua-part-8",
           "description": "Kegiatan gotong royong pembersihan fasilitas umum serta dukungan sosial psikologis bagi warga terdampak.",
           "tags": ["Gotong Royong", "Pemulihan", "Volunteer", "Cisarua"],
-          "videoSrc": "https://drive.google.com/file/d/1EadPzCtUkqE3uWg38Dlup0TcE9nr8Vp8/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1EadPzCtUkqE3uWg38Dlup0TcE9nr8Vp8",
           "detailUrl": "https://drive.google.com/file/d/1EadPzCtUkqE3uWg38Dlup0TcE9nr8Vp8/view"
         },
         {
@@ -251,7 +253,7 @@
           "domain": "volunteer.dev/cisarua-part-9",
           "description": "Sinergi tim relawan lintas komunitas dalam mendukung kebutuhan air bersih dan dapur umum posko.",
           "tags": ["Dapur Umum", "Air Bersih", "Volunteer", "Cisarua"],
-          "videoSrc": "https://drive.google.com/file/d/1BPaWHv7SJwgDXG5Y-YbrGaqtD7nh_Yk4/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1BPaWHv7SJwgDXG5Y-YbrGaqtD7nh_Yk4",
           "detailUrl": "https://drive.google.com/file/d/1BPaWHv7SJwgDXG5Y-YbrGaqtD7nh_Yk4/view"
         },
         {
@@ -263,7 +265,7 @@
           "domain": "volunteer.dev/cisarua-part-10",
           "description": "Dokumentasi acara penutupan giat relawan Cisarua, pelepasan tim, serta penyerahan posko kepada tokoh masyarakat.",
           "tags": ["Penutupan", "Evaluasi", "Volunteer", "Cisarua"],
-          "videoSrc": "https://drive.google.com/file/d/1clB2zGHyl--BgGqKOqwrEgOMvveiCqGz/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1clB2zGHyl--BgGqKOqwrEgOMvveiCqGz",
           "detailUrl": "https://drive.google.com/file/d/1clB2zGHyl--BgGqKOqwrEgOMvveiCqGz/view"
         },
         {
@@ -485,11 +487,13 @@
       "status_idle": "Idle on Discord",
       "status_dnd": "Do Not Disturb",
       "status_offline": "Offline",
-      "title_1": "Frontend Developer",
-      "title_2": "& UI Engineer",
+      "title_1": "Full-Stack Developer",
+      "title_2": "& Content Creator",
       "subtitle": "Creating premium, highly performant web applications with responsive layouts, responsive aesthetics, and pixel-perfect attention to detail.",
       "cta_explore": "Explore Projects",
-      "cta_github": "GitHub Profile"
+      "cta_github": "GitHub Profile",
+      "cta_download_cv": "Download CV",
+      "badge_achievement": "Top 4 Gemini Hackathon 2026 Finalist"
     },
     "stats": {
       "title": "Activity & Stats",
@@ -612,7 +616,7 @@
           "domain": "volunteer.dev/cisarua-part-1",
           "description": "Documentation of volunteer team arrival at Cisarua landslide disaster location, evacuation assignment, and emergency needs assessment.",
           "tags": ["Emergency Response", "Cisarua", "Volunteer", "Humanitarian"],
-          "videoSrc": "https://drive.google.com/file/d/1PuoAcNuSvaQ5WBZ7OuhbPxEdoLxMuf3A/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1PuoAcNuSvaQ5WBZ7OuhbPxEdoLxMuf3A",
           "detailUrl": "https://drive.google.com/file/d/1PuoAcNuSvaQ5WBZ7OuhbPxEdoLxMuf3A/view"
         },
         {
@@ -624,7 +628,7 @@
           "domain": "volunteer.dev/cisarua-part-2",
           "description": "Documentation of activities at Cisarua volunteer post, distribution of logistics, facility recovery, and community support.",
           "tags": ["Recovery", "Humanitarian Post", "Volunteer", "Cisarua"],
-          "videoSrc": "https://drive.google.com/file/d/14LOFP-zQkv6fPs23v6IHU5SDU4EYZ_-z/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/14LOFP-zQkv6fPs23v6IHU5SDU4EYZ_-z",
           "detailUrl": "https://drive.google.com/file/d/14LOFP-zQkv6fPs23v6IHU5SDU4EYZ_-z/view"
         },
         {
@@ -636,7 +640,7 @@
           "domain": "volunteer.dev/cisarua-part-3",
           "description": "Documentation of final field situation, closing of Cisarua volunteer relief action, and humanitarian aid evaluation.",
           "tags": ["Documentation", "Volunteer", "Cisarua", "Social Action"],
-          "videoSrc": "https://drive.google.com/file/d/1l7F-SJbCKiQXgAHTYiQw0V4Ny1herohn/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1l7F-SJbCKiQXgAHTYiQw0V4Ny1herohn",
           "detailUrl": "https://drive.google.com/file/d/1l7F-SJbCKiQXgAHTYiQw0V4Ny1herohn/view"
         },
         {
@@ -648,7 +652,7 @@
           "domain": "volunteer.dev/cisarua-part-4",
           "description": "Documentation of volunteer team movement in clearing affected areas and distributing basic necessities.",
           "tags": ["Field Action", "Logistics", "Volunteer", "Cisarua"],
-          "videoSrc": "https://drive.google.com/file/d/1UYjVfyx18sx6ZTwQwH5hPn9F4onu0MB4/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1UYjVfyx18sx6ZTwQwH5hPn9F4onu0MB4",
           "detailUrl": "https://drive.google.com/file/d/1UYjVfyx18sx6ZTwQwH5hPn9F4onu0MB4/view"
         },
         {
@@ -660,7 +664,7 @@
           "domain": "volunteer.dev/cisarua-part-5",
           "description": "Process of receiving, packaging aid supplies, and distributing food and medical logistics at the main post.",
           "tags": ["Logistics", "Main Post", "Volunteer", "Cisarua"],
-          "videoSrc": "https://drive.google.com/file/d/1adtZ8YDCSmP5TUWy9CQssmlIxNpfeBkQ/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1adtZ8YDCSmP5TUWy9CQssmlIxNpfeBkQ",
           "detailUrl": "https://drive.google.com/file/d/1adtZ8YDCSmP5TUWy9CQssmlIxNpfeBkQ/view"
         },
         {
@@ -672,7 +676,7 @@
           "domain": "volunteer.dev/cisarua-part-6",
           "description": "Daily coordination session of volunteer teams with local authorities and priority distribution zone assignment.",
           "tags": ["Coordination", "Briefing", "Volunteer", "Cisarua"],
-          "videoSrc": "https://drive.google.com/file/d/1omxGMQ3WvumEf5zd2giCl82aDWfyb60T/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1omxGMQ3WvumEf5zd2giCl82aDWfyb60T",
           "detailUrl": "https://drive.google.com/file/d/1omxGMQ3WvumEf5zd2giCl82aDWfyb60T/view"
         },
         {
@@ -684,7 +688,7 @@
           "domain": "volunteer.dev/cisarua-part-7",
           "description": "Volunteer team journey navigating evacuation routes to deliver food supplies directly to residents.",
           "tags": ["Distribution", "Relief Supplies", "Volunteer", "Cisarua"],
-          "videoSrc": "https://drive.google.com/file/d/1pzcHYYbrgW4UOLXjXyhNcXkAt7oBibZQ/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1pzcHYYbrgW4UOLXjXyhNcXkAt7oBibZQ",
           "detailUrl": "https://drive.google.com/file/d/1pzcHYYbrgW4UOLXjXyhNcXkAt7oBibZQ/view"
         },
         {
@@ -696,7 +700,7 @@
           "domain": "volunteer.dev/cisarua-part-8",
           "description": "Community cleanup of public facilities and psychosocial support for affected residents.",
           "tags": ["Community Work", "Recovery", "Volunteer", "Cisarua"],
-          "videoSrc": "https://drive.google.com/file/d/1EadPzCtUkqE3uWg38Dlup0TcE9nr8Vp8/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1EadPzCtUkqE3uWg38Dlup0TcE9nr8Vp8",
           "detailUrl": "https://drive.google.com/file/d/1EadPzCtUkqE3uWg38Dlup0TcE9nr8Vp8/view"
         },
         {
@@ -708,7 +712,7 @@
           "domain": "volunteer.dev/cisarua-part-9",
           "description": "Synergy of inter-community volunteer teams in supporting clean water and soup kitchen needs.",
           "tags": ["Soup Kitchen", "Clean Water", "Volunteer", "Cisarua"],
-          "videoSrc": "https://drive.google.com/file/d/1BPaWHv7SJwgDXG5Y-YbrGaqtD7nh_Yk4/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1BPaWHv7SJwgDXG5Y-YbrGaqtD7nh_Yk4",
           "detailUrl": "https://drive.google.com/file/d/1BPaWHv7SJwgDXG5Y-YbrGaqtD7nh_Yk4/view"
         },
         {
@@ -720,7 +724,7 @@
           "domain": "volunteer.dev/cisarua-part-10",
           "description": "Documentation of Cisarua volunteer closing ceremony, team farewell, and post handover to community leaders.",
           "tags": ["Closing", "Review", "Volunteer", "Cisarua"],
-          "videoSrc": "https://drive.google.com/file/d/1clB2zGHyl--BgGqKOqwrEgOMvveiCqGz/preview",
+          "videoSrc": "https://lh3.googleusercontent.com/d/1clB2zGHyl--BgGqKOqwrEgOMvveiCqGz",
           "detailUrl": "https://drive.google.com/file/d/1clB2zGHyl--BgGqKOqwrEgOMvveiCqGz/view"
         },
         {

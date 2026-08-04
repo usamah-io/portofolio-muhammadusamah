@@ -46,7 +46,7 @@ export default function AdminPage() {
       redirect: false,
     });
     if (res?.error) {
-      setPassError("Password Admin salah. Gunakan 'admin123'");
+      setPassError("Password Admin salah. Akses ditolak.");
     }
   };
 
