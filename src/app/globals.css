@@ -28,6 +28,21 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Hide default cursor on desktop when custom cursor is active */
+@media (hover: hover) and (pointer: fine) {
+  html.custom-cursor-enabled,
+  html.custom-cursor-enabled body,
+  html.custom-cursor-enabled a,
+  html.custom-cursor-enabled button,
+  html.custom-cursor-enabled input,
+  html.custom-cursor-enabled textarea,
+  html.custom-cursor-enabled select,
+  html.custom-cursor-enabled [role="button"],
+  html.custom-cursor-enabled [data-cursor-hover] {
+    cursor: none !important;
+  }
+}
+
 /* Lenis Smooth Scroll Configuration */
 html.lenis,
 html.lenis body {

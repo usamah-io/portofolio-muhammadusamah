@@ -61,7 +61,7 @@ export default function VolunteerLightbox({ media, onClose }: VolunteerLightboxP
 
   const driveFileId = media.type === "video" ? extractDriveFileId(media.mediaSrc) : null;
   const streamUrl = driveFileId
-    ? `/api/stream?id=${driveFileId}`
+    ? `/api/video/${driveFileId}`
     : media.mediaSrc;
 
   return (

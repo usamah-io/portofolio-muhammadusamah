@@ -10,6 +10,8 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
   const [moreDropdownOpen, setMoreDropdownOpen] = useState(false);
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
+  const [mobileMoreOpen, setMobileMoreOpen] = useState(false);
 
   const { language, setLanguage, theme, toggleTheme } = useApp();
 
@@ -69,7 +71,7 @@ export default function Navbar() {
   // SSR / Pre-hydration exact matching fallback structure
   if (!mounted) {
     return (
-      <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-5xl px-4">
+      <header className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-full max-w-5xl px-4">
         <div className="flex items-center justify-between bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-zinc-200 dark:border-zinc-850/50 rounded-full px-4 sm:px-6 py-3 shadow-2xl transition-colors duration-300">
           <Link 
             href="/" 
@@ -121,7 +123,17 @@ export default function Navbar() {
   }
 
   return (
-    <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-5xl px-4">
+    <>
+      {/* Mobile Full-Screen Backdrop Blur Overlay (Click Outside to Close) */}
+      {isOpen && (
+        <div
+          onClick={() => setIsOpen(false)}
+          className="md:hidden fixed inset-0 z-[80] bg-black/60 dark:bg-black/75 backdrop-blur-md animate-in fade-in duration-300 cursor-pointer"
+          aria-label="Close mobile menu backdrop"
+        />
+      )}
+
+      <header className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-full max-w-5xl px-4">
       <div className="flex items-center justify-between bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-zinc-200 dark:border-zinc-850/50 rounded-full px-4 sm:px-6 py-3 shadow-2xl shadow-black/5 dark:shadow-black/40 transition-colors duration-300">
         
         <Link 
@@ -165,7 +177,7 @@ export default function Navbar() {
                 <div 
                   onMouseEnter={handleAboutEnter}
                   onMouseLeave={handleAboutLeave}
-                  className="absolute top-full left-0 pt-2 w-60 z-50 animate-in fade-in slide-in-from-top-2 duration-200"
+                  className="absolute top-full left-0 pt-2 w-60 z-[110] animate-in fade-in slide-in-from-top-2 duration-200"
                 >
                   <div className="rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-2xl p-2 flex flex-col gap-1">
                     {aboutDropdownLinks.map((item) => (
@@ -207,7 +219,7 @@ export default function Navbar() {
                 <div 
                   onMouseEnter={handleMoreEnter}
                   onMouseLeave={handleMoreLeave}
-                  className="absolute top-full right-0 pt-2 w-60 z-50 animate-in fade-in slide-in-from-top-2 duration-200"
+                  className="absolute top-full right-0 pt-2 w-60 z-[110] animate-in fade-in slide-in-from-top-2 duration-200"
                 >
                   <div className="rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-2xl p-2 flex flex-col gap-1">
                     {moreDropdownLinks.map((item) => (
@@ -324,22 +336,111 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown Drawer */}
+      {/* Mobile Menu Dropdown Drawer with Accordion Grouping */}
       {isOpen && (
         <div className="md:hidden mt-2 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-lg border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 flex flex-col gap-3 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-300 transition-colors duration-300">
           
-          {/* Mobile Navigation Links */}
-          <nav className="flex flex-col gap-1">
-            {[...primaryLinks, ...aboutDropdownLinks, ...moreDropdownLinks].map((link) => (
+          {/* Mobile Navigation Links with Accordion Grouping */}
+          <nav className="flex flex-col gap-1.5">
+            {/* 1. Top-Level Links (Proyek, Volunteer, Aktivitas) */}
+            {primaryLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white text-sm font-medium py-3 px-3.5 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors flex items-center justify-between min-h-[44px]"
+                className="text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white text-sm font-bold py-2.5 px-3.5 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors flex items-center justify-between min-h-[44px]"
               >
                 <span>{link.label}</span>
               </Link>
             ))}
+
+            {/* Separator */}
+            <div className="my-1 border-t border-zinc-200/80 dark:border-zinc-800/80" />
+
+            {/* 2. Group 1 Accordion: Tentang Saya ▾ */}
+            <div className="flex flex-col">
+              <button
+                onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
+                className="w-full text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white text-sm font-bold py-2.5 px-3.5 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors flex items-center justify-between min-h-[44px] cursor-pointer"
+              >
+                <span>{t.nav.about || "Tentang Saya"}</span>
+                <svg
+                  className={`w-4 h-4 transition-transform duration-300 ${
+                    mobileAboutOpen ? "rotate-180 text-emerald-500" : "text-zinc-400"
+                  }`}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </button>
+
+              {/* Sub-menu Collapsible List for Tentang Saya */}
+              {mobileAboutOpen && (
+                <div className="pl-3 ml-3.5 mt-1 border-l-2 border-emerald-500/40 dark:border-emerald-500/30 flex flex-col gap-1 py-1 animate-in fade-in duration-200">
+                  {aboutDropdownLinks.map((subLink) => (
+                    <Link
+                      key={subLink.label}
+                      href={subLink.href}
+                      onClick={() => setIsOpen(false)}
+                      className="text-zinc-600 hover:text-emerald-600 dark:text-zinc-400 dark:hover:text-emerald-400 text-xs font-semibold py-2 px-3 rounded-lg hover:bg-emerald-50/50 dark:hover:bg-zinc-900/80 transition-colors flex items-center justify-between"
+                    >
+                      <span>{subLink.label}</span>
+                      <svg className="w-3.5 h-3.5 opacity-50" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                      </svg>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Separator */}
+            <div className="my-1 border-t border-zinc-200/80 dark:border-zinc-800/80" />
+
+            {/* 3. Group 2 Accordion: Lainnya ▾ */}
+            <div className="flex flex-col">
+              <button
+                onClick={() => setMobileMoreOpen(!mobileMoreOpen)}
+                className="w-full text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white text-sm font-bold py-2.5 px-3.5 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors flex items-center justify-between min-h-[44px] cursor-pointer"
+              >
+                <span>{t.nav.more || "Lainnya"}</span>
+                <svg
+                  className={`w-4 h-4 transition-transform duration-300 ${
+                    mobileMoreOpen ? "rotate-180 text-emerald-500" : "text-zinc-400"
+                  }`}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </button>
+
+              {/* Sub-menu Collapsible List for Lainnya */}
+              {mobileMoreOpen && (
+                <div className="pl-3 ml-3.5 mt-1 border-l-2 border-emerald-500/40 dark:border-emerald-500/30 flex flex-col gap-1 py-1 animate-in fade-in duration-200">
+                  {moreDropdownLinks.map((subLink) => (
+                    <Link
+                      key={subLink.label}
+                      href={subLink.href}
+                      onClick={() => setIsOpen(false)}
+                      className="text-zinc-600 hover:text-emerald-600 dark:text-zinc-400 dark:hover:text-emerald-400 text-xs font-semibold py-2 px-3 rounded-lg hover:bg-emerald-50/50 dark:hover:bg-zinc-900/80 transition-colors flex items-center justify-between"
+                    >
+                      <span>{subLink.label}</span>
+                      <svg className="w-3.5 h-3.5 opacity-50" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                      </svg>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           </nav>
 
           {/* Action Triggers: CTA */}
@@ -356,5 +457,6 @@ export default function Navbar() {
         </div>
       )}
     </header>
+    </>
   );
 }

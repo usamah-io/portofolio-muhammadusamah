@@ -1,20 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
-  const fileId = searchParams.get("id");
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
 
-  if (!fileId) {
-    return new NextResponse("Missing File ID", { status: 400 });
+  if (!id) {
+    return new NextResponse("Missing Video ID", { status: 400 });
   }
 
   const rangeHeader = request.headers.get("range");
 
+  // URLs to try for raw MP4 stream
   const urlsToTry = [
-    `https://lh3.googleusercontent.com/d/${fileId}`,
-    `https://drive.google.com/uc?export=download&confirm=t&id=${fileId}`,
-    `https://drive.google.com/uc?export=download&id=${fileId}`,
-    `https://drive.google.com/uc?id=${fileId}&export=download`,
+    `https://lh3.googleusercontent.com/d/${id}`,
+    `https://drive.google.com/uc?export=download&confirm=t&id=${id}`,
+    `https://drive.google.com/uc?export=download&id=${id}`,
+    `https://drive.google.com/uc?id=${id}&export=download`,
   ];
 
   let rawResponse: Response | null = null;
@@ -38,11 +41,13 @@ export async function GET(request: NextRequest) {
 
       const contentType = res.headers.get("content-type") || "";
 
+      // Check if we got an actual video/binary stream (not HTML warning page)
       if (res.ok && !contentType.includes("text/html")) {
         rawResponse = res;
         break;
       }
 
+      // If Google returned an HTML page ("Google Drive can't scan this file for viruses")
       if (contentType.includes("text/html")) {
         const htmlText = await res.text();
         const confirmMatch =
@@ -51,7 +56,7 @@ export async function GET(request: NextRequest) {
           htmlText.match(/uuid=([a-zA-Z0-9_-]+)/);
 
         if (confirmMatch && confirmMatch[1]) {
-          const confirmedUrl = `https://drive.google.com/uc?export=download&confirm=${confirmMatch[1]}&id=${fileId}`;
+          const confirmedUrl = `https://drive.google.com/uc?export=download&confirm=${confirmMatch[1]}&id=${id}`;
           const confirmedRes = await fetch(confirmedUrl, {
             headers,
             redirect: "follow",
@@ -76,6 +81,7 @@ export async function GET(request: NextRequest) {
     return new NextResponse("Video stream unavailable", { status: 404 });
   }
 
+  // Construct response with HTTP 206 Partial Content / Range support
   const responseHeaders = new Headers();
   responseHeaders.set("Content-Type", "video/mp4");
   responseHeaders.set("Accept-Ranges", "bytes");

@@ -141,8 +141,8 @@ export default function Volunteer() {
         </div>
       </div>
 
-      {/* 2. Grid of Top 3 Featured Volunteer Browser Mockup Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 items-start">
+      {/* 2. List of Featured Volunteer Browser Mockup Cards */}
+      <div className="flex flex-col gap-6 w-full max-w-5xl mx-auto">
         {featuredItems.map((item, idx) => {
           const itemType = (item as { type?: "image" | "video" }).type === "image" ? "image" : "video";
           const mediaSource =
@@ -153,6 +153,7 @@ export default function Volunteer() {
           return (
             <div key={item.id} ref={addToRefs}>
               <BrowserMockupCard
+                layout="horizontal"
                 domain={item.domain}
                 mediaType={itemType}
                 mediaSrc={mediaSource}
@@ -173,11 +174,6 @@ export default function Volunteer() {
                   ) : (
                     <Video className="w-3.5 h-3.5 shrink-0" />
                   ),
-                }}
-                secondaryAction={{
-                  label: t.btn_details,
-                  href: item.detailUrl,
-                  icon: <ExternalLink className="w-3.5 h-3.5 shrink-0" />,
                 }}
               />
             </div>

@@ -75,10 +75,7 @@ export default function VolunteerGalleryPage() {
   };
 
   return (
-    <main className="min-h-screen bg-zinc-50 dark:bg-[#0a0a0c] text-zinc-900 dark:text-white selection:bg-emerald-500 selection:text-zinc-950 font-sans relative overflow-x-hidden transition-colors duration-300">
-      {/* Background Grid Pattern Lines */}
-      <div className="absolute top-0 inset-x-0 w-full h-[600px] opacity-20 dark:opacity-40 bg-[linear-gradient(to_right,#80808018_1px,transparent_1px),linear-gradient(to_bottom,#80808018_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_80%_65%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none -z-10" />
-
+    <main className="min-h-screen bg-transparent text-zinc-900 dark:text-white selection:bg-emerald-500 selection:text-zinc-950 font-sans relative z-10 overflow-x-hidden transition-colors duration-300">
       {/* Background Subtle Gradient Blobs */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[500px] bg-gradient-to-b from-emerald-500/10 via-teal-500/5 to-transparent blur-3xl pointer-events-none -z-10" />
 
@@ -191,8 +188,8 @@ export default function VolunteerGalleryPage() {
           </button>
         </div>
 
-        {/* Filtered Grid of Browser Mockup Cards */}
-        <div ref={containerRef} className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 items-start">
+        {/* Filtered List of Browser Mockup Cards */}
+        <div ref={containerRef} className="flex flex-col gap-6 w-full max-w-5xl mx-auto">
           {filteredItems.map((item, idx) => {
             const itemType = (item as { type?: "image" | "video" }).type === "image" ? "image" : "video";
             const mediaSource =
@@ -203,6 +200,7 @@ export default function VolunteerGalleryPage() {
             return (
               <div key={item.id} ref={addToRefs}>
                 <BrowserMockupCard
+                  layout="horizontal"
                   domain={item.domain}
                   mediaType={itemType}
                   mediaSrc={mediaSource}
@@ -223,11 +221,6 @@ export default function VolunteerGalleryPage() {
                     ) : (
                       <Video className="w-3.5 h-3.5 shrink-0" />
                     ),
-                  }}
-                  secondaryAction={{
-                    label: t.btn_details,
-                    href: item.detailUrl,
-                    icon: <ExternalLink className="w-3.5 h-3.5 shrink-0" />,
                   }}
                 />
               </div>

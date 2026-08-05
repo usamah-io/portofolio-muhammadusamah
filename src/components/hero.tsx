@@ -55,16 +55,8 @@ export default function Hero() {
       ref={containerRef}
       className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden py-20 px-4"
     >
-      {/* Background Decorative Elements */}
-      <div className="absolute inset-0 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300 -z-10" />
-      
       {/* Dynamic light blob */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-emerald-500/5 dark:bg-emerald-500/10 blur-[120px] rounded-full -z-10 animate-pulse duration-[8000ms]" />
-
-      {/* Grid Pattern */}
-      <div 
-        className="absolute inset-0 opacity-[0.03] dark:opacity-[0.03] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] -z-10" 
-      />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-emerald-500/5 dark:bg-emerald-500/10 blur-[120px] rounded-full pointer-events-none -z-10 animate-pulse duration-[8000ms]" />
 
       <div className="w-full max-w-4xl mx-auto flex flex-col items-center text-center gap-6 sm:gap-7 relative z-10">
         
@@ -113,33 +105,38 @@ export default function Hero() {
           {t.subtitle}
         </p>
 
-        {/* CTA Buttons */}
+        {/* CTA Buttons - Compact & 2-Column Grid for Mobile, Row for Desktop */}
         <div 
           ref={buttonsRef}
-          className="opacity-0 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-4 w-full justify-center"
+          className="opacity-0 w-full max-w-sm sm:max-w-none mx-auto flex flex-col sm:flex-row items-center gap-2.5 sm:gap-4 mt-3 sm:mt-4 justify-center"
         >
+          {/* Primary Button: Full Width on Mobile, Auto on Desktop */}
           <Link
             href="#projects"
-            className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-black font-semibold rounded-full px-6 py-3 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/50 hover:scale-105 transition-all duration-300 ease-out flex items-center justify-center text-center"
+            className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold rounded-full px-5 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/50 hover:scale-105 transition-all duration-300 ease-out flex items-center justify-center text-center shrink-0"
           >
             {t.cta_explore}
           </Link>
-          <a
-            href="/cv-muhammad-usamah.pdf"
-            download="cv-muhammad-usamah.pdf"
-            className="group w-full sm:w-auto bg-zinc-900 text-white border border-zinc-700/80 font-medium rounded-full px-6 py-3 shadow-sm hover:border-emerald-500 hover:text-emerald-400 hover:bg-emerald-950/30 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-105 transition-all duration-300 ease-out flex items-center justify-center text-center"
-          >
-            <Download className="w-4 h-4 mr-2 flex-shrink-0 transition-colors duration-300 group-hover:text-emerald-400" />
-            <span>{t.cta_download_cv || "Download CV"}</span>
-          </a>
-          <a
-            href={content.socials.github || "https://github.com/usamah-io"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto bg-zinc-900 text-white border border-zinc-700/80 font-medium rounded-full px-6 py-3 shadow-sm hover:border-emerald-500 hover:text-emerald-400 hover:bg-emerald-950/30 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-105 transition-all duration-300 ease-out flex items-center justify-center text-center"
-          >
-            {t.cta_github}
-          </a>
+
+          {/* Secondary Buttons: 2 Columns Side-by-Side on Mobile, Inline Row on Desktop */}
+          <div className="grid grid-cols-2 gap-2 w-full sm:flex sm:w-auto sm:gap-4">
+            <a
+              href="/cv-muhammad-usamah.pdf"
+              download="cv-muhammad-usamah.pdf"
+              className="group w-full sm:w-auto bg-zinc-900/90 text-white border border-zinc-700/80 font-medium rounded-full px-3 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm shadow-sm hover:border-emerald-500 hover:text-emerald-400 hover:bg-emerald-950/30 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-105 transition-all duration-300 ease-out flex items-center justify-center text-center shrink-0"
+            >
+              <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 flex-shrink-0 transition-colors duration-300 group-hover:text-emerald-400" />
+              <span className="truncate">{t.cta_download_cv || "Download CV"}</span>
+            </a>
+            <a
+              href={content.socials.github || "https://github.com/usamah-io"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto bg-zinc-900/90 text-white border border-zinc-700/80 font-medium rounded-full px-3 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm shadow-sm hover:border-emerald-500 hover:text-emerald-400 hover:bg-emerald-950/30 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-105 transition-all duration-300 ease-out flex items-center justify-center text-center shrink-0"
+            >
+              <span className="truncate">{t.cta_github}</span>
+            </a>
+          </div>
         </div>
 
       </div>
