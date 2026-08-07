@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Typewriter from "@/components/typewriter";
 import { useApp } from "@/components/app-context";
 import content from "@/data/content.json";
 
@@ -43,8 +44,16 @@ export default function ExperiencePage() {
             </svg>
             <span>Pendidikan & Karir</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-black text-zinc-900 dark:text-white tracking-tight">
-            Pendidikan & <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-400">Pengalaman</span>
+          <h1 className="text-3xl sm:text-5xl font-black text-zinc-900 dark:text-white tracking-tight min-h-[1.2em] flex items-center justify-center md:justify-start">
+            <Typewriter
+              words={["Pendidikan & Rekam Jejak Karir"]}
+              loop={true}
+              typingSpeed={70}
+              deletingSpeed={40}
+              pauseDuration={2500}
+              className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-400 dark:from-[#00FF87] dark:via-teal-400 dark:to-emerald-300 font-extrabold"
+              cursorClassName="text-emerald-500 dark:text-[#00FF87] text-3xl sm:text-5xl font-light"
+            />
           </h1>
           <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl">
             Jejak langkah akademis, kepemimpinan proyek digital, serta pencapaian kompetisi pengembangan aplikasi.

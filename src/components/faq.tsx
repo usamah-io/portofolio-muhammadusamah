@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { gsap } from "@/lib/gsap";
 import { useApp } from "./app-context";
 import content from "@/data/content.json";
+import Typewriter from "./typewriter";
 
 export default function FAQ() {
   const { language } = useApp();
@@ -63,11 +64,16 @@ export default function FAQ() {
       className="py-24 px-4 w-full max-w-3xl mx-auto relative transition-colors duration-300"
     >
       <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
-          {t.title.split(" ").slice(0, -1).join(" ")}{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">
-            {t.title.split(" ").slice(-1)[0]}
-          </span>
+        <h2 className="text-3xl md:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight min-h-[1.2em] flex items-center justify-center">
+          <Typewriter
+            words={["Pertanyaan Yang Sering Diajukan (FAQ)"]}
+            loop={true}
+            typingSpeed={70}
+            deletingSpeed={40}
+            pauseDuration={2500}
+            className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-400 dark:from-[#00FF87] dark:via-teal-400 dark:to-emerald-300 font-extrabold"
+            cursorClassName="text-emerald-500 dark:text-[#00FF87] text-3xl md:text-4xl font-light"
+          />
         </h2>
         <p className="text-zinc-600 dark:text-zinc-400 mt-2 text-sm sm:text-base">
           {t.subtitle}

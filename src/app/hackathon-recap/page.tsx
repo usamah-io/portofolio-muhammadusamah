@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Award, FileText, ExternalLink, Eye, X, Trophy, CheckCircle2, ArrowLeft } from "lucide-react";
 import { useApp } from "@/components/app-context";
 import content from "@/data/content.json";
 import Typewriter from "@/components/typewriter";
@@ -15,6 +16,8 @@ export default function HackathonRecapPage() {
   const [activeCategory, setActiveCategory] = useState<string>("Semua");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  const mainCertificateSrc = "/assets/datakeseluruhan peserta.png";
+
   const filteredGallery =
     activeCategory === "Semua" || activeCategory === "All"
       ? t.gallery_items
@@ -25,7 +28,7 @@ export default function HackathonRecapPage() {
       {/* Background Subtle Gradient Blobs */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[500px] bg-gradient-to-b from-emerald-500/10 via-teal-500/5 to-transparent blur-3xl pointer-events-none -z-10" />
 
-      <div className="pt-28 pb-24 px-4 sm:px-6 w-full max-w-5xl mx-auto relative z-10 space-y-20">
+      <div className="pt-28 pb-24 px-4 sm:px-6 w-full max-w-5xl mx-auto relative z-10 space-y-16">
         
         {/* Navigation Breadcrumb & Back Link */}
         <div className="flex items-center justify-between gap-4 border-b border-zinc-200/80 dark:border-zinc-800/80 pb-6">
@@ -33,10 +36,7 @@ export default function HackathonRecapPage() {
             href="/"
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-300 py-2.5 px-4 rounded-2xl bg-white dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-zinc-800 shadow-sm hover:shadow-md"
           >
-            <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-              <line x1="19" y1="12" x2="5" y2="12" />
-              <polyline points="12 19 5 12 12 5" />
-            </svg>
+            <ArrowLeft className="w-4 h-4 shrink-0" />
             <span>Kembali ke Beranda</span>
           </Link>
 
@@ -46,12 +46,10 @@ export default function HackathonRecapPage() {
           </div>
         </div>
 
-        {/* Hero Title Section - Unboxed & Freely Floating on Full-Width Grid Background */}
+        {/* Hero Title Section */}
         <div className="text-center space-y-4 max-w-3xl mx-auto py-2">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold shadow-xs">
-            <svg className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-6.75A1.125 1.125 0 017.5 15.375V18.75m9 0h-9M4.5 4.875C4.5 3.563 5.563 2.5 6.875 2.5h10.25C18.438 2.5 19.5 3.563 19.5 4.875v3.375c0 2.9-2.35 5.25-5.25 5.25h-4.5c-2.9 0-5.25-2.35-5.25-5.25V4.875z" />
-            </svg>
+            <Award className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
             <span>Official Achievement Showcase</span>
           </div>
 
@@ -72,43 +70,104 @@ export default function HackathonRecapPage() {
           </p>
         </div>
 
-        {/* Highlight Score & Badge Banner */}
-        <div className="bg-gradient-to-br from-white via-emerald-50/20 to-teal-50/10 dark:from-zinc-900/90 dark:via-zinc-900/60 dark:to-emerald-950/40 border border-emerald-500/30 rounded-3xl p-6 sm:p-10 backdrop-blur-xl shadow-xl shadow-emerald-500/5 dark:shadow-[0_0_50px_rgba(16,185,129,0.1)] flex flex-col md:flex-row items-center justify-between gap-8 transition-all duration-300">
-          <div className="space-y-3 text-center md:text-left">
-            <span className="text-xs font-mono font-bold tracking-wider text-emerald-600 dark:text-emerald-400 uppercase bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-1.5 rounded-full">
-              {t.badge}
-            </span>
-            <h2 className="text-xl sm:text-3xl font-extrabold text-zinc-900 dark:text-white mt-3">
-              Sks-Master (Platform Ujian AI Interactive)
-            </h2>
-            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 max-w-xl leading-relaxed">
-              Platform evaluasi belajar cerdas berbasis Google Gemini API untuk membantu institusi pendidikan mengotomatiskan pembuatan dan analisis soal ujian.
-            </p>
+        {/* --- CERTIFICATE FIRST HERO MEDIA PREVIEW --- */}
+        <section className="bg-white/90 dark:bg-zinc-900/80 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl shadow-emerald-500/10 space-y-8">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 pb-6 border-b border-zinc-200/80 dark:border-zinc-800/80">
+            <div className="space-y-2 text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-extrabold">
+                <Trophy className="w-3.5 h-3.5" />
+                <span>{t.badge || "Top 4 Gemini Hackathon 2026"}</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-white">
+                Sks-Master (Platform Ujian AI Interactive)
+              </h2>
+              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 max-w-xl leading-relaxed">
+                Platform evaluasi belajar cerdas berbasis Google Gemini API untuk membantu institusi pendidikan mengotomatiskan pembuatan dan analisis soal ujian.
+              </p>
+            </div>
+
+            {/* Score Pill */}
+            <div className="flex flex-col items-center justify-center p-5 rounded-2xl bg-slate-50 dark:bg-zinc-950 border border-emerald-500/40 min-w-[200px] shrink-0 text-center shadow-md">
+              <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+                {t.final_score_label || "Skor Akhir Juri"}
+              </span>
+              <div className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500 dark:from-emerald-400 dark:to-teal-300 my-1 font-mono">
+                {t.final_score}
+              </div>
+              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-3 py-0.5 rounded-full border border-emerald-500/20">
+                Peringkat 4 Nasional
+              </span>
+            </div>
           </div>
 
-          <div className="flex flex-col items-center justify-center p-6 rounded-3xl bg-white/90 dark:bg-zinc-950/80 border border-emerald-500/40 min-w-[210px] shrink-0 text-center shadow-lg shadow-emerald-500/10 transition-all">
-            <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-              {t.final_score_label}
-            </span>
-            <div className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-400 dark:from-emerald-400 dark:to-teal-300 my-1.5 font-mono">
-              {t.final_score}
+          {/* Certificate Image Hero Preview Container */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2 text-sm font-bold text-zinc-900 dark:text-white">
+                <Award className="w-4 h-4 text-emerald-500 shrink-0" />
+                <span>Sertifikat & Lembar Penilaian Utama</span>
+              </div>
+              <button
+                onClick={() => setSelectedImage(mainCertificateSrc)}
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer"
+              >
+                <Eye className="w-3.5 h-3.5" />
+                <span>Buka Layar Penuh</span>
+              </button>
             </div>
-            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
-              Skor Akhir Juri
-            </span>
+
+            <div
+              onClick={() => setSelectedImage(mainCertificateSrc)}
+              className="relative aspect-video w-full rounded-2xl overflow-hidden border-2 border-emerald-500/40 shadow-xl group cursor-pointer bg-zinc-950"
+            >
+              <Image
+                src={mainCertificateSrc}
+                alt="Sertifikat Rekap Nilai Resmi SKS Master Gemini Hackathon 2026"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 900px"
+                className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
+
+              {/* Action Overlay Button */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-[2px]">
+                <span className="px-5 py-3 rounded-2xl bg-emerald-500 text-zinc-950 text-xs sm:text-sm font-extrabold shadow-2xl flex items-center gap-2.5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                  <Award className="w-4 h-4 shrink-0" />
+                  <span>Lihat Sertifikat Full-Size</span>
+                </span>
+              </div>
+            </div>
+
+            {/* Formal Action Buttons */}
+            <div className="flex flex-wrap items-center justify-end gap-3 pt-2">
+              <button
+                onClick={() => setSelectedImage(mainCertificateSrc)}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 text-zinc-950 font-bold text-xs sm:text-sm shadow-md hover:bg-emerald-400 transition-all cursor-pointer"
+              >
+                <Award className="w-4 h-4 shrink-0" />
+                <span>Lihat Sertifikat</span>
+              </button>
+
+              <a
+                href="https://docs.google.com/spreadsheets/d/1VVHQfvEqWVzb5cl165ivFw7pp-UFCtlxI_-6fqUrr7I/edit?gid=1263546258#gid=1263546258"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 border border-slate-300 dark:border-zinc-700 font-bold text-xs sm:text-sm shadow-sm hover:border-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all cursor-pointer"
+              >
+                <FileText className="w-4 h-4 shrink-0 text-emerald-500" />
+                <span>Lembar Penilaian (Spreadsheet)</span>
+                <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-60 ml-0.5" />
+              </a>
+            </div>
           </div>
-        </div>
+        </section>
 
         {/* --- SEKSI 1: TABEL REKAPITULASI NILAI RESMI --- */}
         <section className="space-y-6">
           <div className="flex items-center gap-3.5">
             <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-xs shrink-0">
-              <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                <line x1="3" y1="9" x2="21" y2="9" />
-                <line x1="3" y1="15" x2="21" y2="15" />
-                <line x1="9" y1="3" x2="9" y2="21" />
-              </svg>
+              <FileText className="w-5 h-5" />
             </div>
             <div>
               <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-900 dark:text-white">
@@ -120,7 +179,7 @@ export default function HackathonRecapPage() {
             </div>
           </div>
 
-          {/* Mobile Responsive Card Stack View (Shown only on Mobile < 640px) */}
+          {/* Mobile Responsive Card Stack View */}
           <div className="sm:hidden space-y-3">
             {t.scores.map((item, idx) => (
               <div
@@ -176,25 +235,25 @@ export default function HackathonRecapPage() {
             </div>
           </div>
 
-          {/* Desktop Table View (Shown on sm:block >= 640px) */}
+          {/* Desktop Table View */}
           <div className="hidden sm:block w-full max-w-full overflow-x-auto touch-pan-x overscroll-contain [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/50 backdrop-blur-md shadow-xl shadow-emerald-500/5 transition-all">
-            <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[620px]">
+            <table className="w-full text-left border-collapse min-w-[600px]">
               <thead>
-                <tr className="bg-zinc-100/80 dark:bg-zinc-900/90 text-zinc-600 dark:text-zinc-400 font-semibold border-b border-zinc-200 dark:border-zinc-800 uppercase tracking-wider text-[10px] sm:text-[11px]">
-                  <th className="py-3.5 sm:py-4.5 px-4 sm:px-6">{t.table_headers.criterion}</th>
-                  <th className="py-3.5 sm:py-4.5 px-3 sm:px-4 text-center">{t.table_headers.weight}</th>
-                  <th className="py-3.5 sm:py-4.5 px-4 sm:px-6 text-center">{t.table_headers.score}</th>
-                  <th className="py-3.5 sm:py-4.5 px-4 sm:px-6 text-right">{t.table_headers.weighted}</th>
+                <tr className="border-b border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/80 dark:bg-zinc-900/80 text-zinc-500 dark:text-zinc-400 text-xs uppercase tracking-wider">
+                  <th className="py-4 px-4 sm:px-6 font-bold">Kriteria Penilaian</th>
+                  <th className="py-4 px-3 sm:px-4 text-center font-bold">Bobot</th>
+                  <th className="py-4 px-4 sm:px-6 text-center font-bold">Skor Juri</th>
+                  <th className="py-4 px-4 sm:px-6 text-right font-bold">Nilai Akhir</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-200/80 dark:divide-zinc-800/60 text-zinc-800 dark:text-zinc-200">
+              <tbody className="divide-y divide-zinc-200/60 dark:divide-zinc-800/60 text-xs sm:text-sm">
                 {t.scores.map((item, idx) => (
-                  <tr key={idx} className="hover:bg-emerald-50/50 dark:hover:bg-zinc-800/40 transition-colors group">
-                    <td className="py-4 sm:py-5 px-4 sm:px-6">
-                      <div className="font-bold text-zinc-900 dark:text-white text-sm sm:text-base group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                  <tr key={idx} className="hover:bg-zinc-50/60 dark:hover:bg-zinc-800/30 transition-colors">
+                    <td className="py-4 sm:py-5 px-4 sm:px-6 font-medium text-zinc-900 dark:text-zinc-100">
+                      <div className="font-extrabold text-sm sm:text-base text-zinc-900 dark:text-white">
                         {item.kriteria}
                       </div>
-                      <div className="text-[11px] sm:text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 leading-relaxed">
+                      <div className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 max-w-md leading-relaxed">
                         {item.keterangan}
                       </div>
                     </td>
@@ -243,10 +302,9 @@ export default function HackathonRecapPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold text-xs sm:text-sm border border-emerald-500/30 hover:border-emerald-500/60 backdrop-blur-md transition-all duration-300 transform hover:scale-[1.02] shadow-sm hover:shadow-emerald-500/10 cursor-pointer"
             >
+              <FileText className="w-4 h-4 shrink-0" />
               <span>Lihat Lembar Penilaian Resmi (Spreadsheet)</span>
-              <svg className="w-4 h-4 text-emerald-600 dark:text-emerald-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-              </svg>
+              <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-60" />
             </a>
           </div>
         </section>
@@ -256,11 +314,7 @@ export default function HackathonRecapPage() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3.5">
               <div className="p-3 rounded-2xl bg-teal-500/10 border border-teal-500/20 text-teal-600 dark:text-teal-400 shadow-xs">
-                <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                  <circle cx="8.5" cy="8.5" r="1.5" />
-                  <polyline points="21 15 16 10 5 21" />
-                </svg>
+                <FileText className="w-5 h-5" />
               </div>
               <div>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-900 dark:text-white">
@@ -314,68 +368,55 @@ export default function HackathonRecapPage() {
 
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-[2px]">
                     <span className="px-4 py-2.5 rounded-2xl bg-emerald-500 text-zinc-950 text-xs font-bold shadow-xl flex items-center gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                      <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                        <circle cx="11" cy="11" r="8" />
-                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                        <line x1="11" y1="8" x2="11" y2="14" />
-                        <line x1="8" y1="11" x2="14" y2="11" />
-                      </svg>
-                      Lihat Foto Penuh
+                      <Eye className="w-4 h-4 shrink-0" />
+                      <span>Lihat Sertifikat / Foto</span>
                     </span>
                   </div>
                 </div>
 
-                <div className="p-6 bg-white/95 dark:bg-zinc-900/90 border-t border-zinc-200/80 dark:border-zinc-800/60 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-base font-bold text-zinc-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                      {img.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-2 leading-relaxed">
-                      {img.description}
-                    </p>
-                  </div>
+                <div className="p-5 flex-1 flex flex-col justify-between space-y-2">
+                  <h3 className="font-extrabold text-base text-zinc-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                    {img.title}
+                  </h3>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed line-clamp-2">
+                    {img.description}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
         </section>
-
       </div>
 
-      {/* --- LIGHTBOX MODAL --- */}
+      {/* --- CLEAN IMAGE LIGHTBOX MODAL --- */}
       {selectedImage && (
         <div
-          className="fixed inset-0 z-60 flex items-center justify-center p-4 sm:p-6 bg-black/90 backdrop-blur-xl animate-fadeIn"
           onClick={() => setSelectedImage(null)}
+          className="fixed inset-0 z-[200] bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 sm:p-8 animate-in fade-in duration-200 cursor-pointer"
         >
           <button
             onClick={() => setSelectedImage(null)}
-            className="absolute top-6 right-6 p-3.5 rounded-full bg-zinc-800/80 hover:bg-zinc-700 text-white transition-colors cursor-pointer shadow-lg"
-            aria-label="Close lightbox"
+            className="absolute top-6 right-6 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors cursor-pointer z-[210] border border-white/20 shadow-xl"
+            aria-label="Tutup Preview"
           >
-            <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
+            <X className="w-6 h-6" />
           </button>
 
           <div
-            className="relative max-w-5xl max-h-[85vh] w-full h-full rounded-3xl overflow-hidden border border-emerald-500/40 shadow-2xl shadow-emerald-500/10"
             onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-5xl max-h-[85vh] aspect-video rounded-3xl overflow-hidden shadow-2xl border border-white/20"
           >
             <Image
               src={selectedImage}
-              alt="Documentation Fullscreen View"
+              alt="Full Resolution Preview"
               fill
-              className="object-contain"
-              sizes="100vw"
               priority
+              sizes="100vw"
+              className="object-contain bg-black"
             />
           </div>
         </div>
       )}
-
-      {/* End of content */}
     </main>
   );
 }

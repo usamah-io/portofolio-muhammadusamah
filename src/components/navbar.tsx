@@ -75,10 +75,10 @@ export default function Navbar() {
 
   // Clear Glassmorphism 3D Raised Capsule Active State Indicator
   const activeGlassPill =
-    "bg-white/90 dark:bg-zinc-800/90 text-emerald-600 dark:text-emerald-400 font-extrabold shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] shadow-md shadow-black/10 dark:shadow-black/50 border border-slate-300/80 dark:border-zinc-700/80 rounded-full px-3.5 py-1.5 transition-all duration-300 transform scale-102 flex items-center gap-1.5";
+    "bg-white/90 dark:bg-zinc-800/90 text-emerald-600 dark:text-emerald-400 font-extrabold shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] shadow-md shadow-black/10 dark:shadow-black/50 border border-slate-300/80 dark:border-zinc-700/80 rounded-full px-3.5 py-1.5 transition-all duration-300 transform scale-102 flex items-center gap-1.5 whitespace-nowrap shrink-0";
 
   const inactiveGlassPill =
-    "text-slate-900 hover:text-black dark:text-zinc-200 dark:hover:text-white font-semibold hover:bg-white/50 dark:hover:bg-white/10 rounded-full px-3.5 py-1.5 transition-all duration-300 flex items-center gap-1.5";
+    "text-slate-900 hover:text-black dark:text-zinc-200 dark:hover:text-white font-semibold hover:bg-white/50 dark:hover:bg-white/10 rounded-full px-3.5 py-1.5 transition-all duration-300 flex items-center gap-1.5 whitespace-nowrap shrink-0";
 
   const isAboutGroupActive = ["/about", "/experience"].includes(pathname);
   const isMoreGroupActive = ["/hackathon-recap", "/articles", "/faq"].includes(pathname);

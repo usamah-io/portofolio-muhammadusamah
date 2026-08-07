@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "@/lib/gsap";
 import { useApp } from "./app-context";
 import content from "@/data/content.json";
+import Typewriter from "./typewriter";
 import HackathonModal from "./hackathon-modal";
 import BrowserMockupCard from "./browser-mockup-card";
 
@@ -99,8 +100,16 @@ export default function Projects() {
           </svg>
           <span>Portfolio Showcase</span>
         </div>
-        <h2 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white tracking-tight">
-          Proyek <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500 dark:from-[#00FF87] dark:to-teal-400">Unggulan</span>
+        <h2 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white tracking-tight min-h-[1.2em] flex items-center justify-center md:justify-start">
+          <Typewriter
+            words={["Proyek & Karya Unggulan"]}
+            loop={true}
+            typingSpeed={70}
+            deletingSpeed={40}
+            pauseDuration={2500}
+            className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-400 dark:from-[#00FF87] dark:via-teal-400 dark:to-emerald-300 font-extrabold"
+            cursorClassName="text-emerald-500 dark:text-[#00FF87] text-3xl md:text-4xl font-light"
+          />
         </h2>
         <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base max-w-2xl">
           {t.subtitle}

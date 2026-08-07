@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useApp } from "./app-context";
 import content from "@/data/content.json";
 import Typewriter from "./typewriter";
+import { Award, FileText, ExternalLink, Eye, X } from "lucide-react";
 
 interface HackathonModalProps {
   isOpen: boolean;
@@ -373,9 +374,10 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
             />
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 p-2 rounded-full bg-black/50 text-white hover:bg-black/80 transition-colors"
+              className="absolute top-4 right-4 p-2 rounded-full bg-black/60 text-white hover:bg-black/90 transition-colors cursor-pointer border border-white/20"
+              aria-label="Tutup"
             >
-              ✕
+              <X className="w-5 h-5" />
             </button>
           </div>
         </div>

@@ -6,6 +6,7 @@ import { LayoutGrid, Video, Image as ImageIcon, Images, ArrowLeft, Camera, Shiel
 import { gsap } from "@/lib/gsap";
 import { useApp } from "@/components/app-context";
 import content from "@/data/content.json";
+import Typewriter from "@/components/typewriter";
 import BrowserMockupCard from "@/components/browser-mockup-card";
 import VolunteerLightbox, { LightboxMedia } from "@/components/volunteer-lightbox";
 
@@ -104,8 +105,16 @@ export default function VolunteerGalleryPage() {
             <Images className="w-4 h-4 text-emerald-600 dark:text-[#00FF87] shrink-0" />
             <span>Galeri & Dokumentasi Lengkap</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-white">
-            Dokumentasi <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500 dark:from-[#00FF87] dark:to-teal-400">Relawan Cisarua</span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-white min-h-[1.2em] flex items-center justify-center md:justify-start">
+            <Typewriter
+              words={["Dokumentasi & Aksi Volunteer"]}
+              loop={true}
+              typingSpeed={70}
+              deletingSpeed={40}
+              pauseDuration={2500}
+              className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-400 dark:from-[#00FF87] dark:via-teal-400 dark:to-emerald-300 font-extrabold"
+              cursorClassName="text-emerald-500 dark:text-[#00FF87] text-3xl sm:text-4xl md:text-5xl font-light"
+            />
           </h1>
           <p className="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base max-w-3xl leading-relaxed">
             {t.subtitle}

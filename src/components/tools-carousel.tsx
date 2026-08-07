@@ -6,6 +6,7 @@ import { useApp } from "./app-context";
 import { TOOLS_DATA, ToolItem } from "@/data/tools-data";
 import { ToolIcon } from "./tool-icons";
 import content from "@/data/content.json";
+import Typewriter from "./typewriter";
 
 export default function ToolsCarousel() {
   const { language } = useApp();
@@ -134,24 +135,27 @@ export default function ToolsCarousel() {
         
         {/* Header Title & Subtitle */}
         <div className="text-center max-w-3xl mx-auto mb-10 flex flex-col items-center gap-3">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs sm:text-sm font-semibold tracking-wider uppercase shadow-sm">
-            <Sparkles className="w-4 h-4 text-emerald-500" />
+          <span className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs sm:text-sm font-semibold tracking-wider uppercase shadow-sm text-center">
             {isIndonesian ? "Ekosistem Alat & AI Tools" : "Tools & AI Integration Catalog"}
           </span>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-zinc-900 dark:text-white tracking-tight leading-tight">
-            {isIndonesian ? (
-              <>
-                Katalog Alat & Integrasi <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-500">AI Ecosystem</span>
-              </>
-            ) : (
-              <>
-                Tools & AI Integration <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-500">Catalog</span>
-              </>
-            )}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-zinc-900 dark:text-white tracking-tight leading-tight text-center min-h-[1.2em] flex items-center justify-center">
+            <Typewriter
+              words={
+                isIndonesian
+                  ? ["Katalog Alat & Integrasi AI Ecosystem"]
+                  : ["Tools & AI Integration Catalog"]
+              }
+              loop={true}
+              typingSpeed={70}
+              deletingSpeed={40}
+              pauseDuration={2500}
+              className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-500 dark:from-emerald-400 dark:via-teal-300 dark:to-cyan-400 font-extrabold"
+              cursorClassName="text-emerald-500 dark:text-emerald-400 text-3xl sm:text-5xl font-light"
+            />
           </h2>
 
-          <p className="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base leading-relaxed mt-1">
+          <p className="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base leading-relaxed mt-1 text-center">
             {isIndonesian
               ? "Pemanfaatan kecerdasan buatan terdepan dan ekosistem produktivitas modern dalam mendukung proses alur kerja pembuatan aplikasi web modern berbasis Next.js & Full-Stack."
               : "Leveraging cutting-edge artificial intelligence and modern productivity tool ecosystems to empower Next.js & Full-Stack web application development workflows."}

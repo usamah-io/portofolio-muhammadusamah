@@ -5,6 +5,7 @@ import Image from "next/image";
 import { gsap } from "@/lib/gsap";
 import { useApp } from "./app-context";
 import content from "@/data/content.json";
+import Typewriter from "./typewriter";
 
 export default function About() {
   const { language } = useApp();
@@ -99,8 +100,16 @@ export default function About() {
             </svg>
             <span>{t.title_about}</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
-            {t.title_about.split(" ")[0]} <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">{t.title_about.split(" ").slice(1).join(" ")}</span>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight min-h-[1.2em] flex items-center justify-center md:justify-start">
+            <Typewriter
+              words={["Profil Singkat & Latar Belakang"]}
+              loop={true}
+              typingSpeed={70}
+              deletingSpeed={40}
+              pauseDuration={2500}
+              className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-400 dark:from-[#00FF87] dark:via-teal-400 dark:to-emerald-300 font-extrabold"
+              cursorClassName="text-emerald-500 dark:text-[#00FF87] text-3xl md:text-4xl font-light"
+            />
           </h2>
           <p className="text-zinc-600 dark:text-zinc-400 mt-2 text-sm sm:text-base">
             {t.subtitle_about}
