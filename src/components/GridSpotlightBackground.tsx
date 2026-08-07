@@ -65,7 +65,7 @@ export default function GridSpotlightBackground() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 pointer-events-none select-none z-0 overflow-hidden bg-zinc-950"
+      className="fixed inset-0 pointer-events-none select-none z-0 overflow-hidden bg-slate-50 dark:bg-zinc-950 transition-colors duration-300"
       style={
         {
           "--mouse-x": "50%",
@@ -73,29 +73,41 @@ export default function GridSpotlightBackground() {
         } as React.CSSProperties
       }
     >
-      {/* 1. Base Dense Fine Grid Pattern (Zinc 28px x 28px) */}
+      {/* 1. Light Mode Fine Grid Pattern (Thin Dark Slate/Black lines) */}
       <div
-        className="absolute inset-0 pointer-events-none select-none opacity-25"
+        className="absolute inset-0 pointer-events-none select-none opacity-30 dark:opacity-0 transition-opacity duration-300"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(63, 63, 70, 0.3) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(63, 63, 70, 0.3) 1px, transparent 1px)
+            linear-gradient(to right, rgba(15, 23, 42, 0.14) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(15, 23, 42, 0.14) 1px, transparent 1px)
           `,
           backgroundSize: "28px 28px",
         }}
       />
 
-      {/* 2. Interactive Spotlight Radial Gradient (Emerald 0.16, 550px radius) */}
+      {/* 2. Dark Mode Fine Grid Pattern (Thin White/Zinc lines) */}
+      <div
+        className="absolute inset-0 pointer-events-none select-none opacity-0 dark:opacity-25 transition-opacity duration-300"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.12) 1px, transparent 1px)
+          `,
+          backgroundSize: "28px 28px",
+        }}
+      />
+
+      {/* 3. Interactive Spotlight Radial Gradient (Emerald 0.18, 550px radius) */}
       {!isMobile && (
         <div
           className="absolute inset-0 pointer-events-none select-none transition-opacity duration-500"
           style={{
-            background: `radial-gradient(550px circle at var(--mouse-x) var(--mouse-y), rgba(16, 185, 129, 0.16), transparent 80%)`,
+            background: `radial-gradient(550px circle at var(--mouse-x) var(--mouse-y), rgba(16, 185, 129, 0.18), transparent 80%)`,
           }}
         />
       )}
 
-      {/* 3. Glowing Neon Emerald Dense Grid Lines (Masked by Radial Spotlight) */}
+      {/* 4. Glowing Neon Emerald Dense Grid Lines (Masked by Radial Spotlight) */}
       {!isMobile && (
         <div
           className="absolute inset-0 pointer-events-none select-none"

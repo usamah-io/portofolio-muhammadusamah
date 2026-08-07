@@ -10,15 +10,17 @@
     "nav": {
       "about": "Tentang Saya",
       "profile_short": "Profil Singkat",
+      "tools": "Alat & AI",
       "stats": "Statistik",
       "projects": "Proyek",
       "volunteer": "Volunteer",
       "activity": "Aktivitas",
-      "articles": "Artikel",
-      "achievement": "Prestasi / Hackathon",
+      "articles": "Artikel & Catatan",
+      "achievement": "Hackathon & Rekap Nilai",
       "education_experience": "Pendidikan & Pengalaman",
+      "insights": "Prestasi",
       "faq": "FAQ",
-      "more": "Lainnya",
+      "more": "Prestasi",
       "cta": "Kontak"
     },
     "hero": {
@@ -469,15 +471,17 @@
     "nav": {
       "about": "About Me",
       "profile_short": "Short Profile",
+      "tools": "Tools & AI",
       "stats": "Stats",
       "projects": "Projects",
-      "volunteer": "Volunteer",
-      "activity": "Activity",
-      "articles": "Articles",
-      "achievement": "Achievement / Hackathon",
+      "volunteer": "Volunteer & Community",
+      "activity": "Activity Log",
+      "articles": "Articles & Notes",
+      "achievement": "Hackathons & Grades",
       "education_experience": "Education & Experience",
+      "insights": "Achievements",
       "faq": "FAQ",
-      "more": "More",
+      "more": "Achievements",
       "cta": "Contact"
     },
     "hero": {

@@ -46,29 +46,12 @@ const PROJECTS_METADATA: ProjectMetadata[] = [
 export default function Projects() {
   const { language } = useApp();
   const t = content[language].projects;
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
 
-  // Auto-open Welcome Popup on initial page mount (session-based)
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const hasSeenPopup = sessionStorage.getItem("hasSeenWelcomeHackathonPopup");
-      if (!hasSeenPopup) {
-        const timer = setTimeout(() => {
-          setIsModalOpen(true);
-        }, 600);
-        return () => clearTimeout(timer);
-      }
-    }
-  }, []);
-
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("hasSeenWelcomeHackathonPopup", "true");
-    }
   };
 
   // GSAP ScrollTrigger entry animation

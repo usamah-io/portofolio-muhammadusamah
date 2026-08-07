@@ -123,16 +123,16 @@ export default function Hero() {
             <a
               href="/cv-muhammad-usamah.pdf"
               download="cv-muhammad-usamah.pdf"
-              className="group w-full sm:w-auto bg-zinc-900/90 text-white border border-zinc-700/80 font-medium rounded-full px-3 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm shadow-sm hover:border-emerald-500 hover:text-emerald-400 hover:bg-emerald-950/30 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-105 transition-all duration-300 ease-out flex items-center justify-center text-center shrink-0"
+              className="group w-full sm:w-auto bg-white text-slate-950 border border-slate-300 dark:bg-zinc-900/90 dark:text-white dark:border-zinc-700/80 font-bold rounded-full px-3 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm shadow-sm hover:border-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 hover:scale-105 transition-all duration-300 ease-out flex items-center justify-center text-center shrink-0"
             >
-              <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 flex-shrink-0 transition-colors duration-300 group-hover:text-emerald-400" />
+              <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 flex-shrink-0 transition-colors duration-300 group-hover:text-emerald-600 dark:group-hover:text-emerald-400" />
               <span className="truncate">{t.cta_download_cv || "Download CV"}</span>
             </a>
             <a
               href={content.socials.github || "https://github.com/usamah-io"}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto bg-zinc-900/90 text-white border border-zinc-700/80 font-medium rounded-full px-3 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm shadow-sm hover:border-emerald-500 hover:text-emerald-400 hover:bg-emerald-950/30 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-105 transition-all duration-300 ease-out flex items-center justify-center text-center shrink-0"
+              className="w-full sm:w-auto bg-white text-slate-950 border border-slate-300 dark:bg-zinc-900/90 dark:text-white dark:border-zinc-700/80 font-bold rounded-full px-3 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm shadow-sm hover:border-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 hover:scale-105 transition-all duration-300 ease-out flex items-center justify-center text-center shrink-0"
             >
               <span className="truncate">{t.cta_github}</span>
             </a>

@@ -165,13 +165,13 @@ export default function Footer() {
         {/* Contact Info Card */}
         <div className="flex flex-col justify-between gap-8">
           <div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight">
               {t.title} <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500 dark:from-emerald-400 dark:to-teal-400">
                 {t.title_sub}
               </span>
             </h2>
-            <p className="text-zinc-650 dark:text-zinc-400 mt-4 max-w-md text-sm sm:text-base leading-relaxed">
+            <p className="text-slate-700 dark:text-slate-300 mt-4 max-w-md text-sm sm:text-base leading-relaxed font-medium">
               {t.subtitle}
             </p>
           </div>
@@ -181,14 +181,14 @@ export default function Footer() {
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
               <button
                 onClick={handleCopyEmail}
-                className="group flex items-center gap-3 bg-white dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 p-4 sm:p-5 rounded-2xl text-left transition-all duration-300 w-full shadow-sm hover:shadow-md cursor-pointer"
+                className="group flex items-center gap-3 bg-white dark:bg-zinc-900/80 border border-slate-300/80 dark:border-zinc-800 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 p-4 sm:p-5 rounded-2xl text-left transition-all duration-300 w-full shadow-sm hover:shadow-md cursor-pointer"
               >
                 <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 group-hover:bg-emerald-500 group-hover:text-zinc-950 group-hover:border-emerald-500 transition-all duration-300 shrink-0">
                   <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
                 </div>
                 <div className="flex-1 min-w-0 pr-2">
-                  <div className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 transition-colors duration-300">{t.email_label}</div>
-                  <div className="text-sm font-medium text-zinc-900 dark:text-zinc-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300 truncate">{socials.gmail}</div>
+                  <div className="text-xs font-bold text-slate-700 dark:text-slate-300 transition-colors duration-300">{t.email_label}</div>
+                  <div className="text-sm font-bold text-slate-950 dark:text-zinc-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300 truncate">{socials.gmail}</div>
                 </div>
                 <span className="bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-bold px-4 py-2 rounded-xl transition-colors shrink-0 text-xs shadow-md">
                   {copied ? t.email_copied : t.email_action}
@@ -202,14 +202,14 @@ export default function Footer() {
                 href={socials.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 bg-white dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 p-4 sm:p-5 rounded-2xl text-left transition-all duration-300 w-full shadow-sm hover:shadow-md cursor-pointer"
+                className="group flex items-center gap-3 bg-white dark:bg-zinc-900/80 border border-slate-300/80 dark:border-zinc-800 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 p-4 sm:p-5 rounded-2xl text-left transition-all duration-300 w-full shadow-sm hover:shadow-md cursor-pointer"
               >
                 <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 group-hover:bg-emerald-500 group-hover:text-zinc-950 group-hover:border-emerald-500 transition-all duration-300 shrink-0">
                   <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>
                 </div>
                 <div className="flex-1 min-w-0 pr-2">
-                  <div className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 transition-colors duration-300">{t.wa_label}</div>
-                  <div className="text-sm font-medium text-zinc-900 dark:text-zinc-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300 truncate">0815-3289-6727</div>
+                  <div className="text-xs font-bold text-slate-700 dark:text-slate-300 transition-colors duration-300">{t.wa_label}</div>
+                  <div className="text-sm font-bold text-slate-950 dark:text-zinc-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300 truncate">0815-3289-6727</div>
                 </div>
                 <span className="bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-bold px-4 py-2 rounded-xl transition-colors shrink-0 text-xs shadow-md">
                   Chat
@@ -220,7 +220,7 @@ export default function Footer() {
         </div>
 
         {/* Contact Form */}
-        <div className="bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800/80 rounded-3xl p-6 sm:p-8 shadow-sm transition-colors duration-300">
+        <div className="bg-white dark:bg-zinc-900/50 border border-slate-300/80 dark:border-zinc-800/80 rounded-3xl p-6 sm:p-8 shadow-sm transition-colors duration-300">
           <form onSubmit={handleFormSubmit} className="space-y-4">
             {/* Honeypot Field */}
             <input
@@ -234,30 +234,30 @@ export default function Footer() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5 min-w-0">
-                <label className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">{t.form_name}</label>
+                <label className="text-xs font-bold text-slate-800 dark:text-slate-300 uppercase tracking-wider">{t.form_name}</label>
                 <input
                   type="text"
                   name="name"
                   required
                   disabled={isRateLimited || formSubmitted}
                   placeholder="John Doe"
-                  className="w-full overflow-x-auto whitespace-nowrap bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-xl px-4 py-2.5 text-sm sm:text-base focus:outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full overflow-x-auto whitespace-nowrap bg-slate-50 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-800 focus:border-emerald-500/50 text-slate-950 dark:text-white rounded-xl px-4 py-2.5 text-sm sm:text-base focus:outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
                 />
               </div>
               <div className="space-y-1.5 min-w-0">
-                <label className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">{t.form_email}</label>
+                <label className="text-xs font-bold text-slate-800 dark:text-slate-300 uppercase tracking-wider">{t.form_email}</label>
                 <input
                   type="email"
                   name="email"
                   required
                   disabled={isRateLimited || formSubmitted}
                   placeholder="john@example.com"
-                  className="w-full overflow-x-auto whitespace-nowrap bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-xl px-4 py-2.5 text-sm sm:text-base focus:outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full overflow-x-auto whitespace-nowrap bg-slate-50 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-800 focus:border-emerald-500/50 text-slate-950 dark:text-white rounded-xl px-4 py-2.5 text-sm sm:text-base focus:outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
                 />
               </div>
             </div>
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">{t.form_message}</label>
+              <label className="text-xs font-bold text-slate-800 dark:text-slate-300 uppercase tracking-wider">{t.form_message}</label>
               <textarea
                 rows={4}
                 name="message"
@@ -265,7 +265,7 @@ export default function Footer() {
                 minLength={10}
                 disabled={isRateLimited || formSubmitted}
                 placeholder="Let's build a new project (minimal 10 karakter)..."
-                className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus:border-emerald-500/50 text-zinc-900 dark:text-white rounded-xl px-4 py-2.5 text-sm sm:text-base focus:outline-none transition-colors resize-none disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-slate-50 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-800 focus:border-emerald-500/50 text-slate-950 dark:text-white rounded-xl px-4 py-2.5 text-sm sm:text-base focus:outline-none transition-colors resize-none disabled:opacity-50 disabled:cursor-not-allowed font-medium"
               />
             </div>
             
@@ -329,10 +329,19 @@ export default function Footer() {
           </a>
         </div>
 
-        {/* Copyright */}
-        <p className="text-center md:text-left text-zinc-800 dark:text-zinc-300 font-semibold" suppressHydrationWarning>
-          &copy; {new Date().getFullYear()} Muhammad Usamah Abdurrahman. All Rights Reserved.
-        </p>
+        {/* Copyright & API Link */}
+        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center md:text-left text-zinc-800 dark:text-zinc-300 font-semibold">
+          <p suppressHydrationWarning>
+            &copy; {new Date().getFullYear()} Muhammad Usamah Abdurrahman. All Rights Reserved.
+          </p>
+          <span className="hidden sm:inline text-zinc-400 dark:text-zinc-600">•</span>
+          <a
+            href="/api-docs"
+            className="text-xs font-bold text-zinc-600 hover:text-emerald-500 dark:text-zinc-400 dark:hover:text-emerald-400 underline underline-offset-4 transition-colors"
+          >
+            API / Sumber Data
+          </a>
+        </div>
 
         {/* Watermark */}
         <div className="flex items-center gap-1.5 text-zinc-800 dark:text-zinc-300 font-medium">
