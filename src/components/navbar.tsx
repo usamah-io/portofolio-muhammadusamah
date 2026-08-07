@@ -51,7 +51,7 @@ export default function Navbar() {
 
   const t = content[language];
   const primaryLinks = [
-    { label: t.nav.projects, href: "/#projects" },
+    { label: t.nav.projects, href: "/projects" },
     { label: t.nav.volunteer || "Volunteer", href: "/#volunteer-section" },
     { label: t.nav.activity || "Aktivitas", href: "/activity" },
   ];

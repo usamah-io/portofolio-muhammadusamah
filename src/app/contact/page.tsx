@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import content from "@/data/content.json";
 import {
@@ -19,15 +19,24 @@ export default function ContactPage() {
   const [isRateLimited, setIsRateLimited] = useState(false);
   const [status, setStatus] = useState<{ success: boolean; message: string } | null>(null);
 
+  const statusTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const showStatus = (newStatus: { success: boolean; message: string }, durationMs: number = 4500) => {
+    if (statusTimerRef.current) clearTimeout(statusTimerRef.current);
+    setStatus(newStatus);
+    statusTimerRef.current = setTimeout(() => {
+      setStatus(null);
+    }, durationMs);
+  };
+
   useEffect(() => {
     const rateStatus = getRateLimitStatus();
     if (rateStatus.isRateLimited) {
       setIsRateLimited(true);
-      setStatus({
-        success: false,
-        message: RATE_LIMIT_MESSAGE,
-      });
     }
+    return () => {
+      if (statusTimerRef.current) clearTimeout(statusTimerRef.current);
+    };
   }, []);
 
   const handleCopyEmail = () => {
@@ -38,6 +47,7 @@ export default function ContactPage() {
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (statusTimerRef.current) clearTimeout(statusTimerRef.current);
     setStatus(null);
 
     const form = e.currentTarget;
@@ -57,7 +67,7 @@ export default function ContactPage() {
     const rateStatus = getRateLimitStatus();
     if (isRateLimited || rateStatus.isRateLimited) {
       setIsRateLimited(true);
-      setStatus({
+      showStatus({
         success: false,
         message: RATE_LIMIT_MESSAGE,
       });
@@ -66,7 +76,7 @@ export default function ContactPage() {
 
     // 3. Self Email Validation (Owner email check)
     if (isOwnerEmail(email)) {
-      setStatus({
+      showStatus({
         success: false,
         message: OWNER_EMAIL_ERROR_MESSAGE,
       });
@@ -75,7 +85,7 @@ export default function ContactPage() {
 
     // 4. Message length check (min 10 chars)
     if (message.length < 10) {
-      setStatus({
+      showStatus({
         success: false,
         message: MIN_LENGTH_ERROR_MESSAGE,
       });
@@ -96,19 +106,19 @@ export default function ContactPage() {
       if (res.ok) {
         setRateLimitTimestamp();
         setIsRateLimited(true);
-        setStatus({
+        showStatus({
           success: true,
           message: RATE_LIMIT_MESSAGE,
         });
         form.reset();
       } else {
-        setStatus({
+        showStatus({
           success: false,
           message: result.error || "Gagal mengirim pesan. Silakan coba lagi atau hubungi via WhatsApp.",
         });
       }
     } catch {
-      setStatus({
+      showStatus({
         success: false,
         message: "Terjadi kesalahan jaringan. Silakan coba lagi.",
       });
@@ -287,13 +297,24 @@ export default function ContactPage() {
 
           {status && (
             <div
-              className={`p-4 rounded-2xl text-xs sm:text-sm font-semibold border ${
+              className={`p-4 rounded-2xl text-xs sm:text-sm font-semibold border flex items-center justify-between gap-3 animate-in fade-in duration-300 ${
                 status.success
                   ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
                   : "bg-rose-500/10 border-rose-500/30 text-rose-600 dark:text-rose-400"
               }`}
             >
-              {status.message}
+              <span>{status.message}</span>
+              <button
+                type="button"
+                onClick={() => setStatus(null)}
+                className="p-1 hover:bg-zinc-500/10 rounded-lg transition-colors cursor-pointer shrink-0"
+                aria-label="Tutup Pesan"
+              >
+                <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
             </div>
           )}
 

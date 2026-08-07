@@ -68,12 +68,12 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
       : t.gallery_items.filter((item) => item.category === activeCategory);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/70 backdrop-blur-md animate-fadeIn transition-all duration-300">
+    <div className="fixed inset-0 z-[200] flex flex-col items-center justify-start p-3 sm:p-6 pt-24 sm:pt-28 bg-black/80 backdrop-blur-md overflow-y-auto animate-fadeIn transition-all duration-300">
       {/* Backdrop click listener */}
-      <div className="absolute inset-0 cursor-default" onClick={onClose} />
+      <div className="fixed inset-0 cursor-default -z-10" onClick={onClose} />
 
-      {/* Main Modal Window (Auto-Height, No Rigid Scroll Limit, Slide-in Right Animation) */}
-      <div className="relative z-10 w-full max-w-4xl h-auto flex flex-col bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-emerald-500/30 text-zinc-900 dark:text-white rounded-3xl shadow-2xl shadow-emerald-500/10 overflow-hidden pointer-events-auto transition-all duration-300 animate-slideInRight">
+      {/* Main Modal Window (Auto-Height, Scrollable Content Body, Slide-in Right Animation) */}
+      <div className="relative z-[210] w-full max-w-4xl max-h-[calc(100vh-8rem)] my-auto flex flex-col bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-emerald-500/30 text-zinc-900 dark:text-white rounded-3xl shadow-2xl shadow-emerald-500/10 overflow-hidden pointer-events-auto transition-all duration-300 animate-slideInRight">
         
         {/* Modal Header */}
         <div className="relative px-4 py-3.5 sm:px-8 sm:py-5 border-b border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/90 dark:bg-zinc-900/60 backdrop-blur-md flex items-center justify-between gap-3 shrink-0">
@@ -103,7 +103,7 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 z-[220]">
             <Link
               href="/hackathon-recap"
               onClick={onClose}
@@ -120,7 +120,7 @@ export default function HackathonModal({ isOpen, onClose }: HackathonModalProps)
 
             <button
               onClick={onClose}
-              className="p-1.5 sm:p-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800/60 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-400 transition-colors cursor-pointer"
+              className="p-2 sm:p-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-700 transition-colors cursor-pointer shrink-0 min-w-[40px] min-h-[40px] flex items-center justify-center shadow-xs"
               aria-label="Close modal"
             >
               <svg className="w-4 h-4 sm:w-5 sm:h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">

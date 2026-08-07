@@ -25,14 +25,25 @@ export default function Footer() {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const textBannerRef = useRef<HTMLDivElement>(null);
+  const toastTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Check rate limit on mount
+  const showToast = (msg: string, durationMs: number = 4500) => {
+    if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    setToastMessage(msg);
+    toastTimerRef.current = setTimeout(() => {
+      setToastMessage(null);
+    }, durationMs);
+  };
+
+  // Check rate limit on mount (do NOT auto-show toast on page refresh)
   useEffect(() => {
     const rateStatus = getRateLimitStatus();
     if (rateStatus.isRateLimited) {
       setIsRateLimited(true);
-      setToastMessage(RATE_LIMIT_MESSAGE);
     }
+    return () => {
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    };
   }, []);
 
   // ScrollTrigger animation for the giant "LET'S TALK" text
@@ -64,10 +75,9 @@ export default function Footer() {
     try {
       await navigator.clipboard.writeText(socials.gmail);
       setCopied(true);
-      setToastMessage(t.email_copied);
+      showToast(t.email_copied, 3000);
       setTimeout(() => {
         setCopied(false);
-        setToastMessage(null);
       }, 3000);
     } catch (err) {
       console.error("Failed to copy email:", err);
@@ -93,19 +103,19 @@ export default function Footer() {
     const rateStatus = getRateLimitStatus();
     if (isRateLimited || rateStatus.isRateLimited) {
       setIsRateLimited(true);
-      setToastMessage(RATE_LIMIT_MESSAGE);
+      showToast(RATE_LIMIT_MESSAGE);
       return;
     }
 
     // 3. Self Email Validation (Owner email check)
     if (isOwnerEmail(email)) {
-      setToastMessage(OWNER_EMAIL_ERROR_MESSAGE);
+      showToast(OWNER_EMAIL_ERROR_MESSAGE);
       return;
     }
 
     // 4. Message length check (min 10 chars)
     if (message.length < 10) {
-      setToastMessage(MIN_LENGTH_ERROR_MESSAGE);
+      showToast(MIN_LENGTH_ERROR_MESSAGE);
       return;
     }
 
@@ -125,13 +135,13 @@ export default function Footer() {
       if (res.ok) {
         setRateLimitTimestamp();
         setIsRateLimited(true);
-        setToastMessage(RATE_LIMIT_MESSAGE);
+        showToast(RATE_LIMIT_MESSAGE);
         form.reset();
       } else {
-        setToastMessage(result.error || "Gagal mengirim pesan. Silakan coba lagi.");
+        showToast(result.error || "Gagal mengirim pesan. Silakan coba lagi.");
       }
     } catch (err) {
-      setToastMessage("Terjadi kesalahan jaringan. Silakan coba lagi.");
+      showToast("Terjadi kesalahan jaringan. Silakan coba lagi.");
     } finally {
       setFormSubmitted(false);
     }
@@ -331,10 +341,20 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Floating Toast Notification */}
+      {/* Floating Toast Notification with Auto-Dismiss and Manual Close (X) Button */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-emerald-500 text-zinc-950 font-bold px-4 py-2.5 rounded-xl shadow-xl shadow-emerald-500/10 text-sm animate-in fade-in slide-in-from-bottom-2 duration-300">
-          {toastMessage}
+        <div className="fixed bottom-6 right-6 z-[300] bg-emerald-500 text-zinc-950 font-bold px-4 py-3 rounded-2xl shadow-2xl shadow-emerald-500/20 text-xs sm:text-sm flex items-center gap-3 animate-in fade-in slide-in-from-bottom-3 duration-300 border border-emerald-400">
+          <span>{toastMessage}</span>
+          <button
+            onClick={() => setToastMessage(null)}
+            className="p-1 hover:bg-emerald-600/30 rounded-lg transition-colors cursor-pointer text-zinc-950 shrink-0"
+            aria-label="Tutup Notifikasi"
+          >
+            <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
         </div>
       )}
     </footer>
