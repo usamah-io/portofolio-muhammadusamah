@@ -13,22 +13,18 @@ import VolunteerLightbox, { LightboxMedia } from "@/components/volunteer-lightbo
 export default function VolunteerGalleryPage() {
   const { language } = useApp();
   const t = content[language]?.volunteer || content["id"].volunteer;
+  const isIndonesian = language === "id";
 
-  const [activeFilter, setActiveFilter] = useState<"all" | "video" | "image">("all");
+  const [activeFilter, setActiveFilter] = useState<"all" | "image">("all");
   const [selectedMedia, setSelectedMedia] = useState<LightboxMedia | null>(null);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
 
-  // Filter items based on active filter tab
-  const filteredItems = t.items.filter((item) => {
-    if (activeFilter === "all") return true;
-    const itemType = (item as { type?: string }).type || "video";
-    return itemType === activeFilter;
-  });
-
-  const videoCount = t.items.filter((i) => ((i as { type?: string }).type || "video") === "video").length;
-  const photoCount = t.items.filter((i) => (i as { type?: string }).type === "image").length;
+  // Focus filter items on Photo Documentations
+  const photoItems = t.items.filter((item) => (item as { type?: string }).type === "image");
+  const filteredItems = photoItems.length > 0 ? photoItems : t.items.slice(0, 2);
+  const photoCount = photoItems.length;
 
   useEffect(() => {
     cardsRef.current = [];
@@ -57,7 +53,7 @@ export default function VolunteerGalleryPage() {
   };
 
   const handleOpenLightbox = (item: (typeof t.items)[0]) => {
-    const itemType = (item as { type?: "image" | "video" }).type === "image" ? "image" : "video";
+    const itemType = "image";
     const mediaSource =
       (item as { imageSrc?: string; videoSrc?: string }).imageSrc ||
       (item as { videoSrc?: string }).videoSrc ||
@@ -85,16 +81,17 @@ export default function VolunteerGalleryPage() {
         <div className="flex items-center justify-between gap-4 border-b border-zinc-200/80 dark:border-zinc-800/80 pb-6">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-700 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-[#00FF87] transition-all duration-300 py-2.5 px-4 rounded-2xl bg-white/90 dark:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-md"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-700 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-[#00FF87] transition-all duration-300 py-2 sm:py-2.5 px-3.5 sm:px-4 rounded-xl sm:rounded-2xl bg-white/90 dark:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-md shrink-0 whitespace-nowrap"
           >
-            <ArrowLeft className="w-4 h-4 shrink-0 text-zinc-400 dark:text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-[#00FF87]" />
-            <span>Kembali ke Halaman Utama</span>
+            <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 text-zinc-400 dark:text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-[#00FF87]" />
+            <span>{isIndonesian ? "Kembali" : "Back"}</span>
+            <span className="hidden sm:inline">{isIndonesian ? " ke Beranda" : " to Home"}</span>
           </Link>
 
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 dark:bg-[#00FF87] animate-pulse" />
             <span className="text-xs font-mono font-bold text-emerald-600 dark:text-[#00FF87]">
-              Dokumentasi Volunteer ({t.items.length} Media)
+              Dokumentasi Volunteer ({photoCount} Foto)
             </span>
           </div>
         </div>
@@ -103,7 +100,7 @@ export default function VolunteerGalleryPage() {
         <div className="space-y-4 text-center md:text-left">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 dark:bg-[#00FF87]/10 border border-emerald-500/30 dark:border-[#00FF87]/30 text-emerald-600 dark:text-[#00FF87] text-xs font-mono font-bold">
             <Images className="w-4 h-4 text-emerald-600 dark:text-[#00FF87] shrink-0" />
-            <span>Galeri & Dokumentasi Lengkap</span>
+            <span>Galeri Foto Lapangan</span>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-white min-h-[1.2em] flex items-center justify-center md:justify-start">
             <Typewriter
@@ -160,62 +157,53 @@ export default function VolunteerGalleryPage() {
           </div>
         </div>
 
-        {/* Filter Category Tabs with Lucide Icons */}
-        <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 sm:gap-3 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-1.5 rounded-2xl border border-zinc-200/80 dark:border-zinc-800 w-fit">
+        {/* 3D Glassmorphism Full Rounded Pill Filter Tabs */}
+        <div className="flex flex-row items-center justify-center md:justify-start gap-1 sm:gap-1.5 p-1 sm:p-1.5 rounded-full bg-white/80 dark:bg-zinc-900/85 backdrop-blur-2xl border border-zinc-200/90 dark:border-zinc-800/90 shadow-xl shadow-black/5 dark:shadow-black/50 ring-1 ring-black/5 dark:ring-white/10 w-fit mx-auto md:mx-0 whitespace-nowrap flex-nowrap shrink-0">
           <button
             onClick={() => setActiveFilter("all")}
-            className={`inline-flex items-center px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+            className={`inline-flex flex-row items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-full text-[11px] sm:text-xs md:text-sm font-extrabold transition-all duration-300 cursor-pointer whitespace-nowrap shrink-0 ${
               activeFilter === "all"
-                ? "bg-emerald-500 dark:bg-[#00FF87] text-zinc-950 shadow-md shadow-emerald-500/20 dark:shadow-[#00FF87]/20"
-                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/80"
+                ? "bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-400 text-zinc-950 shadow-md shadow-emerald-500/30 scale-[1.02]"
+                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50"
             }`}
           >
-            <LayoutGrid className="w-4 h-4 mr-2 shrink-0" />
-            <span>{t.filter_all || "Semua Media"} ({t.items.length})</span>
+            <LayoutGrid className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+            <span className="whitespace-nowrap">{t.filter_all || "Semua"} ({photoCount})</span>
           </button>
-          <button
-            onClick={() => setActiveFilter("video")}
-            className={`inline-flex items-center px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-              activeFilter === "video"
-                ? "bg-emerald-500 dark:bg-[#00FF87] text-zinc-950 shadow-md shadow-emerald-500/20 dark:shadow-[#00FF87]/20"
-                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/80"
-            }`}
-          >
-            <Video className="w-4 h-4 mr-2 shrink-0" />
-            <span>{t.filter_video || "Video Dokumentasi"} ({videoCount})</span>
-          </button>
+
           <button
             onClick={() => setActiveFilter("image")}
-            className={`inline-flex items-center px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+            className={`inline-flex flex-row items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-full text-[11px] sm:text-xs md:text-sm font-extrabold transition-all duration-300 cursor-pointer whitespace-nowrap shrink-0 ${
               activeFilter === "image"
-                ? "bg-emerald-500 dark:bg-[#00FF87] text-zinc-950 shadow-md shadow-emerald-500/20 dark:shadow-[#00FF87]/20"
-                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/80"
+                ? "bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-400 text-zinc-950 shadow-md shadow-emerald-500/30 scale-[1.02]"
+                : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50"
             }`}
           >
-            <ImageIcon className="w-4 h-4 mr-2 shrink-0" />
-            <span>{t.filter_photo || "Foto Dokumentasi"} ({photoCount})</span>
+            <ImageIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+            <span className="whitespace-nowrap">{t.filter_photo || "Foto"} ({photoCount})</span>
           </button>
         </div>
 
-        {/* Filtered List of Browser Mockup Cards */}
-        <div ref={containerRef} className="flex flex-col gap-6 w-full max-w-5xl mx-auto">
+        {/* Filtered Grid of 2 Photo Browser Mockup Cards */}
+        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl mx-auto">
           {filteredItems.map((item, idx) => {
-            const itemType = (item as { type?: "image" | "video" }).type === "image" ? "image" : "video";
+            const itemType = "image";
             const mediaSource =
               (item as { imageSrc?: string; videoSrc?: string }).imageSrc ||
               (item as { videoSrc?: string }).videoSrc ||
               "";
 
             return (
-              <div key={item.id} ref={addToRefs}>
+              <div key={item.id} ref={addToRefs} className="h-full">
                 <BrowserMockupCard
-                  layout="horizontal"
+                  layout="vertical"
                   domain={item.domain}
                   mediaType={itemType}
                   mediaSrc={mediaSource}
+                  aspectRatio="aspect-[3/4]"
                   floatingBadge={{
                     text: item.badge,
-                    variant: itemType === "image" ? "amber" : idx % 3 === 0 ? "neon" : "dark",
+                    variant: idx === 0 ? "neon" : "dark",
                   }}
                   categoryLabel={item.category}
                   title={item.title}
@@ -223,13 +211,9 @@ export default function VolunteerGalleryPage() {
                   tags={item.tags}
                   onMediaClick={() => handleOpenLightbox(item)}
                   primaryAction={{
-                    label: itemType === "image" ? t.btn_photo || "Lihat Foto" : t.btn_video || "Tonton Video",
+                    label: "Lihat Foto Dokumentasi",
                     onClick: () => handleOpenLightbox(item),
-                    icon: itemType === "image" ? (
-                      <ImageIcon className="w-3.5 h-3.5 shrink-0" />
-                    ) : (
-                      <Video className="w-3.5 h-3.5 shrink-0" />
-                    ),
+                    icon: <ImageIcon className="w-3.5 h-3.5 shrink-0" />,
                   }}
                 />
               </div>

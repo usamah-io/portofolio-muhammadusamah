@@ -17,8 +17,9 @@ export default function Volunteer() {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
 
-  // Limit items on main landing page section to top 3
-  const featuredItems = t.items.slice(0, 3);
+  // Focus exclusively on top 2 Photo Documentations
+  const photoItems = t.items.filter((item) => (item as { type?: string }).type === "image");
+  const featuredPhotoItems = photoItems.length >= 2 ? photoItems.slice(0, 2) : t.items.slice(0, 2);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -75,30 +76,19 @@ export default function Volunteer() {
       ref={containerRef}
       className="py-24 px-4 w-full max-w-6xl mx-auto relative transition-colors duration-300 text-zinc-900 dark:text-white"
     >
-      {/* Header Section with Top Right CTA Button */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 border-b border-zinc-200/80 dark:border-zinc-800/60 pb-8">
+      {/* Header Section */}
+      <div className="mb-8 border-b border-zinc-200/80 dark:border-zinc-800/60 pb-8 text-center md:text-left">
         <div className="space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 dark:bg-[#00FF87]/10 border border-emerald-500/30 dark:border-[#00FF87]/30 text-emerald-600 dark:text-[#00FF87] text-xs font-mono font-bold">
-            <Video className="w-4 h-4 text-emerald-600 dark:text-[#00FF87] shrink-0" />
-            <span>Volunteer Showcase</span>
+            <Camera className="w-4 h-4 text-emerald-600 dark:text-[#00FF87] shrink-0" />
+            <span>Dokumentasi Foto Lapangan</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-black text-zinc-900 dark:text-white tracking-tight">
-            Dokumentasi <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500 dark:from-[#00FF87] dark:to-teal-400">Volunteer & Komunitas</span>
+            Dokumentasi <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500 dark:from-[#00FF87] dark:to-teal-400">Volunteer Cisarua</span>
           </h2>
           <p className="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base max-w-2xl">
             {t.subtitle}
           </p>
-        </div>
-
-        {/* CTA "Lihat Lainnya" Button on Top Right */}
-        <div className="shrink-0">
-          <Link
-            href="/volunteer"
-            className="inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-black text-zinc-950 bg-emerald-500 hover:bg-emerald-400 dark:bg-[#00FF87] dark:hover:bg-[#00e67a] transition-all px-5 py-3 rounded-xl shadow-lg shadow-emerald-500/10 dark:shadow-[#00FF87]/20 border border-emerald-400/40 dark:border-[#00FF87]/50 transform hover:scale-[1.02]"
-          >
-            <span>{t.btn_view_all || "Lihat Lainnya"}</span>
-            <ArrowUpRight className="w-4 h-4 text-zinc-950 shrink-0" />
-          </Link>
         </div>
       </div>
 
@@ -141,22 +131,23 @@ export default function Volunteer() {
         </div>
       </div>
 
-      {/* 2. List of Featured Volunteer Browser Mockup Cards */}
-      <div className="flex flex-col gap-6 w-full max-w-5xl mx-auto">
-        {featuredItems.map((item, idx) => {
-          const itemType = (item as { type?: "image" | "video" }).type === "image" ? "image" : "video";
+      {/* 2. Grid of 2 Featured Portrait Photo Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl mx-auto">
+        {featuredPhotoItems.map((item, idx) => {
+          const itemType = "image";
           const mediaSource =
             (item as { imageSrc?: string; videoSrc?: string }).imageSrc ||
             (item as { videoSrc?: string }).videoSrc ||
             "";
 
           return (
-            <div key={item.id} ref={addToRefs}>
+            <div key={item.id} ref={addToRefs} className="h-full">
               <BrowserMockupCard
-                layout="horizontal"
+                layout="vertical"
                 domain={item.domain}
                 mediaType={itemType}
                 mediaSrc={mediaSource}
+                aspectRatio="aspect-[3/4]"
                 floatingBadge={{
                   text: item.badge,
                   variant: idx === 0 ? "neon" : "dark",
@@ -167,13 +158,9 @@ export default function Volunteer() {
                 tags={item.tags}
                 onMediaClick={() => handleOpenLightbox(item)}
                 primaryAction={{
-                  label: itemType === "image" ? t.btn_photo || "Lihat Foto" : t.btn_video || "Tonton Video",
+                  label: "Lihat Foto Dokumentasi",
                   onClick: () => handleOpenLightbox(item),
-                  icon: itemType === "image" ? (
-                    <ImageIcon className="w-3.5 h-3.5 shrink-0" />
-                  ) : (
-                    <Video className="w-3.5 h-3.5 shrink-0" />
-                  ),
+                  icon: <ImageIcon className="w-3.5 h-3.5 shrink-0" />,
                 }}
               />
             </div>

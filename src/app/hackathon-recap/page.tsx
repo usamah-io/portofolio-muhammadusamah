@@ -16,7 +16,7 @@ export default function HackathonRecapPage() {
   const [activeCategory, setActiveCategory] = useState<string>("Semua");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const mainCertificateSrc = "/assets/datakeseluruhan peserta.png";
+  const mainCertificateSrc = "/assets/sks-master-certificate.png";
 
   const filteredGallery =
     activeCategory === "Semua" || activeCategory === "All"
@@ -34,10 +34,11 @@ export default function HackathonRecapPage() {
         <div className="flex items-center justify-between gap-4 border-b border-zinc-200/80 dark:border-zinc-800/80 pb-6">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-300 py-2.5 px-4 rounded-2xl bg-white dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-zinc-800 shadow-sm hover:shadow-md"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-300 py-2 sm:py-2.5 px-3.5 sm:px-4 rounded-xl sm:rounded-2xl bg-white dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-zinc-800 shadow-sm hover:shadow-md shrink-0 whitespace-nowrap"
           >
-            <ArrowLeft className="w-4 h-4 shrink-0" />
-            <span>Kembali ke Beranda</span>
+            <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+            <span>{language === "id" ? "Kembali" : "Back"}</span>
+            <span className="hidden sm:inline">{language === "id" ? " ke Beranda" : " to Home"}</span>
           </Link>
 
           <div className="flex items-center gap-2">

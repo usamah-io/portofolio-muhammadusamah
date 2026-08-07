@@ -19,7 +19,7 @@ interface ProjectMetadata {
 
 const PROJECTS_METADATA: ProjectMetadata[] = [
   {
-    image: "/assets/projects/sks-master.png",
+    image: "/assets/project/sks-master.png",
     domain: "sks-master.vercel.app",
     status: "Hackathon Winner",
     tech: ["Next.js 16", "TypeScript", "Google Gemini AI", "Tailwind CSS", "Vercel"],
@@ -27,7 +27,7 @@ const PROJECTS_METADATA: ProjectMetadata[] = [
     repoUrl: "https://github.com/usamah-io/Hekaton-Gemini2026",
   },
   {
-    image: "/assets/projects/studee.png",
+    image: "/assets/project/studee.png",
     domain: "studee-ten.vercel.app",
     status: "Production App",
     tech: ["Next.js 16", "Prisma ORM", "TypeScript", "Tailwind CSS", "PostgreSQL"],
@@ -35,7 +35,7 @@ const PROJECTS_METADATA: ProjectMetadata[] = [
     repoUrl: "https://github.com/usamah-io/Studee-x-Python",
   },
   {
-    image: "/assets/projects/budiman-cendikia.png",
+    image: "/assets/project/budiman-cendikia.png",
     domain: "budimancendikia.sch.id",
     status: "School Portal",
     tech: ["TypeScript", "PHP (Blade)", "MySQL", "Tailwind CSS"],

@@ -22,6 +22,8 @@ export interface BrowserMockupCardProps {
   mediaType: "image" | "video";
   mediaSrc: string;
   poster?: string;
+  aspectRatio?: string;
+  objectFit?: "cover" | "contain";
   floatingBadge?: FloatingBadge;
   secondaryBadge?: FloatingBadge;
   categoryLabel: string;
@@ -73,6 +75,8 @@ export default function BrowserMockupCard({
   mediaType,
   mediaSrc,
   poster,
+  aspectRatio,
+  objectFit = "cover",
   floatingBadge,
   secondaryBadge,
   categoryLabel,
@@ -282,14 +286,15 @@ export default function BrowserMockupCard({
         </div>
       </div>
 
-      {/* 2. Media Container Standard (Aspect Video) */}
-      <div className="relative w-full aspect-video overflow-hidden bg-zinc-950 dark:bg-black/95 group/media flex items-center justify-center">
+      {/* 2. Media Container Standard */}
+      <div className={`relative w-full ${aspectRatio || "aspect-video"} overflow-hidden bg-zinc-950 dark:bg-black/95 group/media flex items-center justify-center`}>
         {mediaType === "image" ? (
           <img
             src={mediaSrc}
             alt={title}
             loading="lazy"
-            className="w-full h-full object-cover block group-hover/media:scale-105 transition-transform duration-500 ease-out"
+            onClick={onMediaClick}
+            className={`w-full h-full ${objectFit === "contain" ? "object-contain bg-zinc-900/90 p-1.5" : "object-cover"} block group-hover/media:scale-105 transition-transform duration-500 ease-out ${onMediaClick ? "cursor-pointer" : ""}`}
           />
         ) : (
           <video
@@ -331,22 +336,6 @@ export default function BrowserMockupCard({
               {secondaryBadge.text}
             </span>
           </div>
-        )}
-
-        {onMediaClick && (
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onMediaClick();
-            }}
-            className="absolute top-2 right-2 z-20 p-1 rounded-lg bg-zinc-950/80 hover:bg-emerald-500 dark:hover:bg-[#00FF87] text-zinc-300 hover:text-zinc-950 border border-zinc-700/80 transition-colors shadow-md cursor-pointer"
-            title="Layar Penuh / Lightbox"
-            aria-label="Layar Penuh"
-          >
-            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-            </svg>
-          </button>
         )}
       </div>
 

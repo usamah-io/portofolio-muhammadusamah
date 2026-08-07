@@ -146,9 +146,9 @@
       "btn_details": "Buka di Drive",
       "btn_view_all": "Lihat Lainnya",
       "badge_category": "Relawan Cisarua",
-      "filter_all": "Semua Media",
-      "filter_video": "Video Dokumentasi",
-      "filter_photo": "Foto Dokumentasi",
+      "filter_all": "Semua",
+      "filter_video": "Video",
+      "filter_photo": "Foto",
       "items": [
         {
           "id": "vol-1",
@@ -342,8 +342,22 @@
           "keterangan": "Penyampaian presentasi solutif, demonstrasi live, dan respon juri solid."
         }
       ],
-      "gallery_categories": ["Semua", "Leaderboard Juri", "Rincian Nilai", "Pengumuman Finalis", "Arsitektur Sistem"],
+      "gallery_categories": [
+        "Semua",
+        "Sertifikat Resmi",
+        "Leaderboard Juri",
+        "Rincian Nilai",
+        "Pengumuman Finalis",
+        "Arsitektur Sistem"
+      ],
       "gallery_items": [
+        {
+          "id": "g0",
+          "title": "Sertifikat Resmi SKS Master - Gemini Innovation Hackathon 2026",
+          "category": "Sertifikat Resmi",
+          "src": "/assets/sks-master-certificate.png",
+          "description": "Sertifikat resmi penghargaan partisipasi dan pencapaian tim SKS Master dalam Gemini Innovation Hackathon at Gemini Unity Festival 2026."
+        },
         {
           "id": "g1",
           "title": "Screenshot Leaderboard Rekap Penilaian Juri",
@@ -369,7 +383,7 @@
           "id": "g4",
           "title": "Diagram Arsitektur Sistem Sks-Master",
           "category": "Arsitektur Sistem",
-          "src": "/assets/ssanaaaa.png",
+          "src": "/assets/arsitektur-sistem.png",
           "description": "Alur sistem: React Client app/dashboard/page.js -> Server Actions app/actions.js -> Gemini API & Bank Soal Offline."
         }
       ]
@@ -607,9 +621,9 @@
       "btn_details": "Open in Drive",
       "btn_view_all": "View More",
       "badge_category": "Cisarua Volunteer",
-      "filter_all": "All Media",
-      "filter_video": "Video Documentation",
-      "filter_photo": "Photo Documentation",
+      "filter_all": "All",
+      "filter_video": "Videos",
+      "filter_photo": "Photos",
       "items": [
         {
           "id": "vol-1",
@@ -619,7 +633,12 @@
           "badge": "Cisarua Volunteer",
           "domain": "volunteer.dev/cisarua-part-1",
           "description": "Documentation of volunteer team arrival at Cisarua landslide disaster location, evacuation assignment, and emergency needs assessment.",
-          "tags": ["Emergency Response", "Cisarua", "Volunteer", "Humanitarian"],
+          "tags": [
+            "Emergency Response",
+            "Cisarua",
+            "Volunteer",
+            "Humanitarian"
+          ],
           "videoSrc": "https://lh3.googleusercontent.com/d/1PuoAcNuSvaQ5WBZ7OuhbPxEdoLxMuf3A",
           "detailUrl": "https://drive.google.com/file/d/1PuoAcNuSvaQ5WBZ7OuhbPxEdoLxMuf3A/view"
         },
@@ -803,7 +822,13 @@
           "keterangan": "Solution-oriented presentation, live demo execution, and solid judge Q&A."
         }
       ],
-      "gallery_categories": ["All", "Judges Leaderboard", "Score Breakdown", "Finalist Announcement", "System Architecture"],
+      "gallery_categories": [
+        "All",
+        "Judges Leaderboard",
+        "Score Breakdown",
+        "Finalist Announcement",
+        "System Architecture"
+      ],
       "gallery_items": [
         {
           "id": "g1",
@@ -830,7 +855,7 @@
           "id": "g4",
           "title": "Sks-Master System Architecture Diagram",
           "category": "System Architecture",
-          "src": "/assets/ssanaaaa.png",
+          "src": "/assets/arsitektur-sistem.png",
           "description": "System flow: React Client app/dashboard/page.js -> Server Actions app/actions.js -> Gemini API & Offline Question Bank."
         }
       ]
