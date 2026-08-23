@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { Trophy, Download } from "lucide-react";
+import { Download } from "lucide-react";
 import { gsap } from "@/lib/gsap";
 import { useApp } from "./app-context";
 import content from "@/data/content.json";
@@ -20,31 +20,52 @@ export default function Hero() {
   // GSAP Entrance Animations
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-      // Split words/lines or animate the title
-      if (titleRef.current) {
-        const lines = titleRef.current.querySelectorAll(".reveal-line");
-        tl.fromTo(
-          lines,
-          { opacity: 0, y: 40 },
-          { opacity: 1, y: 0, duration: 1, stagger: 0.15, delay: 0.1 }
+      // 1. Reveal Lines for Title
+      const revealLines = titleRef.current?.querySelectorAll(".reveal-line");
+      if (revealLines && revealLines.length > 0) {
+        gsap.fromTo(
+          revealLines,
+          { yPercent: 100, opacity: 0 },
+          {
+            yPercent: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.12,
+            ease: "power3.out",
+          }
         );
       }
 
-      tl.fromTo(
-        subtitleRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8 },
-        "-=0.7"
-      );
+      // 2. Subtitle Fade & Slide Up
+      if (subtitleRef.current) {
+        gsap.fromTo(
+          subtitleRef.current,
+          { y: 20, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            delay: 0.35,
+            ease: "power2.out",
+          }
+        );
+      }
 
-      tl.fromTo(
-        buttonsRef.current,
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.8 },
-        "-=0.6"
-      );
+      // 3. CTA Buttons Fade & Scale
+      if (buttonsRef.current) {
+        gsap.fromTo(
+          buttonsRef.current,
+          { y: 15, opacity: 0, scale: 0.98 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            delay: 0.5,
+            ease: "back.out(1.4)",
+          }
+        );
+      }
     }, containerRef);
 
     return () => ctx.revert();
@@ -65,14 +86,6 @@ export default function Hero() {
           ref={titleRef}
           className="flex flex-col items-center justify-center text-center gap-2.5 sm:gap-3"
         >
-          {/* Badge Highlight Prestasi (Emerald Glassmorphism Theme) */}
-          <span className="block overflow-hidden pb-1">
-            <span className="reveal-line inline-flex items-center px-4 py-1.5 rounded-full bg-emerald-500/10 dark:bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 text-xs sm:text-sm font-medium tracking-wide shadow-sm hover:bg-emerald-500/20 transition-all duration-300">
-              <Trophy className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400 mr-1.5 flex-shrink-0" />
-              <span>{t.badge_achievement || "Top 4 Finalis Gemini Hackathon 2026"}</span>
-            </span>
-          </span>
-
           {/* Tingkat 1: Nama Utama (Paling Besar) */}
           <span className="block overflow-hidden pb-1">
             <span className="reveal-line block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-tight">
