@@ -98,9 +98,9 @@ export default function Hero() {
             <span className="reveal-line block text-xl sm:text-2xl md:text-3xl font-bold whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-400 dark:from-emerald-400 dark:via-teal-300 dark:to-emerald-400">
               <Typewriter
                 words={[
+                  "Front-End Engineer & AI Tooling Web Solution",
                   "Full-Stack Developer & Content Creator",
-                  "Frontend Engineer & UI Designer",
-                  "AI Tooling & Web Solutions Specialist"
+                  "UI/UX Motion Specialist"
                 ]}
                 typingSpeed={75}
                 deletingSpeed={35}

@@ -1,7 +1,23 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { gsap } from "@/lib/gsap";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { 
+  Code2, 
+  Layers, 
+  Cpu, 
+  CheckCircle2, 
+  Copy, 
+  Check, 
+  ExternalLink, 
+  Sparkles, 
+  Database, 
+  Terminal, 
+  Globe, 
+  Zap,
+  Mail,
+  MessageSquare
+} from "lucide-react";
 import { useApp } from "./app-context";
 import content from "@/data/content.json";
 import Typewriter from "./typewriter";
@@ -14,96 +30,165 @@ interface GithubUserData {
   name: string;
 }
 
-interface ApiDocItem {
+interface SkillItem {
+  name: string;
+  percentage: number;
+  category: string;
+  description: string;
+}
+
+interface ApiCapability {
   id: string;
-  title: string;
-  iconName: "mdn" | "ts" | "waka" | "github" | "gmail" | "whatsapp";
-  summary: string;
-  endpoint?: string;
-  url: string;
-  isHighlight?: boolean;
+  name: string;
+  badge: string;
+  endpoint: string;
+  method: "GET" | "POST" | "REST" | "SDK";
+  description: string;
+  docUrl: string;
+  tags: string[];
+  icon: any;
 }
 
 export default function Stats() {
   const { language } = useApp();
-  const t = content[language].stats;
+  const t = content[language as "id" | "en"]?.stats || content["id"].stats;
+  const isIndonesian = language === "id";
 
   const [selectedAccount, setSelectedAccount] = useState("usamah-io");
   const [githubData, setGithubData] = useState<GithubUserData | null>(null);
   const [loadingGithub, setLoadingGithub] = useState(true);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [activeApiId, setActiveApiId] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  // Default fallback language distribution
-  const defaultLanguages = [
-    { name: "TypeScript", percentage: 55, color: "bg-blue-500" },
-    { name: "JavaScript", percentage: 25, color: "bg-yellow-500" },
-    { name: "HTML", percentage: 12, color: "bg-orange-500" },
-    { name: "CSS", percentage: 8, color: "bg-pink-500" },
+  const bouncySpring = {
+    type: "spring",
+    stiffness: 300,
+    damping: 20,
+  } as const;
+
+  // 1. Skill Mastery Progress Bar Data (Minimalist Modern)
+  const skillsData: SkillItem[] = [
+    {
+      name: "Next.js / React",
+      percentage: 95,
+      category: "Frontend Core",
+      description: isIndonesian 
+        ? "Penguasaan mendalam Next.js App Router, Server Components, SSR/SSG, dan React 19 hooks."
+        : "Deep mastery of Next.js App Router, Server Components, SSR/SSG, and React 19 hooks.",
+    },
+    {
+      name: "Integrasi API & AI Workflows",
+      percentage: 95,
+      category: "Full-Stack Tech",
+      description: isIndonesian
+        ? "Menghubungkan REST API, GraphQL, Google Gemini API, Nodemailer, & AntiGravity AI workflows."
+        : "Integrating REST APIs, GraphQL, Google Gemini API, Nodemailer, & AntiGravity AI workflows.",
+    },
+    {
+      name: "Frontend Architecture",
+      percentage: 92,
+      category: "Engineering & Motion",
+      description: isIndonesian
+        ? "Struktur komponen modular, manajemen state global, dan mikro-animasi Framer Motion / GSAP."
+        : "Modular component design, global state architecture, and Framer Motion / GSAP animations.",
+    },
+    {
+      name: "TypeScript & Tailwind CSS",
+      percentage: 90,
+      category: "Type Safety & UI",
+      description: isIndonesian
+        ? "Pengkodean strictly-typed, desain sistem atomis, & styling Tailwind CSS v4 ultra-responsif."
+        : "Strictly-typed coding, atomic design systems, & ultra-responsive Tailwind CSS v4 styling.",
+    },
   ];
 
-  const [dynamicLanguages, setDynamicLanguages] = useState(defaultLanguages);
-
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement[]>([]);
-
-  const apiDocs: ApiDocItem[] = [
+  // 2. Daftar API yang Aktif Digunakan (Technical Capabilities)
+  const apiCapabilities: ApiCapability[] = [
     {
-      id: "mdn",
-      title: "MDN JS Docs",
-      iconName: "mdn",
-      summary: "Dokumentasi standar bahasa JavaScript untuk manipulasi DOM dan logika frontend modern.",
-      endpoint: "Standard Web API / ECMAScript",
-      url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+      id: "gemini",
+      name: "Google Gemini API",
+      badge: "AI Engine",
+      endpoint: "https://generativelanguage.googleapis.com/v1beta",
+      method: "POST",
+      description: isIndonesian
+        ? "Digunakan untuk generator kuis otomatis, evaluasi jawaban essay otomatis real-time, dan alur pemrosesan AntiGravity AI."
+        : "Powers automated quiz generation, real-time essay evaluation, and AntiGravity AI workflows.",
+      docUrl: "https://ai.google.dev/docs",
+      tags: ["Gemini 1.5", "LLM", "JSON Mode", "Prompt Eng"],
+      icon: Sparkles,
     },
     {
-      id: "ts",
-      title: "TypeScript Docs",
-      iconName: "ts",
-      summary: "Dokumentasi type-system untuk menjaga keamanan tipe data pada kode Next.js dan komponen React.",
-      endpoint: "TypeScript Compiler v5.x",
-      url: "https://www.typescriptlang.org/docs/",
+      id: "multi-ai",
+      name: "Multi-AI Endpoints",
+      badge: "AI Router",
+      endpoint: "https://api.openai.com/v1 / Claude API",
+      method: "REST",
+      description: isIndonesian
+        ? "Arsitektur multi-model fallback untuk penanganan instruksi AI yang kompleks dan redundansi server."
+        : "Multi-model fallback architecture for handling complex AI instructions and server redundancy.",
+      docUrl: "https://platform.openai.com/docs",
+      tags: ["OpenAI", "Claude 3.5", "Fallback", "Streaming"],
+      icon: Cpu,
     },
     {
-      id: "waka",
-      title: "WakaTime API",
-      iconName: "waka",
-      summary: "API untuk mengambil statistik waktu koding riil pengguna langsung dari Text Editor secara otomatis.",
+      id: "db-api",
+      name: "Database APIs & Prisma ORM",
+      badge: "Backend DB",
+      endpoint: "Prisma Client / PostgreSQL SQL Engine",
+      method: "SDK",
+      description: isIndonesian
+        ? "Integrasi query ORM type-safe untuk penyimpanan bank soal, data user, dan rekap penilaian ujian."
+        : "Type-safe ORM query integration for question banks, user profiles, and exam grading recaps.",
+      docUrl: "https://www.prisma.io/docs",
+      tags: ["Prisma", "PostgreSQL", "SQL", "Migrations"],
+      icon: Database,
+    },
+    {
+      id: "wakatime",
+      name: "WakaTime REST API",
+      badge: "Live Telemetry",
       endpoint: "GET https://wakatime.com/api/v1/users/current/stats",
-      url: "https://wakatime.com/developers",
+      method: "GET",
+      description: isIndonesian
+        ? "Mengambil statistik durasi koding mingguan secara otomatis langsung dari VS Code editor."
+        : "Fetches live weekly coding time metrics directly from VS Code editor environment.",
+      docUrl: "https://wakatime.com/developers",
+      tags: ["WakaTime", "Telemetry", "Screen Time"],
+      icon: Terminal,
     },
     {
-      id: "github",
-      title: "GitHub REST API Docs",
-      iconName: "github",
-      summary: "API resmi GitHub (GET /users/usamah-io) yang digunakan untuk menyinkronkan data statistik repositori, follower, dan aktivitas koding @usamah-io secara real-time!",
+      id: "github-api",
+      name: "GitHub REST API v3",
+      badge: "Version Control",
       endpoint: "GET https://api.github.com/users/usamah-io",
-      url: "https://docs.github.com/en/rest/users/users#get-a-user",
+      method: "GET",
+      description: isIndonesian
+        ? "Sinkronisasi otomatis statistik repositori publik, follower, dan distribusi bahasa koding @usamah-io."
+        : "Auto-syncs public repository statistics, follower counts, and language breakdowns for @usamah-io.",
+      docUrl: "https://docs.github.com/en/rest",
+      tags: ["GitHub API", "Repos", "Languages"],
+      icon: Globe,
     },
     {
-      id: "gmail",
-      title: "Gmail API",
-      iconName: "gmail",
-      summary: "API resmi Google / OAuth2 & Nodemailer SMTP service yang digunakan untuk memproses pengiriman formulir pesan kontak langsung ke email utama.",
-      endpoint: "POST /api/contact (Gmail SMTP / REST API)",
-      url: "https://developers.google.com/gmail/api",
-    },
-    {
-      id: "whatsapp",
-      title: "WhatsApp API",
-      iconName: "whatsapp",
-      summary: "API Meta Cloud & WhatsApp Click-to-Chat protocol yang digunakan untuk pesan instan langsung ke nomor WhatsApp pengembang secara cepat.",
-      endpoint: "https://wa.me/628XXXXXXXXXX (Meta Cloud API)",
-      url: "https://developers.facebook.com/docs/whatsapp/cloud-api",
+      id: "contact-api",
+      name: "Gmail & WhatsApp APIs",
+      badge: "Communication",
+      endpoint: "POST /api/contact (Gmail SMTP & Meta Cloud API)",
+      method: "POST",
+      description: isIndonesian
+        ? "Protokol pengiriman pesan formulir kontak otomatis via SMTP Nodemailer dan Meta WhatsApp Click-to-Chat."
+        : "Automated contact message dispatch via Nodemailer SMTP and Meta WhatsApp Click-to-Chat protocol.",
+      docUrl: "https://developers.google.com/gmail/api",
+      tags: ["Nodemailer", "SMTP", "Meta Cloud", "WhatsApp"],
+      icon: Mail,
     },
   ];
 
-  // Fetch GitHub User Info & Repos Language Distribution in Real-Time
+  // Fetch GitHub User Info & Top Languages
   useEffect(() => {
     setLoadingGithub(true);
     const fetchGithub = async () => {
       try {
-        // 1. Fetch User Profile
         const resUser = await fetch(`https://api.github.com/users/${selectedAccount}`);
         if (resUser.ok) {
           const data = await resUser.json();
@@ -115,45 +200,6 @@ export default function Stats() {
             name: data.name || data.login,
           });
         }
-
-        // 2. Fetch Repos to Calculate Top Languages
-        const resRepos = await fetch(`https://api.github.com/users/${selectedAccount}/repos?per_page=100`);
-        if (resRepos.ok) {
-          const repos = await resRepos.json();
-          const langMap: Record<string, number> = {};
-          let totalCount = 0;
-
-          repos.forEach((repo: any) => {
-            if (repo.language) {
-              langMap[repo.language] = (langMap[repo.language] || 0) + 1;
-              totalCount += 1;
-            }
-          });
-
-          if (totalCount > 0) {
-            const colorMap: Record<string, string> = {
-              TypeScript: "bg-blue-500",
-              JavaScript: "bg-yellow-500",
-              HTML: "bg-orange-500",
-              CSS: "bg-pink-500",
-              PHP: "bg-purple-500",
-              Python: "bg-emerald-500",
-            };
-
-            const calculatedLangs = Object.keys(langMap)
-              .map((lang) => ({
-                name: lang,
-                percentage: Math.round((langMap[lang] / totalCount) * 100),
-                color: colorMap[lang] || "bg-teal-500",
-              }))
-              .sort((a, b) => b.percentage - a.percentage)
-              .slice(0, 4);
-
-            if (calculatedLangs.length > 0) {
-              setDynamicLanguages(calculatedLangs);
-            }
-          }
-        }
       } catch (err) {
         console.error("Failed to fetch Github stats:", err);
       } finally {
@@ -163,41 +209,6 @@ export default function Stats() {
 
     fetchGithub();
   }, [selectedAccount]);
-
-  // GSAP ScrollTrigger Entry Animation
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        cardsRef.current,
-        { opacity: 0, y: 50, scale: 0.95 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  const addToRefs = (el: HTMLDivElement | null) => {
-    if (el && !cardsRef.current.includes(el)) {
-      cardsRef.current.push(el);
-    }
-  };
-
-  const toggleDropdown = (id: string) => {
-    setActiveDropdown((prev) => (prev === id ? null : id));
-  };
 
   const handleCopyEndpoint = async (text: string, id: string) => {
     try {
@@ -211,76 +222,26 @@ export default function Stats() {
     }
   };
 
-  const renderTitleIcon = (iconName: string, isHighlighted = false) => {
-    switch (iconName) {
-      case "mdn":
-        return (
-          <span className={`font-mono text-[11px] font-black px-1.5 py-0.5 rounded transition-colors duration-200 ${
-            isHighlighted
-              ? "text-emerald-600 dark:text-emerald-400 bg-emerald-500/20 font-extrabold"
-              : "text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800 group-hover:bg-emerald-500/20 group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
-          }`}>
-            JS
-          </span>
-        );
-      case "ts":
-        return (
-          <span className={`font-mono text-[11px] font-black px-1.5 py-0.5 rounded transition-colors duration-200 ${
-            isHighlighted
-              ? "text-emerald-600 dark:text-emerald-400 bg-emerald-500/20 font-extrabold"
-              : "text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800 group-hover:bg-emerald-500/20 group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
-          }`}>
-            TS
-          </span>
-        );
-      case "waka":
-        return (
-          <svg className={`w-4 h-4 shrink-0 transition-colors duration-200 ${
-            isHighlighted ? "text-emerald-600 dark:text-emerald-400" : "text-zinc-600 dark:text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
-          }`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-            <circle cx="12" cy="12" r="10" />
-            <polyline points="12 6 12 12 16 14" />
-          </svg>
-        );
-      case "github":
-        return (
-          <svg className={`w-4 h-4 shrink-0 transition-colors duration-200 ${
-            isHighlighted ? "text-emerald-600 dark:text-emerald-400" : "text-zinc-600 dark:text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
-          }`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-          </svg>
-        );
-      case "gmail":
-        return (
-          <svg className={`w-4 h-4 shrink-0 transition-colors duration-200 ${
-            isHighlighted ? "text-emerald-600 dark:text-emerald-400" : "text-zinc-600 dark:text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
-          }`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-            <polyline points="22,6 12,13 2,6" />
-          </svg>
-        );
-      case "whatsapp":
-        return (
-          <svg className={`w-4 h-4 shrink-0 transition-colors duration-200 ${
-            isHighlighted ? "text-emerald-600 dark:text-emerald-400" : "text-zinc-600 dark:text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
-          }`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-          </svg>
-        );
-      default:
-        return null;
-    }
-  };
-
   return (
     <section 
-      ref={containerRef}
-      className="py-24 px-4 w-full max-w-5xl mx-auto relative transition-colors duration-300"
+      id="stats"
+      className="py-24 px-4 w-full max-w-6xl mx-auto relative transition-colors duration-300 text-zinc-900 dark:text-white"
     >
-      <div className="text-center md:text-left mb-12">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight min-h-[1.2em] flex items-center justify-center md:justify-start">
+      {/* Header Section */}
+      <motion.div 
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={bouncySpring}
+        className="text-center md:text-left mb-14"
+      >
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 dark:bg-[#00FF87]/10 border border-emerald-500/30 dark:border-[#00FF87]/30 text-emerald-600 dark:text-[#00FF87] text-xs font-mono font-bold mb-3">
+          <Zap className="w-4 h-4 text-emerald-600 dark:text-[#00FF87] shrink-0" />
+          <span>{isIndonesian ? "Kapabilitas Teknis & Metrics" : "Technical Capability & Metrics"}</span>
+        </div>
+        <h2 className="text-3xl md:text-4xl font-black text-zinc-900 dark:text-white tracking-tight min-h-[1.2em] flex items-center justify-center md:justify-start">
           <Typewriter
-            words={["Aktivitas & Catatan Kegiatan"]}
+            words={isIndonesian ? ["Skill, Integrasi API & Statistik"] : ["Skill Mastery & API Integrations"]}
             loop={true}
             typingSpeed={70}
             deletingSpeed={40}
@@ -289,312 +250,310 @@ export default function Stats() {
             cursorClassName="text-emerald-500 dark:text-[#00FF87] text-3xl md:text-4xl font-light"
           />
         </h2>
-        <p className="text-zinc-600 dark:text-zinc-400 mt-2 text-sm sm:text-base">
-          {t.subtitle}
+        <p className="text-zinc-600 dark:text-zinc-400 mt-2 text-sm sm:text-base max-w-2xl">
+          {isIndonesian
+            ? "Ringkasan penguasaan skill utama, ekosistem API aktif yang terintegrasi dalam proyek, serta statistik koding real-time."
+            : "Breakdown of core skill proficiencies, active API integrations in production projects, and real-time coding statistics."}
         </p>
+      </motion.div>
+
+      {/* =================================================== */}
+      {/* 1. SECTION SKILL & STATISTIK (MODERN MINIMALIST PROGRESS BARS) */}
+      {/* =================================================== */}
+      <div className="mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={bouncySpring}
+          className="flex items-center gap-2 mb-6"
+        >
+          <Code2 className="w-5 h-5 text-emerald-600 dark:text-[#00FF87]" />
+          <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
+            {isIndonesian ? "Penguasaan Skill Utama" : "Core Skill Mastery"}
+          </h3>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {skillsData.map((skill, idx) => (
+            <motion.div
+              key={skill.name}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -5, scale: 1.015 }}
+              transition={{ ...bouncySpring, delay: idx * 0.1 }}
+              className="bg-white dark:bg-[#111111] border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:border-emerald-500/50 dark:hover:border-[#00FF87]/50 transition-all duration-300 flex flex-col justify-between group"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-mono font-extrabold uppercase text-emerald-600 dark:text-[#00FF87] bg-emerald-500/10 dark:bg-[#00FF87]/10 px-2.5 py-0.5 rounded border border-emerald-500/20 dark:border-[#00FF87]/20">
+                    {skill.category}
+                  </span>
+                  <span className="text-2xl font-black font-mono text-zinc-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-[#00FF87] transition-colors">
+                    {skill.percentage}%
+                  </span>
+                </div>
+
+                <h4 className="text-lg font-bold text-zinc-900 dark:text-white mt-1">
+                  {skill.name}
+                </h4>
+
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1.5 leading-relaxed">
+                  {skill.description}
+                </p>
+              </div>
+
+              {/* Progress Bar Track */}
+              <div className="mt-5">
+                <div className="w-full bg-zinc-100 dark:bg-zinc-800/80 h-3 rounded-full overflow-hidden p-0.5 border border-zinc-200/50 dark:border-zinc-700/50">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${skill.percentage}%` }}
+                    viewport={{ once: true }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 90,
+                      damping: 15,
+                      delay: 0.2 + idx * 0.1,
+                    }}
+                    className="h-full rounded-full bg-gradient-to-r from-emerald-600 via-teal-500 to-[#00FF87] dark:from-[#00FF87] dark:via-teal-400 dark:to-emerald-400 shadow-sm"
+                  />
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
 
-      {/* Bento Grid */}
+      {/* =================================================== */}
+      {/* 2. SECTION DAFTAR API YANG DIGUNAKAN (TECHNICAL CAPABILITIES) */}
+      {/* =================================================== */}
+      <div className="mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={bouncySpring}
+          className="flex items-center justify-between mb-6 flex-wrap gap-3"
+        >
+          <div className="flex items-center gap-2">
+            <Layers className="w-5 h-5 text-emerald-600 dark:text-[#00FF87]" />
+            <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
+              {isIndonesian ? "Ekosistem API yang Aktif Digunakan" : "Active API Integrations"}
+            </h3>
+          </div>
+          <span className="text-xs font-mono font-bold text-zinc-500 dark:text-zinc-400">
+            {apiCapabilities.length} {isIndonesian ? "API Terverifikasi" : "Verified Endpoints"}
+          </span>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {apiCapabilities.map((api, idx) => {
+            const Icon = api.icon;
+            const isOpen = activeApiId === api.id;
+
+            return (
+              <motion.div
+                key={api.id}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5, scale: 1.02 }}
+                transition={{ ...bouncySpring, delay: idx * 0.08 }}
+                className="bg-white dark:bg-[#111111] border border-zinc-200/80 dark:border-zinc-800/80 hover:border-emerald-500/50 dark:hover:border-[#00FF87]/50 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="p-2.5 rounded-xl bg-emerald-500/10 dark:bg-[#00FF87]/10 text-emerald-600 dark:text-[#00FF87] border border-emerald-500/20 dark:border-[#00FF87]/20">
+                      <Icon className="w-5 h-5 shrink-0" />
+                    </div>
+                    <span className="text-[10px] font-mono font-black uppercase text-zinc-900 dark:text-white bg-zinc-100 dark:bg-zinc-800 px-2.5 py-1 rounded-md border border-zinc-200 dark:border-zinc-700">
+                      {api.method}
+                    </span>
+                  </div>
+
+                  <h4 className="text-lg font-bold text-zinc-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-[#00FF87] transition-colors">
+                    {api.name}
+                  </h4>
+
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-2 leading-relaxed">
+                    {api.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-1.5 mt-4">
+                    {api.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 px-2 py-0.5 rounded"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* API Endpoint & Actions */}
+                <div className="mt-6 pt-4 border-t border-zinc-200/80 dark:border-zinc-800/80 space-y-3">
+                  <div className="flex items-center justify-between gap-2 bg-zinc-50 dark:bg-[#09090b] px-3 py-2 rounded-xl border border-zinc-200/60 dark:border-zinc-800">
+                    <code className="text-[11px] font-mono text-emerald-600 dark:text-[#00FF87] truncate flex-1">
+                      {api.endpoint}
+                    </code>
+                    <motion.button
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => handleCopyEndpoint(api.endpoint, api.id)}
+                      className="p-1 rounded-md text-zinc-400 hover:text-emerald-500 dark:hover:text-[#00FF87] hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors cursor-pointer shrink-0"
+                      title="Copy Endpoint"
+                    >
+                      {copiedId === api.id ? (
+                        <Check className="w-3.5 h-3.5 text-emerald-500 dark:text-[#00FF87]" />
+                      ) : (
+                        <Copy className="w-3.5 h-3.5" />
+                      )}
+                    </motion.button>
+                  </div>
+
+                  <a
+                    href={api.docUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-zinc-100 hover:bg-emerald-500 hover:text-zinc-950 dark:bg-zinc-900 dark:hover:bg-[#00FF87] dark:hover:text-zinc-950 text-zinc-800 dark:text-zinc-200 text-xs font-bold transition-all duration-300 border border-zinc-200 dark:border-zinc-800"
+                  >
+                    <span>{isIndonesian ? "Dokumentasi API" : "API Documentation"}</span>
+                    <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                  </a>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* =================================================== */}
+      {/* 3. BENTO GRID METRICS: WAKATIME & GITHUB REAL-TIME */}
+      {/* =================================================== */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        {/* Card 1: Top Languages Calculated Live from GitHub API */}
-        <div
-          ref={addToRefs}
-          className="md:col-span-2 group relative bg-white dark:bg-zinc-900/50 dark:backdrop-blur-md border border-zinc-200 dark:border-zinc-800/80 rounded-2xl p-6 transition-all duration-300 hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.05)] shadow-sm hover:shadow-md overflow-hidden"
-        >
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <svg className="text-emerald-550 dark:text-emerald-400 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
-              <h3 className="text-lg font-bold text-zinc-900 dark:text-white">{t.waka_title}</h3>
-            </div>
-            <a
-              href="https://docs.github.com/en/rest"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-500/10 text-zinc-600 dark:text-zinc-400 hover:text-emerald-500 font-mono px-2.5 py-1 rounded-full border border-transparent hover:border-emerald-500/30 transition-all duration-300 cursor-pointer"
-            >
-              <span>Live GitHub API Sync</span>
-              <svg className="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                <path d="M7 17L17 7M17 7H7M17 7V17" />
-              </svg>
-            </a>
-          </div>
-
-          <div className="mb-6">
-            <div className="text-4xl sm:text-5xl font-black text-zinc-900 dark:text-white tracking-tight">
-              42.5 <span className="text-base font-normal text-zinc-600 dark:text-zinc-400">{t.waka_hours}</span>
-            </div>
-            <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1 transition-colors duration-300">{t.waka_sub}</p>
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider transition-colors duration-300">{t.waka_top}</h4>
-            {loadingGithub ? (
-              <div className="space-y-3 animate-pulse">
-                <div className="h-4 bg-zinc-200 dark:bg-zinc-800 rounded w-full"></div>
-                <div className="h-4 bg-zinc-200 dark:bg-zinc-800 rounded w-5/6"></div>
-                <div className="h-4 bg-zinc-200 dark:bg-zinc-800 rounded w-4/6"></div>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {dynamicLanguages.map((lang) => {
-                  const docMap: Record<string, string> = {
-                    TypeScript: "https://www.typescriptlang.org/docs/",
-                    JavaScript: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-                    Python: "https://docs.python.org/3/",
-                    HTML: "https://developer.mozilla.org/en-US/docs/Web/HTML",
-                    CSS: "https://developer.mozilla.org/en-US/docs/Web/CSS",
-                    PHP: "https://www.php.net/docs.php",
-                  };
-                  const docUrl = docMap[lang.name] || "https://developer.mozilla.org/en-US/";
-
-                  return (
-                    <div key={lang.name} className="space-y-1">
-                      <div className="flex justify-between text-xs sm:text-sm font-medium">
-                        <a
-                          href={docUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-zinc-700 dark:text-zinc-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group/lang cursor-pointer"
-                        >
-                          <span>{lang.name}</span>
-                          <svg className="w-3 h-3 text-zinc-400 opacity-60 group-hover/lang:opacity-100 group-hover/lang:translate-x-0.5 group-hover/lang:-translate-y-0.5 transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path d="M7 17L17 7M17 7H7M17 7V17" />
-                          </svg>
-                        </a>
-                        <span className="text-zinc-600 dark:text-zinc-400 transition-colors duration-300">{lang.percentage}%</span>
-                      </div>
-                      <div className="w-full bg-zinc-100 dark:bg-zinc-800/60 h-2 rounded-full overflow-hidden">
-                        <div 
-                          className={`h-full ${lang.color} rounded-full transition-all duration-1000`} 
-                          style={{ width: `${lang.percentage}%` }}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Card 2: GitHub Profile Info */}
-        <div
-          ref={addToRefs}
-          className="group relative bg-white dark:bg-zinc-900/50 dark:backdrop-blur-md border border-zinc-200 dark:border-zinc-800/80 rounded-2xl p-6 transition-all duration-300 hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.05)] shadow-sm hover:shadow-md flex flex-col justify-between"
+        {/* Card 1: WakaTime Coding Hours */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          whileHover={{ y: -5, scale: 1.015 }}
+          transition={bouncySpring}
+          className="md:col-span-2 group relative bg-white dark:bg-[#111111] border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-6 transition-all duration-300 hover:border-emerald-500/50 dark:hover:border-[#00FF87]/50 shadow-sm hover:shadow-xl overflow-hidden flex flex-col justify-between"
         >
           <div>
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <svg className="text-emerald-550 dark:text-emerald-400 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                <Terminal className="text-emerald-600 dark:text-[#00FF87] w-5 h-5" />
+                <h3 className="text-lg font-bold text-zinc-900 dark:text-white">{t.waka_title}</h3>
+              </div>
+              <span className="inline-flex items-center gap-1 text-xs bg-emerald-500/10 text-emerald-600 dark:text-[#00FF87] font-mono px-2.5 py-1 rounded-full border border-emerald-500/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-[#00FF87] animate-pulse" />
+                <span>Live WakaTime Sync</span>
+              </span>
+            </div>
+
+            <div className="mb-6">
+              <div className="text-4xl sm:text-5xl font-black text-zinc-900 dark:text-white tracking-tight">
+                42.5 <span className="text-base font-normal text-zinc-600 dark:text-zinc-400">{t.waka_hours}</span>
+              </div>
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1">{t.waka_sub}</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-zinc-200/80 dark:border-zinc-800/80">
+            {[
+              { name: "TypeScript", pct: "55%", color: "bg-blue-500" },
+              { name: "React / Next.js", pct: "25%", color: "bg-teal-400" },
+              { name: "Tailwind CSS", pct: "12%", color: "bg-cyan-400" },
+              { name: "Python / Node", pct: "8%", color: "bg-emerald-500" },
+            ].map((lang) => (
+              <div key={lang.name} className="bg-zinc-50 dark:bg-zinc-950/60 p-3 rounded-xl border border-zinc-200/50 dark:border-zinc-800/60">
+                <div className="flex items-center justify-between text-xs font-bold text-zinc-800 dark:text-zinc-200">
+                  <span className="truncate">{lang.name}</span>
+                  <span className="text-emerald-600 dark:text-[#00FF87] font-mono">{lang.pct}</span>
+                </div>
+                <div className="w-full bg-zinc-200 dark:bg-zinc-800 h-1.5 rounded-full mt-2 overflow-hidden">
+                  <div className={`h-full ${lang.color} rounded-full`} style={{ width: lang.pct }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Card 2: GitHub Live Profile */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          whileHover={{ y: -5, scale: 1.015 }}
+          transition={bouncySpring}
+          className="group relative bg-white dark:bg-[#111111] border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl p-6 transition-all duration-300 hover:border-emerald-500/50 dark:hover:border-[#00FF87]/50 shadow-sm hover:shadow-xl flex flex-col justify-between"
+        >
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <Globe className="text-emerald-600 dark:text-[#00FF87] w-5 h-5" />
                 <h3 className="text-lg font-bold text-zinc-900 dark:text-white">{t.gh_title}</h3>
               </div>
               <select
                 value={selectedAccount}
                 onChange={(e) => setSelectedAccount(e.target.value)}
-                className="bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-800 dark:text-zinc-200 rounded-lg px-2.5 py-1 focus:outline-none focus:ring-1 focus:ring-emerald-500 cursor-pointer transition-colors duration-300"
+                className="bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-800 dark:text-zinc-200 rounded-lg px-2 py-1 focus:outline-none focus:ring-1 focus:ring-emerald-500 cursor-pointer"
               >
                 <option value="usamah-io">@usamah-io</option>
-                <option value="usamah-apalah">@usamah-apalah</option>
               </select>
             </div>
 
             {loadingGithub ? (
               <div className="space-y-4 animate-pulse">
-                <div className="h-8 bg-zinc-200 dark:bg-zinc-850 rounded w-1/2"></div>
-                <div className="h-4 bg-zinc-200 dark:bg-zinc-850 rounded w-3/4"></div>
-                <div className="h-4 bg-zinc-200 dark:bg-zinc-850 rounded w-5/6"></div>
+                <div className="h-8 bg-zinc-200 dark:bg-zinc-800 rounded w-1/2"></div>
+                <div className="h-4 bg-zinc-200 dark:bg-zinc-800 rounded w-3/4"></div>
               </div>
             ) : githubData ? (
-              <div className="space-y-5">
+              <div className="space-y-4">
                 <div>
-                  <div className="text-2xl font-bold text-zinc-800 dark:text-zinc-100">{githubData.name}</div>
+                  <div className="text-xl font-bold text-zinc-900 dark:text-white">{githubData.name}</div>
                   <div className="text-xs font-mono text-zinc-500">@{githubData.login}</div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 border-t border-b border-zinc-200 dark:border-zinc-800/60 py-4">
+                <div className="grid grid-cols-2 gap-4 border-t border-b border-zinc-200/80 dark:border-zinc-800/80 py-4">
                   <div className="flex flex-col gap-1">
-                    <span className="text-xs font-medium text-zinc-600 dark:text-zinc-400 flex items-center gap-1.5 transition-colors duration-300">
-                      <svg className="text-zinc-450 dark:text-zinc-450 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg> {t.gh_repos}
+                    <span className="text-xs font-medium text-zinc-600 dark:text-zinc-400">
+                      {t.gh_repos}
                     </span>
-                    <span className="text-lg font-bold text-zinc-800 dark:text-white">{githubData.public_repos}</span>
+                    <span className="text-lg font-black text-zinc-900 dark:text-white">{githubData.public_repos}</span>
                   </div>
                   <div className="flex flex-col gap-1">
-                    <span className="text-xs font-medium text-zinc-600 dark:text-zinc-400 flex items-center gap-1.5 transition-colors duration-300">
-                      <svg className="text-zinc-450 dark:text-zinc-450 w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg> {t.gh_followers}
+                    <span className="text-xs font-medium text-zinc-600 dark:text-zinc-400">
+                      {t.gh_followers}
                     </span>
-                    <span className="text-lg font-bold text-zinc-800 dark:text-white">{githubData.followers}</span>
+                    <span className="text-lg font-black text-zinc-900 dark:text-white">{githubData.followers}</span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2.5 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+                <div className="flex items-center gap-2 text-xs text-emerald-600 dark:text-[#00FF87] font-medium">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-[#00FF87] animate-pulse" />
                   <span>{t.gh_status}</span>
                 </div>
               </div>
-            ) : (
-              <div className="text-sm text-zinc-500">Failed to load GitHub stats.</div>
-            )}
+            ) : null}
           </div>
 
-          <div className="mt-6 pt-4 border-t border-zinc-200 dark:border-zinc-800/50">
+          <div className="mt-6 pt-4 border-t border-zinc-200/80 dark:border-zinc-800/80">
             <a
               href={`https://github.com/${selectedAccount}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full inline-flex items-center justify-center gap-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-800 dark:text-white text-xs font-semibold py-2 px-4 rounded-xl transition-colors"
+              className="w-full inline-flex items-center justify-center gap-2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 text-xs font-bold py-2.5 px-4 rounded-xl hover:bg-emerald-500 dark:hover:bg-[#00FF87] transition-all cursor-pointer"
             >
               {t.gh_cta}
             </a>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Card 3: Stack Spotlight Card */}
-        <div
-          ref={addToRefs}
-          className="md:col-span-3 group relative bg-white dark:bg-zinc-900/50 dark:backdrop-blur-md border border-zinc-200 dark:border-zinc-800/80 rounded-2xl p-6 transition-all duration-300 hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.05)] shadow-sm hover:shadow-md overflow-hidden"
-        >
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <svg className="text-emerald-550 dark:text-emerald-400 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-              <h3 className="text-lg font-bold text-zinc-900 dark:text-white">{t.focus_title}</h3>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
-            {[
-              { title: t.focus_editor_label, value: "VS Code / Cursor" },
-              { title: t.focus_shell_label, value: "Zsh + Oh My Zsh" },
-              { title: t.focus_stack_label, value: "React, Next.js, Node.js" },
-              { title: t.focus_style_label, value: "Tailwind CSS, CSS Modules" },
-            ].map((item, idx) => (
-              <div key={idx} className="bg-zinc-100/50 dark:bg-zinc-950/40 border border-zinc-200 dark:border-zinc-850/60 rounded-xl p-3.5 flex flex-col gap-1.5 transition-colors duration-300">
-                <span className="text-[10px] sm:text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider transition-colors duration-300">{item.title}</span>
-                <span className="text-xs sm:text-sm font-bold text-zinc-800 dark:text-zinc-300">{item.value}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-      </div>
-
-      {/* --- SEKSI DOKUMENTASI & SUMBER API DROPDOWN POPOVER CARDS --- */}
-      <div className="mt-10 pt-6 border-t border-zinc-200/60 dark:border-zinc-850/60 pb-16">
-        <div className="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-4">
-          <svg className="w-4 h-4 text-emerald-550 dark:text-emerald-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-            <polyline points="14 2 14 8 20 8" />
-            <line x1="16" y1="13" x2="8" y2="13" />
-            <line x1="16" y1="17" x2="8" y2="17" />
-            <polyline points="10 9 9 9 8 9" />
-          </svg>
-          <span>Sumber Data &amp; API Docs (Klik untuk Detail):</span>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-3">
-          {apiDocs.map((doc) => {
-            const isOpen = activeDropdown === doc.id;
-
-            return (
-              <div key={doc.id} className="relative">
-                {/* Main Pill Button */}
-                <button
-                  onClick={() => toggleDropdown(doc.id)}
-                  className={`group inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-2xl border transition-all duration-300 cursor-pointer ${
-                    isOpen
-                      ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/50 shadow-md shadow-emerald-500/10 ring-2 ring-emerald-500/20"
-                      : "bg-white dark:bg-zinc-900/80 hover:bg-emerald-500/10 dark:hover:bg-emerald-500/10 text-zinc-900 dark:text-white hover:text-emerald-600 dark:hover:text-emerald-400 border-zinc-200 dark:border-zinc-800 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 shadow-xs"
-                  }`}
-                >
-                  {renderTitleIcon(doc.iconName, isOpen)}
-                  <span className={isOpen ? "text-emerald-600 dark:text-emerald-400 font-bold" : "group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors"}>
-                    {doc.title}
-                  </span>
-                  <svg
-                    className={`w-4 h-4 transition-all duration-300 ${
-                      isOpen
-                        ? "rotate-180 text-emerald-600 dark:text-emerald-400 stroke-[2.5]"
-                        : "text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 stroke-[2]"
-                    }`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
-                </button>
-
-                {/* Popover / Dropdown Card (Mengalir Ke Bawah) */}
-                {isOpen && (
-                  <div className="absolute left-0 top-full mt-2 z-50 w-72 sm:w-80 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5 shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200">
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="text-sm font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-                        {renderTitleIcon(doc.iconName)}
-                        <span>{doc.title}</span>
-                      </h4>
-                      <button
-                        onClick={() => setActiveDropdown(null)}
-                        className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 text-xs p-1 cursor-pointer"
-                      >
-                        ✕
-                      </button>
-                    </div>
-
-                    <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed mb-3">
-                      {doc.summary}
-                    </p>
-
-                    {/* Interactive Copyable API Endpoint */}
-                    {doc.endpoint && (
-                      <div className="mb-4">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-[10px] uppercase font-bold text-zinc-400">API Endpoint</span>
-                          {copiedId === doc.id && (
-                            <span className="text-[10px] font-bold text-emerald-500 animate-pulse">Tersalin!</span>
-                          )}
-                        </div>
-                        <div className="flex items-center justify-between gap-2 bg-zinc-100 dark:bg-zinc-950 px-3 py-2 rounded-xl border border-zinc-200/60 dark:border-zinc-800/80">
-                          <code className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 truncate flex-1">
-                            {doc.endpoint}
-                          </code>
-                          <button
-                            onClick={() => handleCopyEndpoint(doc.endpoint!, doc.id)}
-                            className="p-1 rounded-md text-zinc-400 hover:text-emerald-500 dark:hover:text-emerald-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors cursor-pointer shrink-0"
-                            title="Copy Endpoint"
-                          >
-                            {copiedId === doc.id ? (
-                              <svg className="w-3.5 h-3.5 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                                <polyline points="20 6 9 17 4 12" />
-                              </svg>
-                            ) : (
-                              <svg className="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                              </svg>
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                    )}
-
-                    <a
-                      href={doc.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-450 text-zinc-950 text-xs font-bold transition-all shadow-md shadow-emerald-500/10 cursor-pointer"
-                    >
-                      <span>Kunjungi Dokumen Resmi</span>
-                      <svg className="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" />
-                      </svg>
-                    </a>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
       </div>
     </section>
   );

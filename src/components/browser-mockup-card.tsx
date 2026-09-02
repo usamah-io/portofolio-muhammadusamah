@@ -58,7 +58,7 @@ function GithubIcon({ className = "w-3.5 h-3.5 shrink-0" }: { className?: string
 function extractDriveFileId(url: string): string | null {
   if (!url) return null;
   const match = url.match(
-    /(?:drive\.google\.com\/(?:file\/d\/|uc\?.*id=|open\?.*id=)|docs\.google\.com\/file\/d\/|lh3\.googleusercontent\.com\/d\/)([a-zA-Z0-9_-]+)/
+    /(?:drive\.google\.com\/(?:file\/d\/|thumbnail\?.*id=|uc\?.*id=|open\?.*id=)|docs\.google\.com\/file\/d\/|lh3\.googleusercontent\.com\/d\/)([a-zA-Z0-9_-]+)/
   );
   if (match && match[1]) {
     return match[1];
@@ -67,6 +67,17 @@ function extractDriveFileId(url: string): string | null {
     return url.trim();
   }
   return null;
+}
+
+function getResolvedMediaSrc(url: string, type: "image" | "video"): string {
+  if (!url) return "";
+  if (type === "image") {
+    const driveId = extractDriveFileId(url);
+    if (driveId && url.includes("drive.google.com")) {
+      return `https://lh3.googleusercontent.com/d/${driveId}`;
+    }
+  }
+  return url;
 }
 
 export default function BrowserMockupCard({
@@ -90,10 +101,11 @@ export default function BrowserMockupCard({
   onMediaClick,
   className = "",
 }: BrowserMockupCardProps) {
+  const resolvedMediaSrc = getResolvedMediaSrc(mediaSrc, mediaType);
   const driveFileId = mediaType === "video" ? extractDriveFileId(mediaSrc) : null;
   const streamUrl = driveFileId
     ? `/api/video/${driveFileId}`
-    : mediaSrc;
+    : resolvedMediaSrc;
 
   // ==========================================
   // MODE 1: LAYOUT HORIZONTAL (Khusus Volunteer Video)
@@ -111,7 +123,7 @@ export default function BrowserMockupCard({
         <div className="w-full md:w-[260px] lg:w-[280px] shrink-0 aspect-[9/16] rounded-xl overflow-hidden bg-black relative flex items-center justify-center group/media border border-gray-200 dark:border-zinc-800/80 shadow-md">
           {mediaType === "image" ? (
             <img
-              src={mediaSrc}
+              src={resolvedMediaSrc}
               alt={title}
               loading="lazy"
               className="w-full h-full object-cover block group-hover/media:scale-105 transition-transform duration-500 ease-out"
@@ -290,7 +302,7 @@ export default function BrowserMockupCard({
       <div className={`relative w-full ${aspectRatio || "aspect-video"} overflow-hidden bg-zinc-950 dark:bg-black/95 group/media flex items-center justify-center`}>
         {mediaType === "image" ? (
           <img
-            src={mediaSrc}
+            src={resolvedMediaSrc}
             alt={title}
             loading="lazy"
             onClick={onMediaClick}

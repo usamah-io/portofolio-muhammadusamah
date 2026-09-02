@@ -271,6 +271,18 @@
           "detailUrl": "https://drive.google.com/file/d/1clB2zGHyl--BgGqKOqwrEgOMvveiCqGz/view"
         },
         {
+          "id": "vol-han-tasik",
+          "type": "image",
+          "title": "Operator Audio & Media Stream - Hari Anak Nasional Tasikmalaya",
+          "category": "OPERATOR & EVENT TECH",
+          "badge": "Operator Utama",
+          "domain": "volunteer.dev/operator-hari-anak-tasik",
+          "description": "Dokumentasi foto aksi sebagai Operator Sound System, Audio Mixing, & Live Streaming pada acara Hari Anak Nasional se-Kabupaten/Kota Tasikmalaya.",
+          "tags": ["Operator", "Hari Anak Nasional", "Tasikmalaya", "Event Tech", "Volunteer"],
+          "imageSrc": "/assets/volunteer-hari-anak-nasional.jpg",
+          "detailUrl": "/assets/volunteer-hari-anak-nasional.jpg"
+        },
+        {
           "id": "vol-11",
           "type": "image",
           "title": "Foto Aksi Lapangan Relawan Cisarua 1",
@@ -279,8 +291,8 @@
           "domain": "volunteer.dev/photo-cisarua-1",
           "description": "Dokumentasi foto momen kebersamaan dan aksi relawan di lokasi bencana Cisarua.",
           "tags": ["Foto", "Dokumentasi", "Relawan", "Cisarua"],
-          "imageSrc": "https://drive.google.com/thumbnail?id=1f-zdpk9IcXFKgT9Nh23TmVlps6LM8L0e&sz=w1000",
-          "detailUrl": "https://drive.google.com/file/d/1f-zdpk9IcXFKgT9Nh23TmVlps6LM8L0e/view"
+          "imageSrc": "/assets/volunteerr.jpg",
+          "detailUrl": "/assets/volunteerr.jpg"
         },
         {
           "id": "vol-12",
@@ -291,7 +303,7 @@
           "domain": "volunteer.dev/photo-cisarua-2",
           "description": "Dokumentasi foto kegiatan distribusi logistik dan koordinasi tim relawan di posko bencana.",
           "tags": ["Foto", "Posko", "Relawan", "Cisarua"],
-          "imageSrc": "https://drive.google.com/thumbnail?id=1QQs-lWJh69RxZzG3ZPnQ-1DqXJFKzP6p&sz=w1000",
+          "imageSrc": "https://lh3.googleusercontent.com/d/1QQs-lWJh69RxZzG3ZPnQ-1DqXJFKzP6p",
           "detailUrl": "https://drive.google.com/file/d/1QQs-lWJh69RxZzG3ZPnQ-1DqXJFKzP6p/view"
         }
       ]
@@ -751,6 +763,18 @@
           "detailUrl": "https://drive.google.com/file/d/1clB2zGHyl--BgGqKOqwrEgOMvveiCqGz/view"
         },
         {
+          "id": "vol-han-tasik",
+          "type": "image",
+          "title": "Audio & Media Stream Operator - National Children's Day Tasikmalaya",
+          "category": "OPERATOR & EVENT TECH",
+          "badge": "Lead Operator",
+          "domain": "volunteer.dev/operator-hari-anak-tasik",
+          "description": "Photo documentation as Sound System, Audio Mixing, & Live Streaming Operator during National Children's Day event across Tasikmalaya.",
+          "tags": ["Operator", "National Children's Day", "Tasikmalaya", "Event Tech", "Volunteer"],
+          "imageSrc": "/assets/volunteer-hari-anak-nasional.jpg",
+          "detailUrl": "/assets/volunteer-hari-anak-nasional.jpg"
+        },
+        {
           "id": "vol-11",
           "type": "image",
           "title": "Cisarua Volunteer Field Action Photo 1",
@@ -759,8 +783,8 @@
           "domain": "volunteer.dev/photo-cisarua-1",
           "description": "Photo documentation of togetherness and volunteer action at Cisarua disaster location.",
           "tags": ["Photo", "Documentation", "Volunteer", "Cisarua"],
-          "imageSrc": "https://drive.google.com/thumbnail?id=1f-zdpk9IcXFKgT9Nh23TmVlps6LM8L0e&sz=w1000",
-          "detailUrl": "https://drive.google.com/file/d/1f-zdpk9IcXFKgT9Nh23TmVlps6LM8L0e/view"
+          "imageSrc": "/assets/volunteerr.jpg",
+          "detailUrl": "/assets/volunteerr.jpg"
         },
         {
           "id": "vol-12",
@@ -771,7 +795,7 @@
           "domain": "volunteer.dev/photo-cisarua-2",
           "description": "Photo documentation of logistics distribution and team coordination at disaster post.",
           "tags": ["Photo", "Relief Post", "Volunteer", "Cisarua"],
-          "imageSrc": "https://drive.google.com/thumbnail?id=1QQs-lWJh69RxZzG3ZPnQ-1DqXJFKzP6p&sz=w1000",
+          "imageSrc": "https://lh3.googleusercontent.com/d/1QQs-lWJh69RxZzG3ZPnQ-1DqXJFKzP6p",
           "detailUrl": "https://drive.google.com/file/d/1QQs-lWJh69RxZzG3ZPnQ-1DqXJFKzP6p/view"
         }
       ]

@@ -53,17 +53,18 @@ export default function Navbar() {
 
   const t = content[language as "id" | "en"] || content.id;
 
-  // New Ordered Direct Links: 1. Proyek, 2. Volunteer, 3. Alat & AI
+  // Ordered Direct Links: 1. Proyek, 2. Experience, 3. Skill
   const primaryLinks = [
     { label: t.nav.projects || "Proyek", href: "/projects" },
-    { label: t.nav.volunteer || "Volunteer", href: "/volunteer" },
-    { label: t.nav.tools || "Alat & AI", href: "/tools" },
+    { label: language === "id" ? "Pengalaman" : "Experience", href: "/#experience" },
+    { label: language === "id" ? "Skill" : "Skills", href: "/activity" },
   ];
 
-  // Dropdown 1: Tentang Saya (Profil Singkat, Pendidikan & Pengalaman)
+  // Dropdown 1: Tentang Saya (Profil Singkat, Pendidikan & Pengalaman, Alat & AI)
   const aboutDropdownLinks = [
     { label: t.nav.profile_short || "Profil Singkat", href: "/about" },
     { label: t.nav.education_experience || "Pendidikan & Pengalaman", href: "/experience" },
+    { label: t.nav.tools || (language === "id" ? "Alat & AI" : "Tools & AI"), href: "/tools" },
   ];
 
   // Dropdown 2: Prestasi (Hackathon & Rekap Nilai, Artikel, FAQ)

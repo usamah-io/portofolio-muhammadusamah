@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { gsap } from "@/lib/gsap";
+import { motion } from "framer-motion";
 import { useApp } from "./app-context";
 import content from "@/data/content.json";
 import {
@@ -46,13 +47,13 @@ export default function Footer() {
     };
   }, []);
 
-  // ScrollTrigger animation for the giant "LET'S TALK" text
+  // ScrollTrigger scrub animation tied to scroll position (scroll down -> slide in, scroll back -> slide back)
   useEffect(() => {
     const ctx = gsap.context(() => {
       if (textBannerRef.current) {
         gsap.fromTo(
           textBannerRef.current,
-          { x: "-15%", opacity: 0.1 },
+          { x: "-15%", opacity: 0.15 },
           {
             x: "0%",
             opacity: 1,
@@ -151,14 +152,16 @@ export default function Footer() {
     <footer
       ref={containerRef}
       id="contact"
-      className="border-t border-zinc-200 dark:border-zinc-900 bg-zinc-100/50 dark:bg-zinc-950/80 backdrop-blur-md pt-24 pb-12 px-4 relative overflow-hidden transition-colors duration-300"
+      className="border-t border-zinc-200 dark:border-zinc-900 bg-zinc-100/50 dark:bg-zinc-950/80 backdrop-blur-md pt-0 pb-12 relative overflow-hidden transition-colors duration-300"
     >
-      {/* Giant Let's Talk Text Banner */}
-      <div 
-        ref={textBannerRef}
-        className="w-full select-none pointer-events-none whitespace-nowrap overflow-hidden text-[10vw] sm:text-[12vw] font-black text-zinc-200 dark:text-zinc-900/60 uppercase tracking-tighter leading-none mb-16 text-center select-none"
-      >
-        LET'S TALK • LET'S TALK
+      {/* Scroll-Scrubbed "LET'S TALK" Text Banner (Maju saat scroll turun, mundur saat scroll naik) */}
+      <div className="w-full overflow-hidden select-none pointer-events-none pt-8 pb-4">
+        <div
+          ref={textBannerRef}
+          className="w-full text-center whitespace-nowrap text-[12vw] sm:text-[14vw] font-black text-zinc-300 dark:text-zinc-800/80 uppercase tracking-tighter leading-none select-none"
+        >
+          LET'S TALK • LET'S TALK
+        </div>
       </div>
 
       <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">

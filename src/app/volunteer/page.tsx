@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { LayoutGrid, Video, Image as ImageIcon, Images, ArrowLeft, Camera, ShieldCheck, HeartHandshake, ExternalLink } from "lucide-react";
-import { gsap } from "@/lib/gsap";
+import { motion } from "framer-motion";
+import { LayoutGrid, Image as ImageIcon, Images, ArrowLeft, Camera, ShieldCheck, HeartHandshake } from "lucide-react";
 import { useApp } from "@/components/app-context";
 import content from "@/data/content.json";
 import Typewriter from "@/components/typewriter";
@@ -12,45 +12,22 @@ import VolunteerLightbox, { LightboxMedia } from "@/components/volunteer-lightbo
 
 export default function VolunteerGalleryPage() {
   const { language } = useApp();
-  const t = content[language]?.volunteer || content["id"].volunteer;
+  const t = content[language as "id" | "en"]?.volunteer || content["id"].volunteer;
   const isIndonesian = language === "id";
 
   const [activeFilter, setActiveFilter] = useState<"all" | "image">("all");
   const [selectedMedia, setSelectedMedia] = useState<LightboxMedia | null>(null);
 
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const bouncySpring = {
+    type: "spring",
+    stiffness: 300,
+    damping: 20,
+  } as const;
 
   // Focus filter items on Photo Documentations
   const photoItems = t.items.filter((item) => (item as { type?: string }).type === "image");
-  const filteredItems = photoItems.length > 0 ? photoItems : t.items.slice(0, 2);
+  const filteredItems = photoItems.length > 0 ? photoItems : t.items;
   const photoCount = photoItems.length;
-
-  useEffect(() => {
-    cardsRef.current = [];
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        cardsRef.current,
-        { opacity: 0, y: 30, scale: 0.98 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.5,
-          stagger: 0.08,
-          ease: "power2.out",
-        }
-      );
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, [activeFilter]);
-
-  const addToRefs = (el: HTMLDivElement | null) => {
-    if (el && !cardsRef.current.includes(el)) {
-      cardsRef.current.push(el);
-    }
-  };
 
   const handleOpenLightbox = (item: (typeof t.items)[0]) => {
     const itemType = "image";
@@ -78,10 +55,10 @@ export default function VolunteerGalleryPage() {
 
       <div className="pt-28 pb-20 px-4 sm:px-6 w-full max-w-6xl mx-auto relative z-10 space-y-10">
         {/* Navigation Breadcrumb */}
-        <div className="flex items-center justify-between gap-4 border-b border-zinc-200/80 dark:border-zinc-800/80 pb-6">
+        <div className="flex items-center justify-between gap-4 border-b border-zinc-200 dark:border-zinc-800/80 pb-6">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-700 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-[#00FF87] transition-all duration-300 py-2 sm:py-2.5 px-3.5 sm:px-4 rounded-xl sm:rounded-2xl bg-white/90 dark:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-md shrink-0 whitespace-nowrap"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-700 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-[#00FF87] transition-all duration-300 py-2 sm:py-2.5 px-3.5 sm:px-4 rounded-xl sm:rounded-2xl bg-white/90 dark:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-800 shadow-xs hover:shadow-md shrink-0 whitespace-nowrap"
           >
             <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 text-zinc-400 dark:text-zinc-400 group-hover:text-emerald-600 dark:group-hover:text-[#00FF87]" />
             <span>{isIndonesian ? "Kembali" : "Back"}</span>
@@ -91,7 +68,7 @@ export default function VolunteerGalleryPage() {
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 dark:bg-[#00FF87] animate-pulse" />
             <span className="text-xs font-mono font-bold text-emerald-600 dark:text-[#00FF87]">
-              Dokumentasi Volunteer ({photoCount} Foto)
+              {isIndonesian ? "Dokumentasi Pengalaman" : "Experience Gallery"} ({photoCount} {isIndonesian ? "Foto" : "Photos"})
             </span>
           </div>
         </div>
@@ -100,11 +77,11 @@ export default function VolunteerGalleryPage() {
         <div className="space-y-4 text-center md:text-left">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 dark:bg-[#00FF87]/10 border border-emerald-500/30 dark:border-[#00FF87]/30 text-emerald-600 dark:text-[#00FF87] text-xs font-mono font-bold">
             <Images className="w-4 h-4 text-emerald-600 dark:text-[#00FF87] shrink-0" />
-            <span>Galeri Foto Lapangan</span>
+            <span>{isIndonesian ? "Galeri Foto & Operator Event" : "Field & Event Photo Gallery"}</span>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-white min-h-[1.2em] flex items-center justify-center md:justify-start">
             <Typewriter
-              words={["Dokumentasi & Aksi Volunteer"]}
+              words={isIndonesian ? ["Dokumentasi & Galeri Pengalaman"] : ["Experience & Field Gallery"]}
               loop={true}
               typingSpeed={70}
               deletingSpeed={40}
@@ -119,8 +96,18 @@ export default function VolunteerGalleryPage() {
         </div>
 
         {/* STATS IMPACT COUNTER */}
-        <div className="grid grid-cols-3 gap-2.5 sm:gap-4 my-6">
-          <div className="bg-white dark:bg-[#111111] border border-zinc-200/80 dark:border-zinc-800/80 hover:border-emerald-500/40 dark:hover:border-[#00FF87]/40 rounded-xl sm:rounded-2xl p-3 sm:p-5 flex flex-col justify-between transition-all group shadow-sm hover:shadow-md">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={bouncySpring}
+          className="grid grid-cols-3 gap-2.5 sm:gap-4 my-6"
+        >
+          <motion.div 
+            whileHover={{ y: -3, scale: 1.015 }}
+            transition={bouncySpring}
+            className="bg-white dark:bg-[#111111] border border-zinc-200 dark:border-zinc-800/80 hover:border-emerald-500/40 dark:hover:border-[#00FF87]/40 rounded-xl sm:rounded-2xl p-3 sm:p-5 flex flex-col justify-between transition-all group shadow-xs hover:shadow-md"
+          >
             <div className="flex items-center justify-between">
               <span className="text-xl sm:text-3xl font-black text-emerald-600 dark:text-[#00FF87] group-hover:scale-105 transition-transform">
                 12+
@@ -128,11 +115,15 @@ export default function VolunteerGalleryPage() {
               <Camera className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-400 dark:text-zinc-500 group-hover:text-emerald-600 dark:group-hover:text-[#00FF87] transition-colors" />
             </div>
             <div className="text-[10px] sm:text-xs font-mono font-bold text-zinc-600 dark:text-zinc-400 mt-2 line-clamp-1">
-              Dokumentasi Lapangan
+              {isIndonesian ? "Dokumentasi Lapangan" : "Field Documentation"}
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white dark:bg-[#111111] border border-zinc-200/80 dark:border-zinc-800/80 hover:border-emerald-500/40 dark:hover:border-[#00FF87]/40 rounded-xl sm:rounded-2xl p-3 sm:p-5 flex flex-col justify-between transition-all group shadow-sm hover:shadow-md">
+          <motion.div 
+            whileHover={{ y: -3, scale: 1.015 }}
+            transition={bouncySpring}
+            className="bg-white dark:bg-[#111111] border border-zinc-200 dark:border-zinc-800/80 hover:border-emerald-500/40 dark:hover:border-[#00FF87]/40 rounded-xl sm:rounded-2xl p-3 sm:p-5 flex flex-col justify-between transition-all group shadow-xs hover:shadow-md"
+          >
             <div className="flex items-center justify-between">
               <span className="text-xl sm:text-3xl font-black text-emerald-600 dark:text-[#00FF87] group-hover:scale-105 transition-transform">
                 1
@@ -140,25 +131,29 @@ export default function VolunteerGalleryPage() {
               <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-400 dark:text-zinc-500 group-hover:text-emerald-600 dark:group-hover:text-[#00FF87] transition-colors" />
             </div>
             <div className="text-[10px] sm:text-xs font-mono font-bold text-zinc-600 dark:text-zinc-400 mt-2 line-clamp-1">
-              Aksi Tanggap Cisarua
+              {isIndonesian ? "Operator Event Tasik" : "Tasik Event Operator"}
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white dark:bg-[#111111] border border-zinc-200/80 dark:border-zinc-800/80 hover:border-emerald-500/40 dark:hover:border-[#00FF87]/40 rounded-xl sm:rounded-2xl p-3 sm:p-5 flex flex-col justify-between transition-all group shadow-sm hover:shadow-md">
+          <motion.div 
+            whileHover={{ y: -3, scale: 1.015 }}
+            transition={bouncySpring}
+            className="bg-white dark:bg-[#111111] border border-zinc-200 dark:border-zinc-800/80 hover:border-emerald-500/40 dark:hover:border-[#00FF87]/40 rounded-xl sm:rounded-2xl p-3 sm:p-5 flex flex-col justify-between transition-all group shadow-xs hover:shadow-md"
+          >
             <div className="flex items-center justify-between">
               <span className="text-sm sm:text-2xl font-black text-emerald-600 dark:text-[#00FF87] group-hover:scale-105 transition-transform truncate">
-                Relawan
+                {isIndonesian ? "Pengalaman" : "Experience"}
               </span>
               <HeartHandshake className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-400 dark:text-zinc-500 group-hover:text-emerald-600 dark:group-hover:text-[#00FF87] transition-colors" />
             </div>
             <div className="text-[10px] sm:text-xs font-mono font-bold text-zinc-600 dark:text-zinc-400 mt-2 line-clamp-1">
-              Peran & Kontribusi Posko
+              {isIndonesian ? "Peran Operator & Event" : "Operator & Event Role"}
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* 3D Glassmorphism Full Rounded Pill Filter Tabs */}
-        <div className="flex flex-row items-center justify-center md:justify-start gap-1 sm:gap-1.5 p-1 sm:p-1.5 rounded-full bg-white/80 dark:bg-zinc-900/85 backdrop-blur-2xl border border-zinc-200/90 dark:border-zinc-800/90 shadow-xl shadow-black/5 dark:shadow-black/50 ring-1 ring-black/5 dark:ring-white/10 w-fit mx-auto md:mx-0 whitespace-nowrap flex-nowrap shrink-0">
+        <div className="flex flex-row items-center justify-center md:justify-start gap-1 sm:gap-1.5 p-1 sm:p-1.5 rounded-full bg-white/80 dark:bg-zinc-900/85 backdrop-blur-2xl border border-zinc-200 dark:border-zinc-800 shadow-xl shadow-black/5 dark:shadow-black/50 ring-1 ring-black/5 dark:ring-white/10 w-fit mx-auto md:mx-0 whitespace-nowrap flex-nowrap shrink-0">
           <button
             onClick={() => setActiveFilter("all")}
             className={`inline-flex flex-row items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-full text-[11px] sm:text-xs md:text-sm font-extrabold transition-all duration-300 cursor-pointer whitespace-nowrap shrink-0 ${
@@ -184,8 +179,8 @@ export default function VolunteerGalleryPage() {
           </button>
         </div>
 
-        {/* Filtered Grid of 2 Photo Browser Mockup Cards */}
-        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl mx-auto">
+        {/* Filtered Grid of Photo Browser Mockup Cards (items-start for landscape & portrait side-by-side) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start w-full max-w-5xl mx-auto">
           {filteredItems.map((item, idx) => {
             const itemType = "image";
             const mediaSource =
@@ -193,14 +188,26 @@ export default function VolunteerGalleryPage() {
               (item as { videoSrc?: string }).videoSrc ||
               "";
 
+            // Natural Aspect Ratio: Landscape for HAN Tasikmalaya, Portrait for Cisarua
+            const naturalRatio = item.id === "vol-han-tasik" ? "aspect-video" : "aspect-[3/4]";
+
             return (
-              <div key={item.id} ref={addToRefs} className="h-full">
+              <motion.div 
+                key={item.id} 
+                initial={{ opacity: 0, y: 30, scale: 0.97 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5, scale: 1.015 }}
+                whileTap={{ scale: 0.985 }}
+                transition={{ ...bouncySpring, delay: idx * 0.1 }}
+                className="h-full"
+              >
                 <BrowserMockupCard
                   layout="vertical"
                   domain={item.domain}
                   mediaType={itemType}
                   mediaSrc={mediaSource}
-                  aspectRatio="aspect-[3/4]"
+                  aspectRatio={naturalRatio}
                   floatingBadge={{
                     text: item.badge,
                     variant: idx === 0 ? "neon" : "dark",
@@ -211,12 +218,12 @@ export default function VolunteerGalleryPage() {
                   tags={item.tags}
                   onMediaClick={() => handleOpenLightbox(item)}
                   primaryAction={{
-                    label: "Lihat Foto Dokumentasi",
+                    label: isIndonesian ? "Lihat Foto" : "View Photo",
                     onClick: () => handleOpenLightbox(item),
                     icon: <ImageIcon className="w-3.5 h-3.5 shrink-0" />,
                   }}
                 />
-              </div>
+              </motion.div>
             );
           })}
         </div>
