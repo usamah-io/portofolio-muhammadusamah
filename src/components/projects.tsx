@@ -233,7 +233,7 @@ export default function Projects() {
             href={card.link}
             target={card.link.startsWith("/") ? undefined : "_blank"}
             rel={card.link.startsWith("/") ? undefined : "noopener noreferrer"}
-            className="featured-img-card absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] sm:w-[300px] sm:h-[300px] overflow-hidden pointer-events-auto"
+            className="featured-img-card absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] sm:w-[300px] sm:h-[300px] overflow-hidden pointer-events-auto rounded-2xl border-4 border-foreground shadow-[0_16px_40px_rgba(0,0,0,0.45)]"
           >
             <img src={card.image} alt="" className="w-full h-full object-cover" />
           </a>

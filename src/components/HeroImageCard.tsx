@@ -59,7 +59,7 @@ export default function HeroImageCard() {
     <section ref={containerRef} className="hero-img-holder relative w-full max-w-5xl mx-auto px-4 py-8 z-20">
       <div
         ref={cardRef}
-        className="hero-img relative w-full h-[320px] sm:h-[420px] md:h-[560px] overflow-hidden"
+        className="hero-img relative w-full h-[320px] sm:h-[420px] md:h-[560px] overflow-hidden rounded-2xl border-4 border-foreground shadow-[0_16px_40px_rgba(0,0,0,0.45)]"
       >
         <img
           src={currentItem.image}

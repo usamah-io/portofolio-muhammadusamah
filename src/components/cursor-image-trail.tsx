@@ -53,9 +53,9 @@ export default function CursorImageTrail({
       img.src = images[Math.floor(Math.random() * images.length)];
       img.alt = "";
       img.className = "trail-img";
-      img.style.width = "64px";
-      img.style.height = "80px";
-      img.style.maxWidth = "64px";
+      img.style.width = "72px";
+      img.style.height = "90px";
+      img.style.maxWidth = "72px";
       img.style.objectFit = "cover";
       img.style.left = `${x - rect.left}px`;
       img.style.top = `${y - rect.top}px`;
