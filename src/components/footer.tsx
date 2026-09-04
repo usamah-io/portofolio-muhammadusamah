@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { usePageTransition } from "./PageTransition";
 import { useApp } from "./app-context";
@@ -143,7 +144,7 @@ export default function Footer() {
     <footer ref={footerRef} id="contact" className="site-footer relative w-full px-4 sm:px-6 py-12 space-y-12 max-w-6xl mx-auto">
       {/* Prominent Contact CTA Section ("Get in touch") -> Navigates to /contact */}
       <section className="contact-cta w-full bg-emerald-500 dark:bg-[#00FF87] text-zinc-950 rounded-[2em] border-4 border-foreground p-8 sm:p-14 text-center space-y-4 shadow-2xl transition transform hover:scale-[1.01] active:scale-[0.99] cursor-pointer group">
-        <a href="/contact" onClick={go("/contact")} className="block w-full h-full">
+        <Link href="/contact" onClick={go("/contact")} className="block w-full h-full">
           <div className="contact-text-small font-mono text-xs sm:text-sm font-black uppercase tracking-widest opacity-80 flex items-center justify-center gap-2">
             <span>{isIndonesian ? "Mari bangun sesuatu yang luar biasa bersama" : "Let's build something amazing together"}</span>
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -153,7 +154,7 @@ export default function Footer() {
               {isIndonesian ? "Hubungi Saya" : "Get in touch"}
             </h1>
           </div>
-        </a>
+        </Link>
       </section>
 
       {/* Main Footer Shell (Clean without embedded form) */}
@@ -172,11 +173,11 @@ export default function Footer() {
         <div className="relative z-[2] mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6 font-mono text-xs sm:text-sm border-t border-current/20 pt-8">
           <div className="footer-col">
             <p className="footer-col-title">{isIndonesian ? "Jelajahi" : "Explore"}</p>
-            <a href="/" onClick={go("/")}>{isIndonesian ? "Beranda" : "Home"}</a>
-            <a href="/#projects" onClick={go("/#projects")}>{isIndonesian ? "Proyek" : "Projects"}</a>
-            <a href="/#experience" onClick={go("/#experience")}>{isIndonesian ? "Pengalaman" : "Volunteer"}</a>
-            <a href="/hackathon-recap" onClick={go("/hackathon-recap")}>{isIndonesian ? "Rekap Hackathon" : "Hackathon Recap"}</a>
-            <a href="/about" onClick={go("/about")}>{isIndonesian ? "Tentang" : "About"}</a>
+            <Link href="/" onClick={go("/")}>{isIndonesian ? "Beranda" : "Home"}</Link>
+            <Link href="/#projects" onClick={go("/#projects")}>{isIndonesian ? "Proyek" : "Projects"}</Link>
+            <Link href="/#experience" onClick={go("/#experience")}>{isIndonesian ? "Pengalaman" : "Volunteer"}</Link>
+            <Link href="/hackathon-recap" onClick={go("/hackathon-recap")}>{isIndonesian ? "Rekap Hackathon" : "Hackathon Recap"}</Link>
+            <Link href="/about" onClick={go("/about")}>{isIndonesian ? "Tentang" : "About"}</Link>
           </div>
           <div className="footer-col">
             <p className="footer-col-title">{isIndonesian ? "Koneksi" : "Connect"}</p>
@@ -188,10 +189,10 @@ export default function Footer() {
           </div>
           <div className="footer-col">
             <p className="footer-col-title">{isIndonesian ? "Lainnya" : "Extras"}</p>
-            <a href="/articles" onClick={go("/articles")}>{isIndonesian ? "Artikel" : "Articles"}</a>
-            <a href="/tools" onClick={go("/tools")}>{isIndonesian ? "Alat & AI" : "Tools & AI"}</a>
-            <a href="/faq" onClick={go("/faq")}>FAQ</a>
-            <a href="/experience" onClick={go("/experience")}>{isIndonesian ? "Edukasi" : "Education"}</a>
+            <Link href="/articles" onClick={go("/articles")}>{isIndonesian ? "Artikel" : "Articles"}</Link>
+            <Link href="/tools" onClick={go("/tools")}>{isIndonesian ? "Alat & AI" : "Tools & AI"}</Link>
+            <Link href="/faq" onClick={go("/faq")}>FAQ</Link>
+            <Link href="/experience" onClick={go("/experience")}>{isIndonesian ? "Edukasi" : "Education"}</Link>
           </div>
         </div>
 
