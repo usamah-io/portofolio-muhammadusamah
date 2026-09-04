@@ -17,12 +17,12 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>("id");
-  const [theme, setThemeState] = useState<Theme>("dark"); // Default dark mode
+  const [theme, setThemeState] = useState<Theme>("light");
 
   // Initialize theme on mount
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as Theme | null;
-    const initialTheme = savedTheme || "dark";
+    const initialTheme = savedTheme || "light";
     setThemeState(initialTheme);
     
     if (initialTheme === "dark") {

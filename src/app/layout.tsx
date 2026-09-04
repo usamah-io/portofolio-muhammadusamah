@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/smooth-scroll";
+import PageTransition from "@/components/PageTransition";
+import FloatingParticles from "@/components/FloatingParticles";
 import Navbar from "@/components/navbar";
 import ConditionalFooter from "@/components/conditional-footer";
 import { AppProvider } from "@/components/app-context";
 import { AuthProvider } from "@/components/auth-provider";
 import CustomCursor from "@/components/CustomCursor";
-import GridSpotlightBackground from "@/components/GridSpotlightBackground";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -63,23 +64,25 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakartaSans.variable} ${geistMono.variable} h-full antialiased dark`}
+      className={`${plusJakartaSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body
         suppressHydrationWarning
-        className="min-h-full bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 flex flex-col font-sans selection:bg-emerald-500/30 selection:text-emerald-300 transition-colors duration-300 relative"
+        className="min-h-full bg-background text-foreground flex flex-col font-sans selection:bg-[var(--accent1)]/30 selection:text-[var(--fg)] transition-colors duration-300 relative overflow-x-hidden"
       >
         <AppProvider>
           <AuthProvider>
             <SmoothScroll>
-              <GridSpotlightBackground />
-              <CustomCursor />
-              <Navbar />
-              <div className="flex flex-col flex-1 relative pt-28">
-                {children}
-              </div>
-              <ConditionalFooter />
+              <PageTransition>
+                <FloatingParticles />
+                <CustomCursor />
+                <Navbar />
+                <div className="flex flex-col flex-1 relative pt-20">
+                  {children}
+                </div>
+                <ConditionalFooter />
+              </PageTransition>
             </SmoothScroll>
           </AuthProvider>
         </AppProvider>

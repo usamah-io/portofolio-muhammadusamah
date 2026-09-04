@@ -6,8 +6,8 @@ import Footer from "./footer";
 export default function ConditionalFooter() {
   const pathname = usePathname();
 
-  // Hide footer (contact form) on admin routes
-  if (pathname?.startsWith("/admin")) {
+  // Hide footer on admin & contact routes
+  if (pathname?.startsWith("/admin") || pathname === "/contact") {
     return null;
   }
 
