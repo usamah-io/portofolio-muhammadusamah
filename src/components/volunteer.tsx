@@ -1,216 +1,192 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Image as ImageIcon, HeartHandshake, ShieldCheck, Camera, ArrowRight, Radio } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { useApp } from "./app-context";
 import content from "@/data/content.json";
-import BrowserMockupCard from "./browser-mockup-card";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import VolunteerLightbox, { LightboxMedia } from "./volunteer-lightbox";
+import { Camera, Video, ArrowDown } from "lucide-react";
 
 export default function Volunteer() {
   const { language } = useApp();
-  const t = content[language as "id" | "en"]?.volunteer || content["id"].volunteer;
-  const isIndonesian = language === "id";
-
+  const t = content[language as "id" | "en"] || content.id;
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [selectedMedia, setSelectedMedia] = useState<LightboxMedia | null>(null);
 
-  // Pasangan 2 kartu: Kiri = Operator HAN Tasikmalaya (Landscape), Kanan = Relawan Cisarua (Portrait)
-  const hanTasikItem = t.items.find((item) => item.id === "vol-han-tasik") || t.items[0];
-  const cisaruaItem = t.items.find((item) => item.id === "vol-11") || t.items[1];
-  const featuredPair = [hanTasikItem, cisaruaItem];
+  const rawItems = (t.volunteer && t.volunteer.items) || [];
 
-  const bouncySpring = {
-    type: "spring",
-    stiffness: 300,
-    damping: 20,
-  } as const;
+  // 4 Cards matching nihfery.net color scheme & layout
+  const cards = [
+    {
+      id: "card-1",
+      bgColor: "bg-[#ed6a5a] text-zinc-950 border-zinc-950",
+      accentTag: "bg-black/10 text-zinc-950 border-zinc-950/20",
+      btnClass: "bg-zinc-950 text-white hover:bg-zinc-800",
+      badge: "VOLUNTEER #01",
+      location: "TASIKMALAYA",
+      title: "Hari Anak Nasional Tasikmalaya",
+      desc: "Dokumentasi foto aksi sebagai Operator Sound System, Audio Mixing, & Live Streaming pada acara Hari Anak Nasional se-Kabupaten/Kota Tasikmalaya.",
+      btnText: "Lihat Foto Operator",
+      type: "image",
+      imageSrc: "/assets/volunteer-hari-anak-nasional.jpg",
+      items: rawItems.filter((i: any) => i.id === "vol-han-tasik"),
+    },
+    {
+      id: "card-2",
+      bgColor: "bg-[#f4f1bb] text-zinc-950 border-zinc-950",
+      accentTag: "bg-black/10 text-zinc-950 border-zinc-950/20",
+      btnClass: "bg-zinc-950 text-white hover:bg-zinc-800",
+      badge: "VOLUNTEER #02",
+      location: "CISARUA BOGOR",
+      title: "Relawan Tanggap Darurat Cisarua (Video 1 - 5)",
+      desc: "Dokumentasi tim relawan saat tiba di lokasi bencana longsor Cisarua, evakuasi, posko kemanusiaan, dan logistik dasar.",
+      btnText: "Putar Video Posko & Evakuasi",
+      type: "video",
+      imageSrc: "/assets/volunteerr.jpg",
+      items: rawItems.filter((i: any) => ["vol-1", "vol-2", "vol-3", "vol-4", "vol-5"].includes(i.id)),
+    },
+    {
+      id: "card-3",
+      bgColor: "bg-[#9bc1bc] text-zinc-950 border-zinc-950",
+      accentTag: "bg-black/10 text-zinc-950 border-zinc-950/20",
+      btnClass: "bg-zinc-950 text-white hover:bg-zinc-800",
+      badge: "VOLUNTEER #03",
+      location: "CISARUA BOGOR",
+      title: "Kegiatan Pemulihan & Logistik (Video 6 - 10)",
+      desc: "Dokumentasi briefing tim relawan, penyaluran sembako ke rumah warga, dapur umum, dan penutupan aksi relawan.",
+      btnText: "Putar Video Logistik & Pemulihan",
+      type: "video",
+      imageSrc: "/assets/volunteerr.jpg",
+      items: rawItems.filter((i: any) => ["vol-6", "vol-7", "vol-8", "vol-9", "vol-10"].includes(i.id)),
+    },
+    {
+      id: "card-4",
+      bgColor: "bg-[#141414] text-white border-white/20",
+      accentTag: "bg-white/10 text-emerald-400 border-white/20",
+      btnClass: "bg-emerald-500 text-black hover:bg-emerald-400",
+      badge: "VOLUNTEER #04",
+      location: "GALERI LAPANGAN",
+      title: "Foto Dokumentasi Aksi Relawan",
+      desc: "Kumpulan foto momen kebersamaan, distribusi logistik, dan koordinasi tim relawan di lokasi posko bencana.",
+      btnText: "Lihat Galeri Foto Lapangan",
+      type: "image",
+      imageSrc: "/assets/volunteer-hari-anak-nasional.jpg",
+      items: rawItems.filter((i: any) => ["vol-11", "vol-12"].includes(i.id)),
+    },
+  ];
 
-  const handleOpenLightbox = (item: (typeof t.items)[0]) => {
-    const itemType = (item as { type?: "image" | "video" }).type === "image" ? "image" : "video";
-    const mediaSource =
-      (item as { imageSrc?: string; videoSrc?: string }).imageSrc ||
-      (item as { videoSrc?: string }).videoSrc ||
-      "";
+  useEffect(() => {
+    if (!sectionRef.current) return;
 
+    const ctx = gsap.context(() => {
+      const cardEls = sectionRef.current?.querySelectorAll(".service-card");
+      if (!cardEls || cardEls.length === 0) return;
+
+      // GSAP Stacking Animation: As each card scrolls up, the card below scales down slightly
+      cardEls.forEach((card, index) => {
+        if (index === cardEls.length - 1) return;
+
+        gsap.to(card, {
+          scale: 0.93,
+          opacity: 0.8,
+          ease: "none",
+          scrollTrigger: {
+            trigger: cardEls[index + 1],
+            start: "top top+=140",
+            end: "top top+=40",
+            scrub: true,
+          },
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const handleOpenCardMedia = (cardItems: any[]) => {
+    if (!cardItems || cardItems.length === 0) return;
+    const target = cardItems[0];
     setSelectedMedia({
-      id: item.id,
-      type: itemType,
-      title: item.title,
-      category: item.category,
-      domain: item.domain,
-      description: item.description,
-      mediaSrc: mediaSource,
-      detailUrl: item.detailUrl,
+      id: target.id,
+      type: target.type as "image" | "video",
+      title: target.title,
+      category: target.category || "VOLUNTEER",
+      domain: target.domain || "volunteer.dev",
+      description: target.description,
+      mediaSrc: target.type === "video" ? target.videoSrc : target.imageSrc,
+      detailUrl: target.detailUrl,
     });
   };
 
   return (
-    <section
-      id="experience"
-      className="py-20 px-4 w-full max-w-6xl mx-auto relative transition-colors duration-300 text-zinc-900 dark:text-white"
-    >
-      {/* Header Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={bouncySpring}
-        className="mb-8 border-b border-zinc-200 dark:border-zinc-800/60 pb-6 text-center md:text-left"
+    <>
+      <section
+        ref={sectionRef}
+        id="experience-section"
+        className="services relative w-full max-w-5xl mx-auto px-4 py-20 border-t-2 border-foreground/20 space-y-16"
       >
-        <div className="space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 dark:bg-[#00FF87]/10 border border-emerald-500/30 dark:border-[#00FF87]/30 text-emerald-600 dark:text-[#00FF87] text-xs font-mono font-bold">
-            <Radio className="w-4 h-4 text-emerald-600 dark:text-[#00FF87] shrink-0 animate-pulse" />
-            <span>{isIndonesian ? "Pengalaman & Dokumentasi Event Tech" : "Experience & Event Tech Portfolio"}</span>
+        {/* Services Header 1:1 nihfery.net */}
+        <div className="services-header text-center space-y-4 py-6">
+          <div className="services-profile-icon w-20 h-20 mx-auto rounded-2xl overflow-hidden border-4 border-foreground shadow-lg bg-zinc-900 flex items-center justify-center font-mono text-xl font-black text-emerald-400">
+            MU
           </div>
-          <h2 className="text-3xl md:text-4xl font-black text-zinc-900 dark:text-white tracking-tight">
-            {isIndonesian ? "Pengalaman &" : "Experience &"}{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500 dark:from-[#00FF87] dark:to-teal-400">
-              {isIndonesian ? "Dokumentasi Lapangan" : "Field Documentation"}
-            </span>
-          </h2>
-          <p className="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base max-w-2xl">
-            {isIndonesian 
-              ? "Dokumentasi peranan penting sebagai Operator Sound System & Live Stream Hari Anak Nasional Tasikmalaya serta aksi relawan di Cisarua."
-              : "Key documentation serving as Sound System & Live Stream Operator at National Children's Day Tasikmalaya and volunteer relief actions."}
+          <p className="font-mono text-xs font-bold uppercase tracking-widest text-emerald-500">
+            Your Vision. My Expertise.
           </p>
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase text-foreground tracking-tight max-w-3xl mx-auto leading-none">
+            Full-stack development & Design Solutions
+          </h2>
+          <div className="services-header-arrow-icon flex justify-center pt-3 text-foreground">
+            <ArrowDown className="w-8 h-8 animate-bounce text-emerald-500" />
+          </div>
         </div>
-      </motion.div>
 
-      {/* 1. STATS IMPACT COUNTER */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ ...bouncySpring, delay: 0.1 }}
-        className="grid grid-cols-3 gap-2.5 sm:gap-4 mb-10"
-      >
-        <motion.div 
-          whileHover={{ y: -3, scale: 1.015 }}
-          transition={bouncySpring}
-          className="bg-white dark:bg-[#111111] border border-zinc-200 dark:border-zinc-800/80 hover:border-emerald-500/50 dark:hover:border-[#00FF87]/50 rounded-xl sm:rounded-2xl p-3 sm:p-5 flex flex-col justify-between transition-all group shadow-xs hover:shadow-md"
-        >
-          <div className="flex items-center justify-between">
-            <span className="text-xl sm:text-3xl font-black text-emerald-600 dark:text-[#00FF87] group-hover:scale-105 transition-transform">
-              12+
-            </span>
-            <Camera className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-400 dark:text-zinc-500 group-hover:text-emerald-600 dark:group-hover:text-[#00FF87] transition-colors" />
-          </div>
-          <div className="text-[10px] sm:text-xs font-mono font-bold text-zinc-600 dark:text-zinc-400 mt-2 line-clamp-1">
-            {isIndonesian ? "Dokumentasi Lapangan" : "Field Documentation"}
-          </div>
-        </motion.div>
-
-        <motion.div 
-          whileHover={{ y: -3, scale: 1.015 }}
-          transition={bouncySpring}
-          className="bg-white dark:bg-[#111111] border border-zinc-200 dark:border-zinc-800/80 hover:border-emerald-500/50 dark:hover:border-[#00FF87]/50 rounded-xl sm:rounded-2xl p-3 sm:p-5 flex flex-col justify-between transition-all group shadow-xs hover:shadow-md"
-        >
-          <div className="flex items-center justify-between">
-            <span className="text-xl sm:text-3xl font-black text-emerald-600 dark:text-[#00FF87] group-hover:scale-105 transition-transform">
-              1
-            </span>
-            <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-400 dark:text-zinc-500 group-hover:text-emerald-600 dark:group-hover:text-[#00FF87] transition-colors" />
-          </div>
-          <div className="text-[10px] sm:text-xs font-mono font-bold text-zinc-600 dark:text-zinc-400 mt-2 line-clamp-1">
-            {isIndonesian ? "Operator Event Tasik" : "Tasik Event Operator"}
-          </div>
-        </motion.div>
-
-        <motion.div 
-          whileHover={{ y: -3, scale: 1.015 }}
-          transition={bouncySpring}
-          className="bg-white dark:bg-[#111111] border border-zinc-200 dark:border-zinc-800/80 hover:border-emerald-500/50 dark:hover:border-[#00FF87]/50 rounded-xl sm:rounded-2xl p-3 sm:p-5 flex flex-col justify-between transition-all group shadow-xs hover:shadow-md"
-        >
-          <div className="flex items-center justify-between">
-            <span className="text-sm sm:text-2xl font-black text-emerald-600 dark:text-[#00FF87] group-hover:scale-105 transition-transform truncate">
-              {isIndonesian ? "Pengalaman" : "Experience"}
-            </span>
-            <HeartHandshake className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-400 dark:text-zinc-500 group-hover:text-emerald-600 dark:group-hover:text-[#00FF87] transition-colors" />
-          </div>
-          <div className="text-[10px] sm:text-xs font-mono font-bold text-zinc-600 dark:text-zinc-400 mt-2 line-clamp-1">
-            {isIndonesian ? "Peran Operator & Event" : "Operator & Event Role"}
-          </div>
-        </motion.div>
-      </motion.div>
-
-      {/* 2. Responsive Grid with Natural Aspect Ratios (Landscape for HAN Tasikmalaya, Portrait for Cisarua) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start w-full max-w-5xl mx-auto">
-        {featuredPair.map((item, idx) => {
-          const itemType = "image";
-          const mediaSource =
-            (item as { imageSrc?: string; videoSrc?: string }).imageSrc ||
-            (item as { videoSrc?: string }).videoSrc ||
-            "";
-
-          // Card 0 (HAN Tasikmalaya) -> Landscape 16:9
-          // Card 1 (Relawan Cisarua) -> Portrait 3:4
-          const naturalRatio = idx === 0 ? "aspect-video" : "aspect-[3/4]";
-
-          return (
-            <motion.div 
-              key={item.id} 
-              initial={{ opacity: 0, y: 35, scale: 0.97 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -5, scale: 1.015 }}
-              whileTap={{ scale: 0.985 }}
-              transition={{ ...bouncySpring, delay: idx * 0.15 }}
-              className="h-full"
+        {/* 4 Stacking Cards 1:1 Sticky Sequential Overlay */}
+        <div className="relative space-y-12">
+          {cards.map((card, idx) => (
+            <div
+              key={card.id}
+              id={`service-card-${idx + 1}`}
+              className={`service-card sticky top-24 sm:top-28 w-full rounded-[2em] border-4 ${card.bgColor} shadow-2xl p-6 sm:p-10 transition-all duration-300 min-h-[380px] flex flex-col justify-between`}
             >
-              <BrowserMockupCard
-                layout="vertical"
-                domain={item.domain}
-                mediaType={itemType}
-                mediaSrc={mediaSource}
-                aspectRatio={naturalRatio}
-                floatingBadge={{
-                  text: item.badge,
-                  variant: idx === 0 ? "neon" : "dark",
-                }}
-                categoryLabel={item.category}
-                title={item.title}
-                description={item.description}
-                tags={item.tags}
-                onMediaClick={() => handleOpenLightbox(item)}
-                primaryAction={{
-                  label: isIndonesian ? "Lihat Foto" : "View Photo",
-                  onClick: () => handleOpenLightbox(item),
-                  icon: <ImageIcon className="w-3.5 h-3.5 shrink-0" />,
-                }}
-              />
-            </motion.div>
-          );
-        })}
-      </div>
+              <div className="flex flex-wrap justify-between items-center font-mono text-xs border-b border-current/20 pb-4 mb-4">
+                <span className={`font-black tracking-widest uppercase px-3 py-1 rounded-full border ${card.accentTag}`}>
+                  {card.badge}
+                </span>
+                <span className="font-bold tracking-wider">{card.location}</span>
+              </div>
 
-      {/* 3. Compact & Proportional "Lihat Selengkapnya" Button */}
-      <motion.div 
-        initial={{ opacity: 0, y: 15 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ ...bouncySpring, delay: 0.25 }}
-        className="mt-8 text-center flex justify-center"
-      >
-        <Link href="/volunteer">
-          <motion.div
-            whileHover={{ scale: 1.03, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            transition={bouncySpring}
-            className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:hover:bg-zinc-100 text-white dark:text-zinc-950 font-bold text-xs sm:text-sm border border-zinc-800 dark:border-zinc-200 shadow-xs hover:shadow-md cursor-pointer transition-all duration-200"
-          >
-            <span>{isIndonesian ? "Lihat Selengkapnya Dokumentasi" : "View All Documentation"}</span>
-            <ArrowRight className="w-3.5 h-3.5 shrink-0 text-emerald-400 dark:text-emerald-600" />
-          </motion.div>
-        </Link>
-      </motion.div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center flex-1 my-2">
+                <div className="md:col-span-2 space-y-4">
+                  <h3 className="text-2xl sm:text-4xl font-black uppercase tracking-tight leading-none">
+                    {card.title}
+                  </h3>
+                  <p className="text-sm sm:text-base font-medium opacity-90 leading-relaxed max-w-xl">
+                    {card.desc}
+                  </p>
+                </div>
+                <div className="service-card-img hidden md:block aspect-[4/3] rounded-2xl overflow-hidden border-2 border-current/30 shadow-md bg-black/20">
+                  <img src={card.imageSrc} alt={card.title} className="w-full h-full object-cover" />
+                </div>
+              </div>
 
-      {/* 4. LIGHTBOX MODAL */}
-      <VolunteerLightbox
-        media={selectedMedia}
-        onClose={() => setSelectedMedia(null)}
-      />
-    </section>
+              <div className="pt-4 border-t border-current/20 flex items-center justify-between">
+                <button
+                  onClick={() => handleOpenCardMedia(card.items)}
+                  className={`font-mono text-xs font-black uppercase px-6 py-3.5 rounded-full transition cursor-pointer flex items-center gap-2 shadow-md ${card.btnClass}`}
+                >
+                  {card.type === "video" ? <Video className="w-4 h-4" /> : <Camera className="w-4 h-4" />}
+                  <span>{card.btnText}</span>
+                </button>
+                <span className="font-mono text-xs font-extrabold opacity-60">0{idx + 1} // 04</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Lightbox Modal */}
+      <VolunteerLightbox media={selectedMedia} onClose={() => setSelectedMedia(null)} />
+    </>
   );
 }

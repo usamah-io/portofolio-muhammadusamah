@@ -14,14 +14,14 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
   useEffect(() => {
     // Instantiate Lenis
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.55,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
-      smoothTouch: true, // Enable smooth scrolling on touch devices
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
+      smoothTouch: false,
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1.4,
     } as any);
 
     lenisRef.current = lenis;

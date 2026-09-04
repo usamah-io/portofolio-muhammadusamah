@@ -13,7 +13,8 @@ const ipRateLimitMap = new Map<string, number>();
 
 export async function POST(req: Request) {
   try {
-    const { name, email, message, honeypot_website } = await req.json();
+    const { name, firstName, lastName, email, phone, projectType, message, honeypot_website } = await req.json();
+    const senderName = String(name || `${firstName || ""} ${lastName || ""}`.trim());
 
     // 1. Honeypot check (silently pretend success if bot fills hidden field)
     if (honeypot_website && String(honeypot_website).trim() !== "") {
@@ -23,7 +24,7 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!name || !email || !message) {
+    if (!senderName || !email || !message) {
       return NextResponse.json(
         { error: "Nama, email, dan pesan wajib diisi." },
         { status: 400 }
@@ -83,12 +84,20 @@ export async function POST(req: Request) {
           <table style="width: 100%; border-collapse: collapse; margin-top: 16px;">
             <tr>
               <td style="padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-weight: bold; width: 130px; color: #555555;">Nama Pengirim:</td>
-              <td style="padding: 10px 0; border-bottom: 1px solid #f0f0f0; color: #111827;">${name}</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f0f0f0; color: #111827;">${senderName}</td>
             </tr>
             <tr>
               <td style="padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-weight: bold; color: #555555;">Email Pengirim:</td>
               <td style="padding: 10px 0; border-bottom: 1px solid #f0f0f0; color: #10b981;">${email}</td>
             </tr>
+            ${phone ? `<tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-weight: bold; color: #555555;">Telepon:</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f0f0f0; color: #111827;">${phone}</td>
+            </tr>` : ""}
+            ${projectType ? `<tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-weight: bold; color: #555555;">Tipe Proyek:</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f0f0f0; color: #111827;">${projectType}</td>
+            </tr>` : ""}
           </table>
 
           <div style="margin-top: 24px;">
@@ -98,18 +107,18 @@ export async function POST(req: Request) {
 
           <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #eeeeee; font-size: 12px; color: #888888; text-align: center;">
             <p style="margin: 0;">Email ini dikirim secara otomatis melalui sistem formulir kontak portfolio Anda.</p>
-            <p style="margin: 4px 0 0 0;">Anda dapat membalas email ini secara langsung untuk merespons <strong>${name}</strong>.</p>
+            <p style="margin: 4px 0 0 0;">Anda dapat membalas email ini secara langsung untuk merespons <strong>${senderName}</strong>.</p>
           </div>
         </div>
       </div>
     `;
 
     const mailOptions = {
-      from: `"${name}" <${process.env.GMAIL_USER}>`,
+      from: `"${senderName}" <${process.env.GMAIL_USER}>`,
       to: "uusamahhhh@gmail.com",
       replyTo: email,
-      subject: `[Portfolio Contact] Pesan Baru dari ${name}`,
-      text: `Nama: ${name}\nEmail: ${email}\nPesan:\n${message}`,
+      subject: `[Portfolio Contact] Pesan Baru dari ${senderName}`,
+      text: `Nama: ${senderName}\nEmail: ${email}\nTelepon: ${phone || "-"}\nTipe Proyek: ${projectType || "-"}\nPesan:\n${message}`,
       html: htmlTemplate,
     };
 
