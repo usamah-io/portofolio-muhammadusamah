@@ -21,14 +21,20 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  ? process.env.NEXT_PUBLIC_SITE_URL
+  : process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : "https://portofolio-usamah.vercel.app";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://portofolio-usamah.vercel.app"),
+  metadataBase: new URL(siteUrl),
   title: "Muhammad Usamah - Full-Stack & AI Developer",
   description: "Portofolio resmi Muhammad Usamah Abdurrahman - Creative Full-Stack & AI Developer. Menampilkan proyek web modern, integrasi AI, dan pengalaman kompetisi.",
   openGraph: {
     title: "Muhammad Usamah - Full-Stack & AI Developer",
     description: "Portofolio resmi Muhammad Usamah Abdurrahman - Creative Full-Stack & AI Developer. Menampilkan proyek web modern, integrasi AI, dan pengalaman kompetisi.",
-    url: "https://portofolio-usamah.vercel.app/",
+    url: siteUrl,
     siteName: "Muhammad Usamah Portfolio",
     locale: "id_ID",
     type: "website",
