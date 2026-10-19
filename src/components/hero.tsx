@@ -40,12 +40,13 @@ export default function Hero() {
         </div>
         <div className="hero-footer-scroll-down text-center font-bold">
           <a
-            href="https://drive.google.com/drive/folders/1rk-Ss1gvLCvrbTm2c59Vr_gK-a0Pg-U4?usp=sharing"
+            href="/cv-muhammad-usamah.pdf"
+            download="cv-muhammad-usamah.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="resume-link hover:underline text-foreground uppercase tracking-wider bg-foreground/10 px-4 py-2 rounded-full border border-foreground/20 transition hover:bg-emerald-500 hover:text-black hover:border-emerald-500"
+            className="resume-link hover:underline text-foreground uppercase tracking-wider bg-foreground/10 px-4 py-2 rounded-full border border-foreground/20 transition hover:bg-emerald-500 hover:text-black hover:border-emerald-500 inline-flex items-center justify-center gap-2 cursor-pointer"
           >
-            Fetch // Resume
+            {t.hero.cta_download_cv || "Download CV"}
           </a>
         </div>
         <div className="hero-footer-tags text-right font-bold uppercase tracking-wider text-emerald-500">

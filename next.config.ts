@@ -17,6 +17,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/cv-muhammadusamah.pdf",
+        destination: "/cv-muhammad-usamah.pdf",
+      },
+    ];
+  },
   async headers() {
     return [
       {
